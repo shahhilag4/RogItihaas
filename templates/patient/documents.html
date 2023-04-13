@@ -6,6 +6,7 @@
 
 	<!-- Boxicons -->
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 	<!-- My CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
 
@@ -128,7 +129,13 @@
 								<td><p>{{data.presname}}</p></td>
 								<td>{{data.todaydate}}</td>
 								<td class="drname">{{data.doctor}}</td>
-								<td><button class="status success">View</button></td>
+								<td><button class="status success" onclick="viewPDF('../../static/Hilag.pdf')">View</button></td>
+								<div id="pdf-modal" class="modal">
+									<div class="modal-content">
+									  <span class="close" onclick="closePDF()">&times;</span>
+									  <canvas id="pdf-canvas"></canvas>
+									</div>
+								  </div>
 								<td><button class="status danger">Delete</button></td>
 								<td><i class="fa-sharp fa-solid fa-circle-exclamation"></i></td>
 								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
