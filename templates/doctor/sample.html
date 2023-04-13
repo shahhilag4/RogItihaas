@@ -105,7 +105,7 @@
 						<header class="prescription_head">
 							<div class="prescription_block">
 								<h1>Prescription</h1>
-								<input type="text" name="drname" placeholder="Doctor Name" value="Dr {{name}}" class="header inputValue">
+								<input type="text" name="drname" placeholder="Doctor Name" value="{{name}}" class="header inputValue">
 								<p><input type="text" name="addlineone"  value="{{addlineone}}" class="headersmall inputValue"></p>
 								<p><input type="text" name="statecountry" placeholder="State, Country" value="{{statecountry}}" class="headersmall inputValue"></p>
 								<span>Phone: </span><input type="phone" name="phone" placeholder="Phone Number" value="{{phone}}" class="headersmall inputValue">
@@ -144,7 +144,7 @@
 								</tr>
 							</table>
 				
-							<p><strong>Prescribed by:</strong> <input type="text" placeholder="Doctor Name" value="Dr {{name}}" class="formInput inputValue"></p>
+							<p><strong>Prescribed by:</strong> <input type="text" placeholder="Doctor Name" value="{{name}}" class="formInput inputValue"></p>
 							<span><strong>Date: </strong></span><span id="date" class="formInput"> March 9, 2023</span>
 						</main>
 						<footer>
@@ -152,10 +152,12 @@
 						</footer>
 
 					</div>
+					<div class="position">
+						<input type="submit" class="footer_buttons" value="Submit" />
+					</div>
 				</div>
 				</div>
 			</div>
-				<input type="submit" class="footer_buttons" value="Submit" />
 				</form>
 		</main>
 		<!-- MAIN -->

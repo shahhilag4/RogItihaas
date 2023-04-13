@@ -1,5 +1,4 @@
 
-const healthcard=document.getElementById('back-img');
-const hcname=document.getElementById('name');
-hcname.innerHTML=healthcard.src.substring(111,114);
-console.log(healthcard.src);
+var healthcard=document.getElementById('back-img');
+var hcname=document.getElementById('name');
+hcname.innerHTML=healthcard.src.substring(40,43);

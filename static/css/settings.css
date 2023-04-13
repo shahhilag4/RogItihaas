@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
 
+*
+{
+    font-family: 'Poppins','sans-serif';
+}
+
 #order
 {
     background: lightgray !important;
@@ -10,6 +15,7 @@
     font-family: 'Lato', sans-serif;
     width:8rem;
     padding: 10px;
+    border: 1px solid #000;
 	background-color: #fff;
 	color: #000;
 	border-radius: 5px;

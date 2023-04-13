@@ -1,0 +1,9 @@
+Patient -
+123456789
+qwerty 
+Doctor - 
+987654321
+qwerty
+Pharmacy - Left
+Patient-Doctor -
+123456789 

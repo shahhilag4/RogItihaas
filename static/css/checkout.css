@@ -71,7 +71,7 @@ table td:first-child {
 input[type="number"],input[type="text"]
 {
 	margin:2px;
-	width:103px;
+	width:100%;
 }
 
 .field
@@ -118,10 +118,14 @@ footer p {
 
 .footer_buttons
 {
-	margin: 1rem;
-    text-align: center;
+	margin: 1rem !important;
 }
 
+.position
+{
+	width:100%;
+	text-align: center;
+}
 ::placeholder
 {
 	color:#342E37;
