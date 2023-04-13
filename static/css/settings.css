@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+#order
+{
+    background: lightgray !important;
+}
+
+.update-button
+{
+    font-family: 'Lato', sans-serif;
+    width:8rem;
+    padding: 10px;
+	background-color: #fff;
+	color: #000;
+	border-radius: 5px;
+}
+
+.update-button:hover
+{
+    background-color: #000;
+	color: #fff;
+    border: 1px solid #fff;
+}

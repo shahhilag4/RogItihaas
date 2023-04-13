@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- Boxicons -->
+		<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+		<script src="../../static/js/jquery-latest.min.js"></script>
+		<script src="../../static/js/bill.js"></script>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<link rel="stylesheet" href="../../static/css/bill.css">
+
+	<title>रोगइतिहास - Pharmacy Billing</title>
+</head>
+
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class="fa-solid">
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+			</i>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="./dashboard.html">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="./medicines.html">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Medicines</span>
+				</a>
+			</li>
+			<li>
+				<a href="./deliverytrack.html">
+					<i class="fa-solid fa-truck"></i>
+					<span class="text">Delivery Track</span>
+				</a>
+			</li>
+			<li>
+				<a href="./onlineorder.html">
+					<i class="fa-solid fa-message"></i>
+					<span class="text">Online Order</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="#">
+					<i class="fa-solid fa-address-card"></i>
+					<span class="text">Online Billing</span>
+				</a>
+			</li>
+			<li>
+				<a href="./offlineBilling.html">
+					<i class="fa-solid fa-address-card"></i>
+					<span class="text">Offline Billing</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="../home.html" class="logout">
+					<i class="fa-solid fa-right-from-bracket"></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class="fa-solid fa-bars"></i>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search Patient">
+					<button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="profile">
+				<img src="../../static/img/rishi.jpg">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+		
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Bill</h1>
+				</div>
+			</div>
+			
+			<div class="table-data">
+				<div class="order">
+					<a href="./deliverytrack.html">
+						<button class="centering">Deliver Medicine</button>
+					</a>
+					<header>
+						<h1>INVOICE</h1>
+						<address contenteditable>
+							<p>Pharmacy Name</p>
+							<p>Address Line 1<br> Address Line 2</p>
+							<p>+91 12345678</p>
+						</address>
+						<span><img alt="" src="../../static/img/logo.png"><input type="file" accept="image/*"></span>
+					</header>
+					<article>
+						<address contenteditable>
+							<p>Pharmacy Name</p>
+						</address>
+						<table class="meta">
+							<tr>
+								<th><span contenteditable>Invoice #</span></th>
+								<td><span contenteditable>101138</span></td>
+							</tr>
+							<tr>
+								<th><span contenteditable>Date</span></th>
+								<td><span contenteditable>January 1, 2023</span></td>
+							</tr>
+							<tr>
+								<th><span contenteditable>Amount Due</span></th>
+								<td><span id="prefix" contenteditable>₹</span><span>600.00</span></td>
+							</tr>
+						</table>
+						<table class="inventory">
+							<thead>
+								<tr>
+									<th><span contenteditable>Item</span></th>
+									<th><span contenteditable>Rate</span></th>
+									<th><span contenteditable>Quantity</span></th>
+									<th><span contenteditable>Price</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><a class="cut">-</a><span contenteditable>Crocin</span></td>
+									<td><span data-prefix>₹</span><span contenteditable>150.00</span></td>
+									<td><span contenteditable>4</span></td>
+									<td><span data-prefix>₹</span><span>600.00</span></td>
+								</tr>
+							</tbody>
+						</table>
+						<a class="add">+</a>
+						<table class="balance">
+							<tr>
+								<th><span contenteditable>Total</span></th>
+								<td><span data-prefix>₹</span><span>600.00</span></td>
+							</tr>
+						</table>
+					</article>
+					<aside>
+						<h1><span contenteditable>Additional Notes</span></h1>
+						<div contenteditable>
+							<p>Consume medicine after eating something.</p>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+
+
+	<script src="../../static/js/dashboard.js"></script>
+</body>
+
+</html>
