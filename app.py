@@ -1,9 +1,11 @@
+import os
 from flask import Flask, render_template, request, session, redirect, url_for
 from pymongo import MongoClient
 from datetime import datetime
 
 import bcrypt
 import os
+import pyqrcode
 
 app = Flask(__name__)
 app.secret_key = "@13@6$$#ddfccv"
@@ -13,13 +15,16 @@ cluster = MongoClient(client)
 
 dbPatient = cluster["Patient"]
 patientdetail = dbPatient["PatientSignUp"]
+patientmedicaldetail = dbPatient["patientmedicaldetail"]
+patientreportdetail = dbPatient["patientreportdetail"]
 
 dbDoctor = cluster["Doctor"]
 doctordetail = dbDoctor["DoctorSignUp"]
 doctoraddress = dbDoctor["doctoraddress"]
 
-patientmedicaldetail = dbPatient["patientmedicaldetail"]
-patientreportdetail = dbPatient["patientreportdetail"]
+dbDoctor = cluster["Pharmacy"]
+pharmacydetail = dbDoctor["PharmacySignUp"]
+
 
 # Ending point for homepage
 @app.route("/")
@@ -343,9 +348,6 @@ def uploadreport(name, aadhar):
     return render_template("login.html")
 
 
-########################Patient Section######################################
-
-
 # Ending point for patient signup
 @app.route('/patientsignup', methods=['POST', 'GET'])
 def patientsignup():
@@ -357,6 +359,10 @@ def patientsignup():
         if exist is None:
             hashpass = bcrypt.hashpw(request.form['patientpassword'].encode('utf-8'), bcrypt.gensalt())
             patientdetail.insert_one({'name': name, 'aadhar': aadhar, 'email': email, 'password': hashpass})
+            s = "http://34.28.38.229/patientsignup"
+            url = pyqrcode.create(s)
+            path = "static/img/qrcode/"+aadhar+".png"
+            url.png(path, scale=6)
 
             session['patient'] = aadhar
 
@@ -445,9 +451,78 @@ def patientdocuments():
 @app.route("/patienthealthcard")
 def patienthealthcard():
     if 'patient' in session:
-        return render_template("patient/healthcard.html")
+        # print(session["patient"])
+        return render_template("patient/healthcard.html", aadhar=session["patient"])
     return render_template("patientLogin.html")
 
+
+@app.route('/pharmacysignup', methods=['POST', 'GET'])
+def pharmacysignup():
+    if request.method == 'POST':
+        licensenumber = request.form['licensenum']
+        gstnumber = request.form['gstnumber']
+        email = request.form['email']
+        exist = pharmacydetail.find_one({'licensenumber': licensenumber})
+        if exist is None:
+            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+            pharmacydetail.insert_one({'licensenumber': licensenumber, 'gstnumber': gstnumber, 'email': email, 'password': hashpass})
+
+            session['pharmacy'] = licensenumber
+
+            return render_template('pharmacy/dashboard.html')
+        message = "User Already Exist"
+        return render_template("pharmacyLogin.html", message=message)
+    return render_template("pharmacyLogin.html")
+
+
+@app.route('/pharmacysignin', methods=['GET', 'POST'])
+def pharmacysignin():
+    if request.method == 'POST':
+        licensenumber = request.form['licensenumber']
+        userLogin = pharmacydetail.find_one({'licensenumber': licensenumber})
+        if userLogin:
+            if bcrypt.hashpw(request.form['password'].encode('utf-8'), userLogin['password']) == userLogin['password']:
+                session['pharmacy'] = licensenumber
+                return render_template('pharmacy/dashboard.html')
+
+        message = "Invalid Credentials"
+        return render_template('pharmacyLogin.html', message=message)
+    return render_template('pharmacyLogin.html')
+
+
+@app.route('/medicines', methods=['GET', 'POST'])
+def medicines():
+    if "pharmacy" in session:
+        return render_template("pharmacy/medicines.html")
+    return render_template('pharmacyLogin.html')
+
+
+@app.route('/deliverytrack', methods=['GET', 'POST'])
+def deliverytrack():
+    if "pharmacy" in session:
+        return render_template("pharmacy/deliverytrack.html")
+    return render_template('pharmacyLogin.html')
+
+
+@app.route('/onlineorder', methods=['GET', 'POST'])
+def onlineorder():
+    if "pharmacy" in session:
+        return render_template("pharmacy/onlineorder.html")
+    return render_template('pharmacyLogin.html')
+
+
+@app.route('/offlineBilling', methods=['GET', 'POST'])
+def offlineBilling():
+    if "pharmacy" in session:
+        return render_template("pharmacy/offlineBilling.html")
+    return render_template('pharmacyLogin.html')
+
+
+@app.route('/onlinebill', methods=['GET', 'POST'])
+def onlinebill():
+    if "pharmacy" in session:
+        return render_template("pharmacy/onlinebill.html")
+    return render_template('pharmacyLogin.html')
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
