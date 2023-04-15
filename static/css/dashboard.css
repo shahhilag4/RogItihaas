@@ -402,6 +402,15 @@ body {
 	font-weight: 600;
 	color: var(--dark);
 }
+#content main .box-info li .text-flex{
+	display: flex;
+}
+#content main .box-info li{
+	display: block;
+}
+#content main .box-info li .text-flex .margining{
+	margin-left:0.5rem !important;
+}
 #content main .box-info li .text p {
 	color: var(--dark);	
 }
