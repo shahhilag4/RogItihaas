@@ -95,6 +95,15 @@ def customerLogout():
     return redirect(url_for('homepage'))
 
 
+@app.route("/patdrhealthcard/<string:aadhar>", methods=['POST', 'GET'])
+def patdrhealthcard(aadhar):
+    if 'doctor' in session:
+        drexist = doctordetail.find_one({"aadhar": session['doctor']})
+        exist = patientdetail.find_one({'aadhar': aadhar})
+        return render_template("patient-doctor/healthcard.html", aadhar=aadhar, drname=drexist["name"], name=exist["name"])
+    return render_template("login.html")
+
+
 # End point for grabbing patient
 # details based on aadhar
 @app.route("/doctorpatientdashboard", methods=['POST', 'GET'])
@@ -526,3 +535,6 @@ def onlinebill():
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
+
+
+
