@@ -1,4 +1,3 @@
-import os
 from flask import Flask, render_template, request, session, redirect, url_for
 from pymongo import MongoClient
 from datetime import datetime
@@ -392,6 +391,48 @@ def patientsignup():
         message = "User Already Exist"
         return render_template("patientLogin.html", message=message)
     return render_template("patientLogin.html")
+
+
+@app.route('/patientdashboard', methods=['POST', 'GET'])
+def patientdashboard():
+    if "patient" in session:
+        files = []
+        data = patientmedicaldetail.find({"aadhar": session["patient"]})
+
+        for row in data:
+            name: row["name"]
+            files.append({
+                "name": row["name"],
+                "doctor": row['drname'],
+                "todaydate": row['todaydate'],
+                "presname": row["presname"],
+                "draadhar": row["draadhar"],
+            })
+
+        return render_template('patient/dashboard.html', files=files)
+    return render_template("patientLogin.html")
+
+
+@app.route('/patientdiagnosis', methods=['POST', 'GET'])
+def patientdiagnosis():
+    if "patient" in session:
+        return render_template('patient/diagnosis.html')
+    return render_template("patientLogin.html")
+
+
+@app.route('/patientoredermed', methods=['POST', 'GET'])
+def patientoredermed():
+    if "patient" in session:
+        return render_template('patient/oredermed.html')
+    return render_template("patientLogin.html")
+
+
+@app.route('/patientsettings', methods=['POST', 'GET'])
+def patientsettings():
+    if "patient" in session:
+        return render_template('patient/settings.html')
+    return render_template("patientLogin.html")
+
 
 
 # Ending point for patient login
