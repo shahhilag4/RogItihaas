@@ -29,7 +29,7 @@ Project Documentation
 <li>In emergency cases it will not be a practical situtation to search for all the medical records and present them which adds on to the challanges.</li>
 <li>It is also a major difficulty for the people living in villages to travel long distances and get medical help.Thus we also aim to add in an added feature known as diagnosis and prescription to diagnose the disease and prescribe an online prescription.</li>
 <li>To top it all we have integrated AI/ML to diagnose the disease on the basis of the symptoms.</li>
-<li>In the present situation, the doctor has to take the concern of family before surgery and this process takes time.</li> 
+<li>In the present situation, the doctor has to take the concern of family before any critical surgery and this process takes time as it might be that the patient's family might not be able to travel to the hospital immediately.</li> 
 </ul>
 
 <hr>
