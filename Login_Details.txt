@@ -4,6 +4,8 @@ qwerty
 Doctor - 
 987654321
 qwerty
-Pharmacy - Left
+Pharmacy -
+87654321
+qwerty
 Patient-Doctor -
 123456789 
