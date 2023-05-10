@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+/* Main Stylesheet */
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap");
 
 * {
   margin: 0;
@@ -8,10 +10,9 @@
 html {
   scroll-behavior: smooth;
 }
-body{
+body {
   font-family: "Poppins", sans-serif;
 }
-
 
 header {
   position: fixed;
@@ -62,11 +63,9 @@ header ul li a {
 }
 header ul li a:hover {
   text-decoration: none;
-  color:  #3498db;;
-
-  
+  color: #3498db;
 }
-footer{
+footer {
   font-family: "Poppins", sans-serif;
 }
 /* ----------------------------------------------Box1------------------------------------------------------------------------- */
@@ -91,7 +90,6 @@ footer{
   color: #3498db;
   padding: 15px;
   font-size: 20px;
-  
 }
 .box1-content h2::before {
   content: attr(head);
@@ -120,12 +118,10 @@ footer{
   transition: 0.5s;
 }
 
-.application-btn{
+.application-btn {
   background: #3498db;
   color: #ffffff;
 }
-
-
 
 .center a {
   text-decoration: none;
@@ -138,13 +134,12 @@ footer{
   transition: 0.5s;
 }
 
-.application-btn:hover{
+.application-btn:hover {
   background: #ffff;
   color: #000000;
 }
 
-iframe
-{
+iframe {
   margin: 0 auto;
 }
 
@@ -248,7 +243,7 @@ ul {
 .footer-col h3::before {
   content: "";
   position: absolute;
-  
+
   /* left: 120px; */
   bottom: -10px;
   background-color: #e91e63;
@@ -286,11 +281,10 @@ ul {
   transition: all 0.5s ease;
 }
 .footer-col .social-links a:hover {
-  
   color: #f5eded;
   background-color: #272323;
 }
-.lastPara p{
+.lastPara p {
   display: block;
   width: 100%;
   font-size: large;
@@ -379,7 +373,6 @@ ul {
     /* margin: 34px 0px; */
     color: #3498db;
     font-size: 17px;
-    
   }
   .box2-heading {
     padding: 10px;
@@ -435,7 +428,6 @@ ul {
     margin-top: 24px;
     color: rgba(253, 22, 22, 0.897);
     font-size: 19px;
-   
   }
   .box1-content h3 {
     /* margin: 30px 0px; */
@@ -451,12 +443,10 @@ ul {
 
   header ul li a {
     font-size: 26px;
-    
   }
   .box1 {
     padding: 35px 0;
     height: 541px;
-
   }
   .box2-heading .head3 {
     font-size: 19px;
@@ -469,7 +459,6 @@ ul {
     max-width: 100%;
     height: 130px;
   }
-
 
   /* .hiw {
         padding: 14px;
@@ -516,11 +505,11 @@ ul {
     width: 100%;
   }
 }
-header ul li a{
+header ul li a {
   font-size: 23px;
 }
 @media (max-width: 370px) {
-  .menu{
+  .menu {
     top: 70px;
   }
   header,
@@ -532,9 +521,9 @@ header ul li a{
     height: 110px;
   }
   .hiw .pp {
-      text-align: center;
-      padding: 12px;
-      font-size: 13px;
+    text-align: center;
+    padding: 12px;
+    font-size: 13px;
   }
   .hiw .h4 {
     text-align: center;
@@ -551,7 +540,7 @@ header ul li a{
     cursor: pointer;
     margin-right: -19px;
   }
-  
+
   .toggle.active {
     width: 90px;
     height: 30px;
@@ -568,10 +557,9 @@ header ul li a{
     padding: 28px 0;
     height: 562px;
   }
-  .btn{
+  .btn {
     padding: 14px 21px;
     margin: 8px 0px;
     font-size: 12px;
-    
   }
-  }
+}

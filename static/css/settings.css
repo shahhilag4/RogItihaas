@@ -1,29 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+/* Settings styles */
 
-*
-{
-    font-family: 'Poppins','sans-serif';
+#order {
+  box-sizing: border-box;
+  height: 40px;
+  width: 300px;
+  font-family: "Roboto", Arial, sans-serif;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  background: #f2f2f2;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
 }
 
-#order
-{
-    background: lightgray !important;
+.update-button {
+  font-family: "Lato", sans-serif;
+  width: 8rem;
+  padding: 10px;
+  height: 2.5rem;
+  margin: auto;
+  border: 1px solid #000;
+  background-color: #fff;
+  color: #000;
+  border-radius: 5px;
 }
 
-.update-button
-{
-    font-family: 'Lato', sans-serif;
-    width:8rem;
-    padding: 10px;
-    border: 1px solid #000;
-	background-color: #fff;
-	color: #000;
-	border-radius: 5px;
-}
-
-.update-button:hover
-{
-    background-color: #000;
-	color: #fff;
-    border: 1px solid #fff;
+.update-button:hover {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
 }

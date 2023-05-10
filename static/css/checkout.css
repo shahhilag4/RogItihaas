@@ -1,191 +1,176 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+/* Prescription Styles */
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap");
 
 body {
-	font-family: 'Arial', sans-serif;
-	margin: 0;
-	padding: 0;
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 #container {
-	width: 100%;
-	margin: 0 auto;
-	background-color: white;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-	color: #342E37 !important;
-	border-radius: 5px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  color: #342e37 !important;
+  border-radius: 5px;
 }
 
 header {
-	padding: 20px;
-	background-color: #0088cc;
-	color: white;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
+  padding: 20px;
+  background-color: #0088cc;
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .tagger + .tagger {
-	margin-top: 10px;
+  margin-top: 10px;
 }
 
 header h1 {
-	margin-top: 0;
+  margin-top: 0;
 }
 
-.left h3
-{
-	color: red;
-	font-weight: 100;
+.left h3 {
+  color: red;
+  font-weight: 100;
 }
 
 main {
-	padding: 20px;
+  padding: 20px;
 }
 
 ul {
-	list-style: none;
-	padding-left: 0;
-	margin-top: 0;
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
 }
 
 table {
-	border-collapse: collapse;
-	width: 100%;
-	margin-top: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 10px;
 }
 
-table th, table td {
-	padding: 10px;
-	border: 1px solid #ccc;
+table th,
+table td {
+  padding: 10px;
+  border: 1px solid #ccc;
 }
 
 table th {
-	background-color: #f2f2f2;
-	text-align: left;
+  background-color: #f2f2f2;
+  text-align: left;
 }
 
 table td:first-child {
-	font-weight: bold;
+  font-weight: bold;
 }
 
-
-input[type="number"],input[type="text"]
-{
-	margin:2px;
-	width:100%;
+input[type="number"],
+input[type="text"] {
+  margin: 2px;
+  width: 100%;
 }
 
-.field
-{
-	width:15rem !important;
+.field {
+  width: 15rem !important;
 }
 
 footer {
-	padding: 20px;
-	background-color: #f2f2f2;
-	color: #666;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  color: #666;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 footer p {
-	margin: 0;
-	padding: 5px;
+  margin: 0;
+  padding: 5px;
 }
 
-.prescription_head
-{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+.prescription_head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.prescription_block
-{
-	line-height: 2;
+.prescription_block {
+  line-height: 2;
 }
 
-.head_img
-{
-	width: 6rem;
-	height: 6rem;
+.head_img {
+  width: 6rem;
+  height: 6rem;
 }
 
-.blockit
-{
-	display: block;
-	cursor:pointer;
+.blockit {
+  display: block;
+  cursor: pointer;
 }
 
-.footer_buttons
-{
-	margin: 1rem !important;
+.footer_buttons {
+  margin: 1rem !important;
 }
 
-.position
-{
-	width:100%;
-	text-align: center;
+.position {
+  width: 100%;
+  text-align: center;
 }
-::placeholder
-{
-	color:#342E37;
+::placeholder {
+  color: #342e37;
 }
 
-.header::placeholder
-{
-	color:#f2f2f2;
-	font-family: 'Lato', sans-serif;
+.header::placeholder {
+  color: #f2f2f2;
+  font-family: "Lato", sans-serif;
 }
 
-.headersmall
-{
-	font-size:16px;
-	color:#fff
+.headersmall {
+  font-size: 16px;
+  color: #fff;
 }
 
-.headersmall::placeholder
-{
-	font-size:16px;
-	color:#f2f2f2
+.headersmall::placeholder {
+  font-size: 16px;
+  color: #f2f2f2;
 }
 
-.inputValue 
-{
-	border:none;
-	background-color: #0088cc;
-	color: #f2f2f2;
-	font-family: 'Lato', sans-serif;
-	font-size:18px;
+.inputValue {
+  border: none;
+  background-color: #0088cc;
+  color: #f2f2f2;
+  font-family: "Lato", sans-serif;
+  font-size: 18px;
 }
 
-.formInput
-{
-	background-color: #fff;
-	color: #342E37 !important;
-	font-size:16px;
+.formInput {
+  background-color: #fff;
+  color: #342e37 !important;
+  font-size: 16px;
 }
 
-textarea
-{
-	display: block;
+textarea {
+  display: block;
 }
 
-input[type='file']{
-	display: none
+input[type="file"] {
+  display: none;
 }
 
 @media print {
-	#container {
-		max-width: none;
-		box-shadow: none;
-		border: none;
-	}
+  #container {
+    max-width: none;
+    box-shadow: none;
+    border: none;
+  }
 }
 
-@media screen and (max-width:780px)
-{
-	.prescription_head
-	{
-		display: block;
-	}
+@media screen and (max-width: 780px) {
+  .prescription_head {
+    display: block;
+  }
 }

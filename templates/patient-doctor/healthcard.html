@@ -1,15 +1,18 @@
+<!-- Patient-Doctor Healthcard -->
+
 <!DOCTYPE html>
 <html lang="en">
-
+	
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<!-- Boxicons -->
+	<!-- Fontawesome -->
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
-	<!-- My CSS -->
+	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
 	<link rel="stylesheet" href="../../static/css/card-flip.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
 	<title>रोगइतिहास - Patient Health Card</title>
 </head>
@@ -17,13 +20,14 @@
 <body>
 
 
-	<!-- SIDEBAR -->
+	<!-- Sidebar -->
 	<section id="sidebar">
 		<a href="#" class="brand">
 			<i class="fa-solid">
-				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png"/>
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
-			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span class="india-green">हास</span></span>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
 		</a>
 		<ul class="side-menu top">
 			<li>
@@ -39,7 +43,7 @@
 				</a>
 			</li>
 
-            <li>
+			<li>
 				<a href="/reports/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Previous Reports</span>
@@ -60,15 +64,18 @@
 					<span class="text">Write Prescription</span>
 				</a>
 			</li>
+			<li>
+				<a href="/doctorsignin" class="logout">
+					<i class="fa-solid fa-right-from-bracket"></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
 		</ul>
 	</section>
-	<!-- SIDEBAR -->
 
-
-
-	<!-- CONTENT -->
+	<!-- Content -->
 	<section id="content">
-		<!-- NAVBAR -->
+		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
 			<form action="#"></form>
@@ -78,9 +85,8 @@
 				<img src="../../static/img/rishi.jpg">
 			</a>
 		</nav>
-		<!-- NAVBAR -->
 
-		<!-- MAIN -->
+		<!-- Main -->
 		<main>
 			<div class="head-title">
 				<div class="left">
@@ -96,7 +102,8 @@
 								<img src="../../static/img/Group_1.png" alt="Avatar" class="front-img">
 							</div>
 							<div class="flip-card-back">
-								<img src="../../static/img/qrcode/123456789.png" alt="qrcode" class="back-img" id="back-img">
+								<img src="../../static/img/qrcode/123456789.png" alt="qrcode" class="back-img"
+									id="back-img">
 								<h2 id="name"></h2>
 							</div>
 						</div>
@@ -104,11 +111,9 @@
 				</div>
 			</div>
 		</main>
-		<!-- MAIN -->
 	</section>
-	<!-- CONTENT -->
 
-
+	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
 	<script src="../../static/js/healthcard.js"></script>
 </body>

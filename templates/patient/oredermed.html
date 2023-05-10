@@ -1,3 +1,5 @@
+<!-- Patient Order Medicine Section -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,43 +7,44 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Boxicons -->
-	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
-	<!-- My CSS -->
-	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/diagnose.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
+	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
 	<title>रोगइतिहास - Patient Order Medicine</title>
 </head>
 
 <body>
 
-
-	<!-- SIDEBAR -->
+	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="/" class="brand">
 			<i class="fa-solid">
-				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png"/>
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
-			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span class="india-green">हास</span></span>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="patientdashboard">
+				<a href="/patientdashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="patientdocuments">
+				<a href="/patientdocuments">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Medical Records</span>
 				</a>
 			</li>
 			<li>
-				<a href="patienthealthcard">
+				<a href="/patienthealthcard">
 					<i class="fa-solid fa-address-card"></i>
 					<span class="text">Health Card</span>
 				</a>
@@ -51,12 +54,12 @@
 					<i class="fa-solid fa-message"></i>
 					<span class="text">Diagonsis</span>
 				</a>
-				<li class="active">
-					<a href="/patientoredermed">
-						<i class="fa-solid fa-tablets"></i>
-						<span class="text">Order Medicine</span>
-					</a>
-				</li>
+			<li class="active">
+				<a href="/patientoredermed">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Order Medicine</span>
+				</a>
+			</li>
 			</li>
 		</ul>
 		<ul class="side-menu">
@@ -74,12 +77,10 @@
 			</li>
 		</ul>
 	</section>
-	<!-- SIDEBAR -->
 
-
-	<!-- CONTENT -->
+	<!-- Content -->
 	<section id="content">
-		<!-- NAVBAR -->
+		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
 			<form action="#">
@@ -90,9 +91,8 @@
 				<img src="../../static/img/rishi.jpg">
 			</a>
 		</nav>
-		<!-- NAVBAR -->
 
-		<!-- MAIN -->
+		<!-- Main -->
 		<main>
 			<div class="head-title">
 				<div class="left">
@@ -102,9 +102,8 @@
 			<div class="table-data">
 				<div class="order">
 					<h3>Enter the name of Doctor</h3>
-					<div class="text-container">
-						<input type="text" list="dr" 
-									placeholder="Enter Doctor Name" />
+					<div class="input-field">
+						<input type="text" list="dr" class="text-container" placeholder="Enter Doctor Name" />
 						<datalist id="dr">
 							<option value="Objective C">Objective C</option>
 							<option value="C++">C++</option>
@@ -123,33 +122,32 @@
 					</div>
 					<div class="container">
 						<h3>Enter Medicine Name</h3>
-						<input id="myInput" type="text" class="search-bar" placeholder="Search Medicine" onkeyup="myFunction()">
+						<input id="myInput" type="text" class="search-bar" placeholder="Search Medicine"
+							onkeyup="myFunction()">
 						<div class="options-container" id="options">
-						  <div class="option">Option 1</div>
-						  <div class="option">Option 2</div>
-						  <div class="option">Option 3</div>
-						  <div class="option">Option 4</div>
-						  <div class="option">Option 5</div>
+							<div class="option">Option 1</div>
+							<div class="option">Option 2</div>
+							<div class="option">Option 3</div>
+							<div class="option">Option 4</div>
+							<div class="option">Option 5</div>
 						</div>
 					</div>
 					<div class="container">
 						<h3>Upload Prescription</h3>
-						<input type="file">
+						<input class="upload" type="file">
 					</div>
 					<a href="./prescription_repository.html" class="custom-btn">Submit</a>
-					</div>
 				</div>
 			</div>
+			</div>
 		</main>
-		<!-- MAIN -->
 	</section>
-	<!-- CONTENT -->
 
-
+	<!-- JS files -->
 	<script src="../../static/js/main.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	
+
 </body>
 
 </html>

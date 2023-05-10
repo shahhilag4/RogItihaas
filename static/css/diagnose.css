@@ -1,49 +1,71 @@
+/* Patient Diagnosis and Order medicine styles */
 .container {
-    display: block;
-  }
-  
-  .options-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
- 
-  .custom-btn
-{
-    width: 15rem;
-    position: relative;
-    display: inline-block;
-    padding:8px 20px;
-    background: #000;
-    margin-top: 15px;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    text-decoration: none;
-    font-weight: 500;
-    color:#fff;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  display: block;
 }
 
-.custom-btn:hover
-{
-    border: 1px solid #fff;
+.options-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
-  
-  .option {
-    display: inline-block;
-    background-color: #e6e6e6;
-    border-radius: 30px;
-    padding: 5px 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-  
-  .option.selected {
-    background-color: #ff0000;
-    color: white;
-  }
-  
+
+.custom-btn {
+  width: 15rem;
+  position: relative;
+  display: inline-block;
+  padding: 8px 20px;
+  background: #000;
+  margin-top: 15px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  text-decoration: none;
+  font-weight: 500;
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.custom-btn:hover {
+  border: 1px solid #fff;
+}
+
+.option {
+  display: inline-block;
+  background-color: #e6e6e6;
+  border-radius: 30px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.option.selected {
+  background-color: #ff0000;
+  color: white;
+}
+
+.text-container,
+.search-bar {
+  box-sizing: border-box;
+  height: 40px;
+  width: 300px;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 5px;
+  background: #f2f2f2;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 10px 24px;
+  margin: 10px 0;
+  cursor: pointer;
+}

@@ -1,26 +1,32 @@
+<!-- Doctor Dashboard -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Boxicons -->
+	<!-- Fontawesome -->
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
-	<!-- My CSS -->
+	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
-
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 	<title>रोगइतिहास - Doctor Dashboard</title>
 </head>
+
 <body>
 
 
-	<!-- SIDEBAR -->
+	<!-- Sidebar -->
 	<section id="sidebar">
 		<a href="/doctorsignin" class="brand">
 			<i class="fa-solid">
-				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png"/>
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
-			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span class="india-green">हास</span></span>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
@@ -35,13 +41,6 @@
 					<span class="text">Medical Records</span>
 				</a>
 			</li>
-
-			<li>
-				<a href="/prescription_repository">
-					<i class="fa-solid fa-message"></i>
-					<span class="text">Prescription Repository</span>
-				</a>
-			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
@@ -51,7 +50,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="drsettings">
+				<a href="/drsettings">
 					<i class="fa-solid fa-gear"></i>
 					<span class="text">Settings</span>
 				</a>
@@ -64,13 +63,10 @@
 			</li>
 		</ul>
 	</section>
-	<!-- SIDEBAR -->
 
-
-
-	<!-- CONTENT -->
+	<!-- Content -->
 	<section id="content">
-		<!-- NAVBAR -->
+		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
 			<form action="doctorpatientdashboard" method="POST">
@@ -85,9 +81,8 @@
 				<img src="../../static/img/rishi.jpg">
 			</a>
 		</nav>
-		<!-- NAVBAR -->
 
-		<!-- MAIN -->
+		<!-- Main -->
 		<main>
 			<div class="head-title">
 				<div class="left">
@@ -117,8 +112,10 @@
 				<div class="order">
 					<div class="head">
 						<h3>Recent Patients</h3>
-						<input type="search" class="search-1" id="myInput" onkeyup="myFunction()" placeholder="Search Patient By Id">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass" onclick="myFunction()"></i></button>
+						<input type="search" class="search-1" id="myInput" onkeyup="myFunction()"
+							placeholder="Search Patient By Id">
+						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"
+								onclick="myFunction()"></i></button>
 					</div>
 					<table>
 						<thead>
@@ -130,7 +127,7 @@
 							</tr>
 						</thead>
 						<tbody id="tableBody">
-						{% for data in files %}
+							{% for data in files %}
 							<tr>
 								<td>
 									<img src="../../static/img/hrithik.jpg">
@@ -140,19 +137,18 @@
 								<td><span class="status danger">Viral</span></td>
 								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
 							</tr>
-						{% endfor %}
-							
+							{% endfor %}
+
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</main>
-		<!-- MAIN -->
 	</section>
-	<!-- CONTENT -->
-	
 
+	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
 	<script src="../../static/js/searchdoc.js"></script>
 </body>
+
 </html>

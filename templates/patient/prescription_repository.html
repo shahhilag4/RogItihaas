@@ -1,16 +1,19 @@
+<!-- Patient Prescription Repository -->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<!-- Boxicons -->
-	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
-	<!-- My CSS -->
+	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
 	<link rel="stylesheet" href="../../static/css/prescription-repo.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
 	<title>रोगइतिहास - Doctor Prescription Repository</title>
 </head>
@@ -18,29 +21,30 @@
 <body>
 
 
-	<!-- SIDEBAR -->
+	<!-- Sidebar -->
 	<section id="sidebar">
 		<a href="#" class="brand">
 			<i class="fa-solid">
-				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png"/>
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
-			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span class="india-green">हास</span></span>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="patientdashboard">
+				<a href="/patientdashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="patientdocuments">
+				<a href="/patientdocuments">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Medical Records</span>
 				</a>
 			</li>
 			<li>
-				<a href="patienthealthcard">
+				<a href="/patienthealthcard">
 					<i class="fa-solid fa-address-card"></i>
 					<span class="text">Health Card</span>
 				</a>
@@ -50,12 +54,12 @@
 					<i class="fa-solid fa-message"></i>
 					<span class="text">Diagonsis</span>
 				</a>
-				<li>
-					<a href="/patientoredermed">
-						<i class="fa-solid fa-tablets"></i>
-						<span class="text">Order Medicine</span>
-					</a>
-				</li>
+			<li>
+				<a href="/patientoredermed">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Order Medicine</span>
+				</a>
+			</li>
 			</li>
 		</ul>
 		<ul class="side-menu">
@@ -73,11 +77,10 @@
 			</li>
 		</ul>
 	</section>
-	<!-- SIDEBAR -->
 
-	<!-- CONTENT -->
+	<!-- Content -->
 	<section id="content">
-		<!-- NAVBAR -->
+		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
 			<form action="#">
@@ -89,9 +92,8 @@
 				<img src="../../static/img/rishi.jpg">
 			</a>
 		</nav>
-		<!-- NAVBAR -->
 
-		<!-- MAIN -->
+		<!-- Main -->
 		<main>
 			<div class="head-title">
 				<div class="left">
@@ -103,8 +105,10 @@
 				<div class="order">
 					<div class="head">
 						<h3></h3>
-						<input id="myInput" type="search" class="search-1" placeholder="Search Document Name" onkeyup="myFunction()">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass" onclick="myFunction()"></i></button>
+						<input id="myInput" type="search" class="search-1" placeholder="Search Document Name"
+							onkeyup="myFunction()">
+						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"
+								onclick="myFunction()"></i></button>
 					</div>
 					<div class="container1" id="mainContainer">
 						<!-- Card 01 -->
@@ -150,15 +154,13 @@
 				</div>
 			</div>
 		</main>
-		<!-- MAIN -->
 	</section>
-	<!-- CONTENT -->
 
-
+	<!-- JS files -->
 	<script src="../../static/js/searchprescription.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	
+
 </body>
 
 </html>

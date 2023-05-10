@@ -1,43 +1,50 @@
+<!-- Patient Healthcard -->
+
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<!-- Boxicons -->
-		<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
-		<!-- My CSS -->
-		<link rel="stylesheet" href="../../static/css/dashboard.css">
-		<link rel="stylesheet" href="../../static/css/card-flip.css">
-		
-		<title>रोगइतिहास - Patient Healthcard</title>
-	</head>
-<body>
-	
 
-	<!-- SIDEBAR -->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<link rel="stylesheet" href="../../static/css/card-flip.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+
+	<title>रोगइतिहास - Patient Healthcard</title>
+</head>
+
+<body>
+
+
+	<!-- Sidebar -->
 	<section id="sidebar">
 		<a href="#" class="brand">
 			<i class="fa-solid">
-				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png"/>
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
-			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span class="india-green">हास</span></span>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="patientdashboard">
+				<a href="/patientdashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="patientdocuments">
+				<a href="/patientdocuments">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Medical Records</span>
 				</a>
 			</li>
 			<li class="active">
-				<a href="patienthealthcard">
+				<a href="/patienthealthcard">
 					<i class="fa-solid fa-address-card"></i>
 					<span class="text">Health Card</span>
 				</a>
@@ -47,12 +54,12 @@
 					<i class="fa-solid fa-message"></i>
 					<span class="text">Diagonsis</span>
 				</a>
-				<li>
-					<a href="/patientoredermed">
-						<i class="fa-solid fa-tablets"></i>
-						<span class="text">Order Medicine</span>
-					</a>
-				</li>
+			<li>
+				<a href="/patientoredermed">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Order Medicine</span>
+				</a>
+			</li>
 			</li>
 		</ul>
 		<ul class="side-menu">
@@ -70,11 +77,10 @@
 			</li>
 		</ul>
 	</section>
-	<!-- SIDEBAR -->
-	
-	<!-- CONTENT -->
+
+	<!-- Content -->
 	<section id="content">
-		<!-- NAVBAR -->
+		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
 			<form action="#"></form>
@@ -84,9 +90,8 @@
 				<img src="../../static/img/rishi.jpg">
 			</a>
 		</nav>
-		<!-- NAVBAR -->
-		
-		<!-- MAIN -->
+
+		<!-- Main -->
 		<main>
 			<div class="head-title">
 				<div class="left">
@@ -97,7 +102,7 @@
 					<span class="text">Share</span>
 				</a>
 			</div>
-			
+
 			<div class="table-data">
 				<div class="order">
 					<div class="flip-card">
@@ -106,7 +111,8 @@
 								<img src="../../static/img/Group_1.png" alt="Avatar" class="front-img">
 							</div>
 							<div class="flip-card-back">
-								<img src="../../static/img/qrcode/{{aadhar}}.png" alt="qrcode" class="back-img" id="back-img">
+								<img src="../../static/img/qrcode/{{aadhar}}.png" alt="qrcode" class="back-img"
+									id="back-img">
 								<h2 id="name"></h2>
 							</div>
 						</div>
@@ -114,12 +120,11 @@
 				</div>
 			</div>
 		</main>
-		<!-- MAIN -->
 	</section>
-	<!-- CONTENT -->
-	
-	
+
+	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
 	<script src="../../static/js/healthcard.js"></script>
 </body>
+
 </html>

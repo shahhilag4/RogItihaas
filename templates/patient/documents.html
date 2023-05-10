@@ -1,43 +1,50 @@
+<!-- Patient Documents -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Boxicons -->
+	<!-- Fontawesome -->
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<!-- pdf.js library -->
 	<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-	<!-- My CSS -->
+	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
 	<title>रोगइतिहास - Patient Medical Records</title>
 </head>
+
 <body>
 
-
-	<!-- SIDEBAR -->
+	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="/patientdashboard" class="brand">
 			<i class="fa-solid">
-				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png"/>
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
-			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span class="india-green">हास</span></span>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="patientdashboard">
+				<a href="/patientdashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li class="active">
-				<a href="patientdocuments">
+				<a href="/patientdocuments">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Medical Records</span>
 				</a>
 			</li>
 			<li>
-				<a href="patienthealthcard">
+				<a href="/patienthealthcard">
 					<i class="fa-solid fa-address-card"></i>
 					<span class="text">Health Card</span>
 				</a>
@@ -47,12 +54,12 @@
 					<i class="fa-solid fa-message"></i>
 					<span class="text">Diagonsis</span>
 				</a>
-				<li>
-					<a href="/patientoredermed">
-						<i class="fa-solid fa-tablets"></i>
-						<span class="text">Order Medicine</span>
-					</a>
-				</li>
+			<li>
+				<a href="/patientoredermed">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Order Medicine</span>
+				</a>
+			</li>
 			</li>
 		</ul>
 		<ul class="side-menu">
@@ -70,12 +77,10 @@
 			</li>
 		</ul>
 	</section>
-	<!-- SIDEBAR -->
 
-
-	<!-- CONTENT -->
+	<!-- Content -->
 	<section id="content">
-		<!-- NAVBAR -->
+		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
 			<form action="#"></form>
@@ -85,9 +90,8 @@
 				<img src="../../static/img/rishi.jpg">
 			</a>
 		</nav>
-		<!-- NAVBAR -->
 
-		<!-- MAIN -->
+		<!-- Main -->
 		<main>
 			<div class="head-title">
 				<div class="left">
@@ -98,14 +102,15 @@
 					<span class="text">Download Zip</span>
 				</a>
 			</div>
-			
+
 			<div class="table-data">
 				<div class="order">
 					<div class="head">
 						<h3></h3>
 						<strong>Upload Manually</strong>
-						<input type="file"></input>
-						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name" onkeyup="searchDoc()">
+						<input class="upload" type="file"></input>
+						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name"
+							onkeyup="searchDoc()">
 						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</div>
 					<table>
@@ -122,35 +127,39 @@
 							</tr>
 						</thead>
 						<tbody id="tableBody1">
-						{% for data in files %}
+							{% for data in files %}
 							<tr>
-								<td><p>{{loop.index}}</p></td>
-								<td><p>{{data.presname}}</p></td>
+								<td>
+									<p>{{loop.index}}</p>
+								</td>
+								<td>
+									<p>{{data.presname}}</p>
+								</td>
 								<td>{{data.todaydate}}</td>
 								<td class="drname">{{data.doctor}}</td>
-								<td><button class="status success" onclick="viewPDF('../../static/Hilag.pdf')">View</button></td>
+								<td><button class="status success"
+										onclick="viewPDF('../../static/Hilag.pdf')">View</button></td>
 								<div id="pdf-modal" class="modal">
 									<div class="modal-content">
-									  <span class="close" onclick="closePDF()">&times;</span>
-									  <canvas id="pdf-canvas"></canvas>
+										<span class="close" onclick="closePDF()">&times;</span>
+										<canvas id="pdf-canvas"></canvas>
 									</div>
-								  </div>
+								</div>
 								<td><button class="status danger">Delete</button></td>
 								<td><i class="fa-sharp fa-solid fa-circle-exclamation"></i></td>
 								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
 							</tr>
-						{% endfor %}
+							{% endfor %}
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</main>
-		<!-- MAIN -->
 	</section>
-	<!-- CONTENT -->
-	
 
+	<!-- JS files -->
 	<script src="../../static/js/click.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 </body>
+
 </html>

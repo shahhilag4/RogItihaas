@@ -279,8 +279,8 @@ def drdocuments():
 
 @app.route("/prescription_repository")
 def prescription_repository():
-    if "doctor" in session:
-        return render_template("doctor/prescription_repository.html")
+    if "patient" in session:
+        return render_template("patient/prescription_repository.html")
     return render_template("login.html")
 
 

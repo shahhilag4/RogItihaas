@@ -1,29 +1,35 @@
+<!-- Patient-Doctor Dashboard -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<!-- Boxicons -->
+	<!-- Fontawesome -->
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
-	<!-- My CSS -->
+	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
 	<title>रोगइतिहास - Patient Dashboard</title>
 </head>
+
 <body>
 
 
-<!-- SIDEBAR -->
+	<!-- Sidevar -->
 	<section id="sidebar">
 		<a href="#" class="brand">
 			<i class="fa-solid">
-				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png"/>
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
-			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span class="india-green">हास</span></span>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
 		</a>
 		<ul class="side-menu top">
-			<li  class="active">
+			<li class="active">
 				<a href="/doctorpatientdashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
@@ -36,7 +42,7 @@
 				</a>
 			</li>
 
-            <li>
+			<li>
 				<a href="/reports/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Previous Reports</span>
@@ -57,15 +63,18 @@
 					<span class="text">Write Prescription</span>
 				</a>
 			</li>
+			<li>
+				<a href="/doctorsignin" class="logout">
+					<i class="fa-solid fa-right-from-bracket"></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
 		</ul>
 	</section>
-	<!-- SIDEBAR -->
 
-
-
-	<!-- CONTENT -->
+	<!-- Content -->
 	<section id="content">
-		<!-- NAVBAR -->
+		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
 			<form action="#"></form>
@@ -75,9 +84,8 @@
 				<img src="../../static/img/rishi.jpg">
 			</a>
 		</nav>
-		<!-- NAVBAR -->
 
-		<!-- MAIN -->
+		<!-- Main -->
 		<main>
 			<div class="head-title">
 				<div class="left">
@@ -95,7 +103,7 @@
 				</li>
 			</ul>
 
-		<ul class="box-info">
+			<ul class="box-info">
 				<li class="block-list">
 					<span class="text-flex">
 						<h4>Address :</h4>
@@ -122,12 +130,11 @@
 
 
 		</main>
-		<!-- MAIN -->
 	</section>
-	<!-- CONTENT -->
-	
 
+	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
 	<script src="../../static/js/searchdoc.js"></script>
 </body>
+
 </html>

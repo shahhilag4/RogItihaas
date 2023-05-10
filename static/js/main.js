@@ -1,3 +1,5 @@
+/* Multiple search bubbles - The Pinterest Suggestion Model */
+
 let searchBox = document.querySelector(".search-bar");
 let options = document.querySelectorAll(".option");
 
@@ -13,13 +15,16 @@ function debounce(func, wait) {
   };
 }
 
-searchBox.addEventListener("keyup", debounce(function(event) {
-  let searchText = event.target.value;
-  // filter search results here
-}, 300));
+searchBox.addEventListener(
+  "keyup",
+  debounce(function (event) {
+    let searchText = event.target.value;
+    // filter search results here
+  }, 300)
+);
 
-options.forEach(option => {
-  option.addEventListener("click", function() {
+options.forEach((option) => {
+  option.addEventListener("click", function () {
     if (this.classList.contains("selected")) {
       this.classList.remove("selected");
     } else {
@@ -29,29 +34,29 @@ options.forEach(option => {
 });
 
 function myFunction() {
-	var input, tablebody, patientrow, patientuid, i, txtValue;
-    input = document.getElementById("myInput");
-	filter = input.value;
-    tablebody = document.getElementById("options");
-    patientrow = tablebody.getElementsByTagName("div");
-    
-    for (i = 0; i < patientrow.length; i++) {
-        patientuid = patientrow[i];
-		txtValue = patientuid.textContent || patientuid.innerText;
-        if (txtValue.indexOf(filter) > -1) {
-            patientrow[i].style.display = "";
-        } else {
-            patientrow[i].style.display = "none";
-        }
+  var input, tablebody, patientrow, patientuid, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value;
+  tablebody = document.getElementById("options");
+  patientrow = tablebody.getElementsByTagName("div");
+
+  for (i = 0; i < patientrow.length; i++) {
+    patientuid = patientrow[i];
+    txtValue = patientuid.textContent || patientuid.innerText;
+    if (txtValue.indexOf(filter) > -1) {
+      patientrow[i].style.display = "";
+    } else {
+      patientrow[i].style.display = "none";
     }
+  }
 }
 
-function addRow () {
+function addRow() {
   // (B1) GET TABLE
   var table = document.getElementById("demoA");
 
   // (B2) INSERT ROW
-  var row = table.insertRow(); 
+  var row = table.insertRow();
 
   // (B3) INSERT CELLS
   var cell = row.insertCell();
@@ -81,6 +86,4 @@ function addRow () {
   cell = row.insertCell();
   cell.innerHTML = `<input type="text" name="" placeholder="Take with food"
   class="formInput inputValue">`;
-
-
 }

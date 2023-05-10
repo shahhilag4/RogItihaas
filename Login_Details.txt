@@ -1,11 +1,14 @@
-Patient -
-123456789
-qwerty 
-Doctor - 
-987654321
-qwerty
-Pharmacy -
-87654321
-qwerty
-Patient-Doctor -
-123456789 
+1. Patient -
+   123456789
+   qwerty 
+
+2. Doctor - 
+   987654321
+   qwerty
+
+3. Pharmacy -
+   87654321
+   qwerty
+
+4. Patient-Doctor -
+   123456789 

@@ -1,16 +1,19 @@
+<!-- Patient-Doctor Prescription -->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Boxicons -->
+    <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
-    <!-- My CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="../../static/css/dashboard.css">
     <link rel="stylesheet" href="../../static/css/checkout.css">
     <link rel="stylesheet" href="../../static/css/tagger.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
     <title>रोगइतिहास - Patient Prescription</title>
 </head>
@@ -18,58 +21,62 @@
 <body>
 
 
-   <!-- SIDEBAR -->
-	<section id="sidebar">
-		<a href="#" class="brand">
-			<i class="fa-solid">
-				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png"/>
-			</i>
-			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span class="india-green">हास</span></span>
-		</a>
-		<ul class="side-menu top">
-			<li>
-				<a href="/doctorpatientdashboard">
-					<i class="fa-solid fa-table-columns"></i>
-					<span class="text">Dashboard</span>
-				</a>
-			</li>
-			<li>
-				<a href="/documents/{{drname}}/{{aadhar}}">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Previous Prescriptions</span>
-				</a>
-			</li>
+    <!-- Sidebar -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <i class="fa-solid">
+                <img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+            </i>
+            <span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+                    class="india-green">हास</span></span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="/doctorpatientdashboard">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/documents/{{drname}}/{{aadhar}}">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span class="text">Previous Prescriptions</span>
+                </a>
+            </li>
 
             <li>
-				<a href="/reports/{{drname}}/{{aadhar}}">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Previous Reports</span>
+                <a href="/reports/{{drname}}/{{aadhar}}">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span class="text">Previous Reports</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/patdrhealthcard/{{aadhar}}">
+                    <i class="fa-solid fa-address-card"></i>
+                    <span class="text">Health Card</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li class="active">
+                <a href="/writeprescription/{{name}}/{{aadhar}}">
+                    <i class="fa-solid fa-tablets"></i>
+                    <span class="text">Write Prescription</span>
+                </a>
+            </li>
+            <li>
+				<a href="/doctorsignin" class="logout">
+					<i class="fa-solid fa-right-from-bracket"></i>
+					<span class="text">Logout</span>
 				</a>
 			</li>
+        </ul>
+    </section>
 
-			<li>
-				<a href="/patdrhealthcard/{{aadhar}}">
-					<i class="fa-solid fa-address-card"></i>
-					<span class="text">Health Card</span>
-				</a>
-			</li>
-		</ul>
-		<ul class="side-menu">
-			<li  class="active">
-				<a href="/writeprescription/{{name}}/{{aadhar}}">
-					<i class="fa-solid fa-tablets"></i>
-					<span class="text">Write Prescription</span>
-				</a>
-			</li>
-		</ul>
-	</section>
-	<!-- SIDEBAR -->
-
-
-
-    <!-- CONTENT -->
+    <!-- Content -->
     <section id="content">
-        <!-- NAVBAR -->
+        <!-- Navbar -->
         <nav>
             <i class="fa-solid fa-bars"></i>
             <form action="#"></form>
@@ -79,9 +86,8 @@
                 <img src="../../static/img/rishi.jpg">
             </a>
         </nav>
-        <!-- NAVBAR -->
 
-        <!-- MAIN -->
+        <!-- Main -->
         <main>
             <div class="head-title">
                 <div class="left">
@@ -105,99 +111,114 @@
                         <main>
                             <h2>Patient Information</h2>
                             <form action="/uploadpresciption/{{aadhar}}/{{drname}}" method="POST">
-                            <ul>
-                                <li><strong>Name:</strong> <input type="text" value="{{name}}" name="name"  class="formInput inputValue"></li>
-                                <li><strong>Age:</strong> <input type="number" name="age" value="33" class="formInput inputValue"></li>
-                                <li><strong>Gender:</strong> 
-                                    <label>
-                                        <input type="radio" name="gender" value="male" checked> Male
-                                      </label>
-                                      <label>
-                                        <input type="radio" name="gender" value="female"> Female
-                                      </label>
-                                      <label>
-                                        <input type="radio" name="gender" value="other"> Other
-                                      </label>
-                                </li>
-                                <li><strong>Weight:</strong> <input type="number" name="weight" placeholder="80" class="formInput inputValue"> kg</li>
-                                <li><strong>Disease:</strong><input type="text" name="disease" value="fever,malaria,dengue" name="tags3a" />
-                                    <script src="../../static/js/tagger.js"></script>
-                                    <script>
-                                      var t3 = tagger(document.querySelectorAll('[name^="disease"]'), {
-                                          allow_duplicates: false,
-                                          allow_spaces: true,
-                                          wrap: true,
-                                          link: function(name) {
-                                              return `javascript:alert('${name}');`;
-                                          }
-                                      });
-                                    </script> </li>
-                            </ul>
+                                <ul>
+                                    <li><strong>Name:</strong> <input type="text" value="{{name}}" name="name"
+                                            class="formInput inputValue"></li>
+                                    <li><strong>Age:</strong> <input type="number" name="age" value="33"
+                                            class="formInput inputValue"></li>
+                                    <li><strong>Gender:</strong>
+                                        <label>
+                                            <input type="radio" name="gender" value="male" checked> Male
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="gender" value="female"> Female
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="gender" value="other"> Other
+                                        </label>
+                                    </li>
+                                    <li><strong>Weight:</strong> <input type="number" name="weight" placeholder="80"
+                                            class="formInput inputValue"> kg</li>
+                                    <li><strong>Disease:</strong><input type="text" name="disease"
+                                            value="fever,malaria,dengue" name="tags3a" />
+                                        <script src="../../static/js/tagger.js"></script>
+                                        <script>
+                                            var t3 = tagger(document.querySelectorAll('[name^="disease"]'), {
+                                                allow_duplicates: false,
+                                                allow_spaces: true,
+                                                wrap: true,
+                                                link: function (name) {
+                                                    return `javascript:alert('${name}');`;
+                                                }
+                                            });
+                                        </script>
+                                    </li>
+                                </ul>
 
-                            <h2>Medication Information</h2>
-                            <table id="demoA">
-                                <tr>
-                                    <th>Medication Name</th>
-                                    <th>Dosage</th>
-                                    <th>Frequency</th>
-                                    <th>Duration</th>
-                                    <th>Instructions</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" list="dr" name="medicine1" placeholder="Enter Medicine" />
-                                        <datalist id="dr">
-                                            <option value="Paracetamol">Paracetamol</option>
-                                            <option value="Citrazine">Citrazine</option>
-                                        </datalist>
-                                    </td>
-                                    <td><input type="number" name="mg1" value="10" class="formInput inputValue"> mg
-                                    </td>
-                                    <td><input type="number" name="dose1" value="1" class="formInput inputValue"> daily
-                                    </td>
-                                    <td><input type="number" name="days1" value="3" class="formInput inputValue"> days
-                                    </td>
-                                    <td><input type="text" name="food1" placeholder="Take with food"
-                                            class="formInput inputValue"></td>
-                                </tr>
-                               <tr>
-                                    <td><input type="text" list="dr" name="medicine2" placeholder="Enter Medicine" />
-                                        <datalist id="dr">
-                                            <option value="Paracetamol">Paracetamol</option>
-                                            <option value="Citrazine">Citrazine</option>
-                                        </datalist>
-                                    </td>
-                                    <td><input type="number" name="mg2" value="1" class="formInput inputValue"> mg
-                                    </td>
-                                    <td><input type="number" name="dose2" value="1" class="formInput inputValue"> daily
-                                    </td>
-                                    <td><input type="number" name="days2" value="7" class="formInput inputValue"> days
-                                    </td>
-                                    <td><input type="text" name="food2" value="Take with food"
-                                            class="formInput inputValue"></td>
-                                </tr>
-                               <tr>
-                                    <td><input type="text" list="dr" name="medicine3" placeholder="Enter Medicine" />
-                                        <datalist id="dr">
-                                            <option value="Paracetamol">Paracetamol</option>
-                                            <option value="Citrazine">Citrazine</option>
-                                        </datalist>
-                                    </td>
-                                    <td><input type="number" name="mg3" placeholder="1" class="formInput inputValue"> mg
-                                    </td>
-                                    <td><input type="number" name="dose3" placeholder="1" class="formInput inputValue"> daily
-                                    </td>
-                                    <td><input type="number" name="days3" placeholder="7" class="formInput inputValue"> days
-                                    </td>
-                                    <td><input type="text" name="food3" placeholder="Take with food"
-                                            class="formInput inputValue"></td>
-                                </tr>
-                            </table>
-                            <input type="button" value="Add Bottom" onclick="addRow()">
+                                <h2>Medication Information</h2>
+                                <table id="demoA">
+                                    <tr>
+                                        <th>Medication Name</th>
+                                        <th>Dosage</th>
+                                        <th>Frequency</th>
+                                        <th>Duration</th>
+                                        <th>Instructions</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" list="dr" name="medicine1"
+                                                placeholder="Enter Medicine" />
+                                            <datalist id="dr">
+                                                <option value="Paracetamol">Paracetamol</option>
+                                                <option value="Citrazine">Citrazine</option>
+                                            </datalist>
+                                        </td>
+                                        <td><input type="number" name="mg1" value="10" class="formInput inputValue"> mg
+                                        </td>
+                                        <td><input type="number" name="dose1" value="1" class="formInput inputValue">
+                                            daily
+                                        </td>
+                                        <td><input type="number" name="days1" value="3" class="formInput inputValue">
+                                            days
+                                        </td>
+                                        <td><input type="text" name="food1" placeholder="Take with food"
+                                                class="formInput inputValue"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" list="dr" name="medicine2"
+                                                placeholder="Enter Medicine" />
+                                            <datalist id="dr">
+                                                <option value="Paracetamol">Paracetamol</option>
+                                                <option value="Citrazine">Citrazine</option>
+                                            </datalist>
+                                        </td>
+                                        <td><input type="number" name="mg2" value="1" class="formInput inputValue"> mg
+                                        </td>
+                                        <td><input type="number" name="dose2" value="1" class="formInput inputValue">
+                                            daily
+                                        </td>
+                                        <td><input type="number" name="days2" value="7" class="formInput inputValue">
+                                            days
+                                        </td>
+                                        <td><input type="text" name="food2" value="Take with food"
+                                                class="formInput inputValue"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" list="dr" name="medicine3"
+                                                placeholder="Enter Medicine" />
+                                            <datalist id="dr">
+                                                <option value="Paracetamol">Paracetamol</option>
+                                                <option value="Citrazine">Citrazine</option>
+                                            </datalist>
+                                        </td>
+                                        <td><input type="number" name="mg3" placeholder="1"
+                                                class="formInput inputValue"> mg
+                                        </td>
+                                        <td><input type="number" name="dose3" placeholder="1"
+                                                class="formInput inputValue"> daily
+                                        </td>
+                                        <td><input type="number" name="days3" placeholder="7"
+                                                class="formInput inputValue"> days
+                                        </td>
+                                        <td><input type="text" name="food3" placeholder="Take with food"
+                                                class="formInput inputValue"></td>
+                                    </tr>
+                                </table>
+                                <input type="button" value="Add Bottom" onclick="addRow()">
 
-                            <p><strong>Prescribed by:</strong> {{drname}}</p>
-                            <p><strong>Date: </strong></span><span id="date"
-                                    class="formInput"> March 9, 2023</span></p>
-                            <input type="submit" class="btn" value="Submit" />
+                                <p><strong>Prescribed by:</strong> {{drname}}</p>
+                                <p><strong>Date: </strong></span><span id="date" class="formInput"> March 9, 2023</span>
+                                </p>
+                                <input type="submit" class="btn" value="Submit" />
                         </main>
                         <footer>
                             <h3>Instructions :</h3>
@@ -205,20 +226,14 @@
                                 name="Text" id="text"></textarea>
                         </footer>
                     </div>
-<!--                    <div class="footer_buttons">-->
-<!--                        <a href="./documents.html">-->
-<!--                            <button>Submit</button>-->
-<!--                        </a>-->
-<!--                    </div>-->
                 </div>
             </div>
 
             </form>
         </main>
-        <!-- MAIN -->
     </section>
-    <!-- CONTENT -->
 
+    <!-- JS files -->
     <script src="../../static/js/dashboard.js"></script>
     <script src="../../static/js/date.js"></script>
     <script src="../../static/js/main.js"></script>

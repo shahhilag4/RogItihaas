@@ -4,12 +4,12 @@
 
 
 <h1 align="center">Rogithaas</h1>
-<h3 align="center">Creating an online health card to completely transform the way we manage healthcare in India.</h3>
+<h3 align="center">Creating an online xwntralized health system to completely transform the way we manage healthcare in India.</h3>
 <br><br>
 <p align="center" style="margin-top:10px">
 <hr>
 
-<h2 align="center"><strong>Our Mission</strong> - To Make India's all रोग an इतिहास</h2>
+<h2 align="center"><strong>Our Mission</strong> - To Make India's all रोग an इतिहास and provide India a centralized platform to do so</h2>
 
 <hr>
 <h3 align="center">
@@ -97,11 +97,14 @@ Two additional sections in the patient is the diagnosis section, wherein patient
 <br>
 <br>
 
-<!-- 
-<h4 align="center"><b>Video Demonstartion can be found<a href="#">here</a>.</b></h4>
+
+<h4 align="center"><b>Video Demonstartion can be found<a href="https://youtu.be/3EVEM0wBYlc">here</a>.</b></h4>
 <br>
 <br>  
--->
+
+<h4 align="center"><b>The deployed application can be found here<a href="https://rogitihaas.onrender.com/">here</a>.</b></h4>
+<br>
+<br> 
 
 <hr>
 <h3 align="center">Tech stack</h3>

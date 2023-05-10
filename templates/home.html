@@ -1,3 +1,5 @@
+<!-- Rogitihaas HomePage -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,23 +7,29 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="../static/css/card-flip.css">
+    <!-- Font Import -->
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Serif&family=Noto+Serif+JP&family=Roboto:wght@300&display=swap"
         rel="stylesheet" />
+    <!-- Fontawesome Import -->
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
-        <link rel="stylesheet" href="../static/css/card-flip.css">
-
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
     <title>रोगइतिहास</title>
 </head>
 
 <body>
     <section id="HOME">
+        <!-- Navbar/Header -->
         <header>
-            <a href="#" class="logo"><img src="../static/img/logo.png" alt="logo" /></a>
+            <a href="/" class="logo"><img src="../static/img/logo.png" alt="logo" /></a>
             <div class="toggle" onclick="toggleMenu();"></div>
             <ul class="menu">
                 <li><a href="/patientsignin" onclick="toggleMenu();">Patient Login</a></li>
@@ -29,9 +37,11 @@
                 <li><a href="/pharmacysignin" onclick="toggleMenu();">Pharmacy Login</a></li>
             </ul>
         </header>
+        <!-- Box1 - Sample Healthcard -->
         <div class="box1">
             <div class="box1-content">
-                <h3 class="head2">"Creating an online health card to completely transform the way we manage healthcare in India"</h3>
+                <h3 class="head2">"Creating an online health card to completely transform the way we manage healthcare
+                    in India"</h3>
             </div>
             <div class="center">
                 <div class="flip-card">
@@ -47,33 +57,35 @@
                 </div>
             </div>
         </div>
+        <!-- Box2 - Video Demonstartion of Our Application -->
         <section class="box2" id="ABOUT">
             <div class="box2-heading">
                 <h3 class="head3">Introduction to Our Application</h3>
             </div>
             <div class="container">
                 <div class="pic center">
-
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/3EVEM0wBYlc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/3EVEM0wBYlc"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
                 </div>
             </div>
         </section>
+        <!-- Footer -->
         <footer class="footer" id="CONTACTUS">
             <div class="container2">
                 <div class="row">
-					<div class="footer-col">
-						<h3>Contact us</h3>
-						<div class="social-links">
-							
-							<a style="padding: 0;" href="https://github.com/shahhilag4/RogItihaas" target="_blank"><i class="fab fa-github"></i></a>
-							<a style="padding: 0;" href="https://www.instagram.com/samparkplasma/" target="_blank"><i class="fa fa-mobile"></i></a>
-							
-						</div>
-					</div>
-				</div>
+                    <div class="footer-col">
+                        <h3>Contact us</h3>
+                        <div class="social-links">
+                            <a style="padding: 0;" href="https://github.com/shahhilag4/RogItihaas" target="_blank"><i
+                                    class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </footer>
+        <!-- JS files -->
         <script src="../static/js/dashboard.js"></script>
         <script src="../static/js/java.js"></script>
 </body>

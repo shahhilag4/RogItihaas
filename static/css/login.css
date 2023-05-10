@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+/* Login styles */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
 * {
   margin: 0;
@@ -6,11 +8,10 @@
   box-sizing: border-box;
 }
 
-:root
-{
-  --orange: #FD7238;
-  --blue: #3C91E6;
-  --success:#228B22
+:root {
+  --orange: #fd7238;
+  --blue: #3c91e6;
+  --success: #228b22;
 }
 
 body,
@@ -247,14 +248,14 @@ form.sign-in-form {
   pointer-events: all;
 }
 
-.india-orange{
-	color: var(--orange);
+.india-orange {
+  color: var(--orange);
 }
-.india-blue{
-	color: var(--blue);
+.india-blue {
+  color: var(--blue);
 }
-.india-green{
-	color: var(--success);
+.india-green {
+  color: var(--success);
 }
 
 @media (max-width: 870px) {
