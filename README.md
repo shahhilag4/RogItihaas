@@ -100,10 +100,8 @@ Two additional sections in the patient is the diagnosis section, wherein patient
 
 <h4 align="center"><b>Video Demonstartion can be found<a href="https://youtu.be/3EVEM0wBYlc">here</a>.</b></h4>
 <br>
-<br>  
 
 <h4 align="center"><b>The deployed application can be found here<a href="https://rogitihaas.onrender.com/">here</a>.</b></h4>
-<br>
 <br> 
 
 <hr>
