@@ -1,0 +1,148 @@
+<!-- Patient-Doctor Dashboard -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/consent.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+
+	<title>रोगइतिहास - Patient Dashboard</title>
+</head>
+
+<body>
+
+
+	<!-- Sidevar -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class="fa-solid">
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+			</i>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="/doctorpatientdashboard">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/documents/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Previous Prescriptions</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/reports/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Previous Reports</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/patdrhealthcard/{{aadhar}}">
+					<i class="fa-solid fa-address-card"></i>
+					<span class="text">Health Card</span>
+				</a>
+			</li>
+
+			<li class="active">
+				<a href="/consent/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="/writeprescription/{{name}}/{{aadhar}}">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Write Prescription</span>
+				</a>
+			</li>
+			<li>
+				<a href="/doctorsignin" class="logout">
+					<i class="fa-solid fa-right-from-bracket"></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+	<!-- Content -->
+	<section id="content">
+		<!-- Navbar -->
+		<nav>
+			<i class="fa-solid fa-bars"></i>
+			<form action="#"></form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="profile">
+				<img src="../../static/img/rishi.jpg">
+			</a>
+		</nav>
+
+		<!-- Main -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Medical Consent Form</h1>
+				</div>
+			</div>
+			
+			<div class="table-data">
+				
+				<div class="order">
+					<h3><strong>Note </strong> : Every Guardian must have a valid aadhar card</h3>
+					<form id="consent-form">
+						<label for="patient-name">Patient Name:</label>
+						<input type="text" id="patient-name" name="patient-name" required>
+				
+						<label for="guardian-name">Guardian Name:</label>
+						<input type="text" id="guardian-name" name="guardian-name" required>
+
+						<label for="guardian-aadhaar">Guardian Aadhar Card Number:</label>
+						<input type="text" id="guardian-aadhaar" name="guardian-aadhaar" required>
+				
+						<label for="emergency-contact-phone">Emergency Contact Phone:</label>
+						<input type="tel" id="emergency-contact-phone" name="emergency-contact-phone" required>		
+						<label for="consent-decision">In the event of a medical emergency, I give permission to the doctor {{drname}} to make decisions for and/or provide care for the patient.<br /><br />I understand that during a medical emergency there may not be time to contact a guardian prior to action being taken and that this is in the best interest of the patient. I understand that I will be notified of any emergency as soon as possible. These decisions may include:</label>
+				
+						<ul>
+							<li><input type="checkbox" id="emergency-transportation" name="emergency-transportation" value="Emergency transportation (i.e. ambulance)"> <label for="emergency-transportation">Emergency transportation (i.e. ambulance)</label></li>
+							<li><input type="checkbox" id="emergency-treatment" name="emergency-treatment" value="Permission for emergency personnel to provide treatment (i.e. EMT/Emergency Room staff)"> <label for="emergency-treatment">Permission for emergency personnel to provide treatment (i.e. EMT/Emergency Room staff)</label></li>
+							<li><input type="checkbox" id="first-aid" name="first-aid" value="Permission for staff trained in First Aid to provide treatment until other emergency personnel arrive."> <label for="first-aid">Permission for staff trained in First Aid to provide treatment until other emergency personnel arrive.</label></li>
+							<li><input type="checkbox" id="directing-transportation" name="directing-transportation" value="Directing emergency transportation to the closest hospital (the parents’ choice of hospital will always tried to be honored unless the situation dictates otherwise, i.e. field trip out of area)."> <label for="directing-transportation">Directing emergency transportation to the closest hospital (the parents’ choice of hospital will always tried to be honored unless the situation dictates otherwise, i.e. field trip out of area).</label></li>
+						</ul>
+				
+						<label for="signature">Guardian Signature:</label>
+						<input type="text" id="signature" name="signature" required>
+						<label class="date" for="date">Date:</label>
+						<span id="date" class="formInput"> March 9, 2023</span>
+						<button type="submit">Submit</button>
+					</form>
+				</div>
+			</div>
+
+
+		</main>
+	</section>
+
+	<!-- JS files -->
+	<script src="../../static/js/dashboard.js"></script>
+	<script src="../../static/js/date.js"></script>
+	<script src="../../static/js/consent.js"></script>
+</body>
+
+</html>

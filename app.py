@@ -305,6 +305,12 @@ def prescription_template():
                                           statecountry=exist["statecountry"], phone=exist["phone"])
     return render_template("login.html")
 
+# @app.route('/consent/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
+# def consent(aadhar,drname):
+#     if 'doctor' in session:
+#         if request.method == 'POST':
+#             return render_template("patient-doctor/consent.html")
+#     return render_template("login.html")
 
 @app.route("/drsettings", methods=["POST", "GET"])
 def drsettings():

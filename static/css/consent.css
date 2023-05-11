@@ -1,0 +1,79 @@
+.container {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 50px 20px;
+}
+
+h1 {
+	text-align: center;
+	margin-top: 20px;
+}
+h3 {
+	text-align: center;
+	margin-bottom: 20px;
+	color:red;
+}
+.date
+{
+	display: inline;
+}
+
+#consent-form {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="date"] {
+	display: block;
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+li {
+	margin-bottom: 10px;
+}
+
+button[type="submit"] {
+	display: block;
+	margin: 20px auto 0;
+	padding: 10px 20px;
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+button[type="submit"]:hover {
+	background-color: #3e8e41;
+}
+
+@media only screen and (max-width: 600px) {
+	form {
+		padding: 10px;
+	}
+}
