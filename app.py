@@ -384,7 +384,6 @@ def patientsignup():
             data = patientmedicaldetail.find({"aadhar": aadhar})
 
             for row in data:
-                name: row["name"]
                 files.append({
                     "name": row["name"],
                     "doctor": row['drname'],
@@ -393,7 +392,7 @@ def patientsignup():
                     "draadhar": row["draadhar"],
                 })
 
-            return render_template('patient/dashboard.html', files=files)
+            return render_template('patient/dashboard.html', files=files,name=name)
         message = "User Already Exist"
         return render_template("patientLogin.html", message=message)
     return render_template("patientLogin.html")
@@ -414,8 +413,8 @@ def patientdashboard():
                 "presname": row["presname"],
                 "draadhar": row["draadhar"],
             })
-
-        return render_template('patient/dashboard.html', files=files)
+        data2=patientdetail.find_one({"aadhar": session["patient"]})
+        return render_template('patient/dashboard.html', files=files,name=data2['name'])
     return render_template("patientLogin.html")
 
 
@@ -452,7 +451,7 @@ def patientsignin():
                 session['patient'] = aadhar
                 files = []
                 data = patientmedicaldetail.find({"aadhar": aadhar})
-
+                print(data)
                 for row in data:
                     name: row["name"]
                     files.append({
@@ -462,8 +461,8 @@ def patientsignin():
                         "presname": row["presname"],
                         "draadhar": row["draadhar"],
                     })
-
-                return render_template('patient/dashboard.html', files=files)
+                data2=patientdetail.find_one({"aadhar": session["patient"]})
+                return render_template('patient/dashboard.html', files=files,name=data2['name'])
 
         message = "Invalid Credentials"
         return render_template('patientLogin.html', message=message)
