@@ -13,7 +13,7 @@ h3 {
 	margin-bottom: 20px;
 	color:red;
 }
-.date
+.date,.drname
 {
 	display: inline;
 }
@@ -28,7 +28,6 @@ h3 {
 }
 
 label {
-	display: block;
 	margin-bottom: 5px;
 	font-weight: bold;
 }
