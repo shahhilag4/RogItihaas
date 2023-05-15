@@ -16,22 +16,33 @@ sign_in_btn.addEventListener("click", () => {
 const radioButtons = document.querySelectorAll('input[type="radio"]');
 const aadhaarInput = document.querySelector('input[name="patientaadhar1"]');
 const exampleDiv = document.getElementById('example');
+const aadhaarDialog = document.getElementById('alert-button');
+
+console.log(aadhaarDialog);
 
 function updatePlaceholder() {
   if (radioButtons[0].checked) {
-    console.log(radioButtons[0].value);
-    console.log(aadhaarInput.placeholder);
     aadhaarInput.placeholder = "Aadhaar Card Number of Father + DOB";
     exampleDiv.style.display = 'block';
+    aadhaarDialog.style.display = 'block';
   } else {
-    console.log(radioButtons[1].value);
     aadhaarInput.placeholder = "Aadhaar Card Number";
     exampleDiv.style.display = 'none';
+    aadhaarDialog.style.display = 'none';
   }
 }
 
 radioButtons.forEach((radio) => {
   radio.addEventListener('change', updatePlaceholder);
-  console.log(radio);
 });
+
+const modal = document.getElementById("aadhaar-dialog");
+
+function showAlert() {
+  modal.style.display = "block";
+}
+
+function hideAlert() {
+  modal.style.display = "none";
+}
 

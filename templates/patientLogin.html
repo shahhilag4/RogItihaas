@@ -34,6 +34,22 @@
           <input type="submit" value="Login" class="btn solid" />
         </form>
         <form action="/patientsignup" class="sign-up-form" method="POST">
+          <div id="aadhaar-dialog" class="modal" style="display: none;">
+            <div class="modal-content">
+              <button type="button" class="close" onclick="hideAlert()">X</button>
+              <strong>Instructions</strong>
+              <hr />
+              <ul>
+                <li>
+                  If you do not have an aadhaar and are undergoing a medical emergency we
+                  provide a temporary health card with a validity of 3 months.
+                </li>
+                <li> We recommend to Sign Up using the aadhaar card.</li>
+                <li>You can find information about applying for aadhaar card using the link: https://uidai.gov.in/</li>
+              </ul>
+            </div>
+          </div>
+          <button id="alert-button" onclick="showAlert()">Instructions</button>
           <h2 class="title">Patient Sign Up</h2>
           <div>
             <label>
@@ -53,9 +69,11 @@
             <i class="fas fa-user"></i>
             <input type="year" placeholder="Aadhar Card Number" name="patientaadhar1" required />
           </div>
-          <div id="example" style="display: none; margin-top: 10px;">
-            Example: Aadhaar Card Number = 1022 1022 1022 + DOB = 09/02/2001 => 10221022102209022001 
+          <div id="example" style="display: none;">
+            <span>Example:</span>
+            <code>1022 1022 1022</code> (Aadhaar Card Number Of Father) + <code>09/02/2001</code> (DOB) => <code>10221022102209022001</code>
           </div>
+          
           <div class="input-field">
             <i class="fas fa-lock"></i>
             <input type="password" placeholder="Password" name="patientpassword" required />
