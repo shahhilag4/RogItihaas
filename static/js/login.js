@@ -39,6 +39,7 @@ radioButtons.forEach((radio) => {
 const modal = document.getElementById("aadhaar-dialog");
 
 function showAlert() {
+  event.preventDefault();
   modal.style.display = "block";
 }
 
