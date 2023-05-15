@@ -579,26 +579,74 @@ button:hover {
 }
 
  /* Modal styles */
- .modal {
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+.modal {
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
-  backdrop-filter: blur(5px); /* Blur the background */
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
 }
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   max-width: 500px;
+  padding: 20px;
+  width: 80%;
+  margin: auto;
+  margin-top: 15%;
 }
+
+.input-field {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-field label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-field input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.input-field input:focus {
+  outline: none;
+  border-bottom: 1px solid #3498db;
+}
+
+.input-field button {
+  display: block;
+  margin-top: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #3498db;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+h2
+{
+  margin-bottom: 1rem;
+}
+
+.input-field button:hover {
+  background-color: #2980b9;
+}
+
 
 /* MAIN */
 /* CONTENT */
