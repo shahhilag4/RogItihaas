@@ -1,15 +1,15 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from pymongo import MongoClient
 from datetime import datetime
-
 import bcrypt
 import os
 import pyqrcode
+from aadhaar import get_details
 
 app = Flask(__name__)
 app.secret_key = "@13@6$$#ddfccv"
 
-client = "mongodb+srv://project:hrithik1234@cluster0.yoorx.mongodb.net/?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE"
+client = "mongodb+srv://project:hrithik1234@cluster0.yoorx.mongodb.net/?retryWrites=true&w=majority"
 cluster = MongoClient(client)
 
 dbPatient = cluster["Patient"]
@@ -358,7 +358,7 @@ def uploadreport(name, aadhar):
         drexist = doctordetail.find_one({"aadhar": session['doctor']})
         data = patientmedicaldetail.find_one({"aadhar": aadhar})
         return render_template("patient-doctor/reports.html", files=files, aadhar=aadhar, name=data["name"],
-                           drname=drexist["name"])
+                          drname=drexist["name"])
     return render_template("login.html")
 
 
@@ -366,35 +366,70 @@ def uploadreport(name, aadhar):
 @app.route('/patientsignup', methods=['POST', 'GET'])
 def patientsignup():
     if request.method == 'POST':
-        name = request.form['patientname']
-        aadhar = request.form['patientaadhar1']
-        email = request.form['patientemail']
-        exist = patientdetail.find_one({'aadhar': aadhar})
-        if exist is None:
-            hashpass = bcrypt.hashpw(request.form['patientpassword'].encode('utf-8'), bcrypt.gensalt())
-            patientdetail.insert_one({'name': name, 'aadhar': aadhar, 'email': email, 'password': hashpass})
-            s = "http://34.28.38.229/patientsignup"
-            url = pyqrcode.create(s)
-            path = "static/img/qrcode/"+aadhar+".png"
-            url.png(path, scale=6)
+        radio = request.form['patienttype']
+        print(radio)
+        if radio=='aadhaar_card':
+            print("cdddddddddd")
+            aadhar = request.form['patientaadhar1']
+            print(aadhar)
+            email = request.form['patientemail']
+            data=get_details(aadhar)
+            exist=patientdetail.find_one({'aadhar':aadhar})
+            if len(data)>1 and exist is None:
+                hashpass = bcrypt.hashpw(request.form['patientpassword'].encode('utf-8'), bcrypt.gensalt())
+                patientdetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender':data['gender'], 'DOB':data['dob'], 'age':data['age'],'address':data['address'], 'mobile':data['mobile'], 'email':email,'password': hashpass})
+                s = "http://34.28.38.229/patientsignup"
+                url = pyqrcode.create(s)
+                path = "static/img/qrcode/"+aadhar+".png"
+                url.png(path, scale=6)
 
-            session['patient'] = aadhar
+                session['patient'] = aadhar
 
-            files = []
-            data = patientmedicaldetail.find({"aadhar": aadhar})
+                files = []
+                pData = patientmedicaldetail.find({"aadhar": aadhar})
 
-            for row in data:
-                files.append({
-                    "name": row["name"],
-                    "doctor": row['drname'],
-                    "todaydate": row['todaydate'],
-                    "presname": row["presname"],
-                    "draadhar": row["draadhar"],
-                })
+                for row in pData:
+                    files.append({
+                        "name": row["name"],
+                        "doctor": row['drname'],
+                        "todaydate": row['todaydate'],
+                        "presname": row["presname"],
+                        "draadhar": row["draadhar"],
+                    })
+                return render_template('patient/dashboard.html', files=files,name=data['name'],address=data['address'],mobile=data['mobile'],infant='No')
+            message = "Aadhar Record not found"
+            return render_template("patientLogin.html", message=message)
+        elif radio=='no_aadhaar_card':
+            aadhar = request.form['patientaadhar1']
+            email = request.form['patientemail']
+            sliceAadhar=aadhar[0:12]
 
-            return render_template('patient/dashboard.html', files=files,name=name)
-        message = "User Already Exist"
-        return render_template("patientLogin.html", message=message)
+            data=get_details(sliceAadhar)
+            exist=patientdetail.find_one({'aadhar':sliceAadhar})
+            if len(data)>1 and exist is None:
+                hashpass = bcrypt.hashpw(request.form['patientpassword'].encode('utf-8'), bcrypt.gensalt())
+                patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender':data['gender'], 'DOB':data['dob'], 'age':data['age'],'address':data['address'], 'mobile':data['mobile'], 'email':email,'password': hashpass})
+                s = "http://34.28.38.229/patientsignup"
+                url = pyqrcode.create(s)
+                path = "static/img/qrcode/"+aadhar+".png"
+                url.png(path, scale=6)
+
+                session['patient'] = aadhar
+
+                files = []
+                pData = patientmedicaldetail.find({"aadhar": sliceAadhar})
+
+                for row in pData:
+                    files.append({
+                        "name": row["name"],
+                        "doctor": row['drname'],
+                        "todaydate": row['todaydate'],
+                        "presname": row["presname"],
+                        "draadhar": row["draadhar"],
+                    })
+                return render_template('patient/dashboard.html', files=files,name=data['name'],address=data['address'],mobile=data['mobile'],infant='Yes')
+            message = "Aadhar Record not found"
+            return render_template("patientLogin.html", message=message)
     return render_template("patientLogin.html")
 
 
@@ -414,7 +449,7 @@ def patientdashboard():
                 "draadhar": row["draadhar"],
             })
         data2=patientdetail.find_one({"aadhar": session["patient"]})
-        return render_template('patient/dashboard.html', files=files,name=data2['name'])
+        return render_template('patient/dashboard.html', files=files,name=data2['name'],address=data2['address'],mobile=data2['mobile'])
     return render_template("patientLogin.html")
 
 
@@ -451,7 +486,6 @@ def patientsignin():
                 session['patient'] = aadhar
                 files = []
                 data = patientmedicaldetail.find({"aadhar": aadhar})
-                print(data)
                 for row in data:
                     name: row["name"]
                     files.append({
@@ -462,7 +496,7 @@ def patientsignin():
                         "draadhar": row["draadhar"],
                     })
                 data2=patientdetail.find_one({"aadhar": session["patient"]})
-                return render_template('patient/dashboard.html', files=files,name=data2['name'])
+                return render_template('patient/dashboard.html', files=files,name=data2['name'],address=data2['address'],mobile=data2['mobile'])
 
         message = "Invalid Credentials"
         return render_template('patientLogin.html', message=message)

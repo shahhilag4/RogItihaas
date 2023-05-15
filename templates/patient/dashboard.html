@@ -108,28 +108,20 @@
 				<li class="block-list">
 					<span class="text-flex">
 						<h4>Name :</h4>
-						<span class="margining">{{name}}</span>
+						<span class="margining">{% if infant=='Yes' %}
+							Son of {{name}}
+						{% else %}
+							{{name}}
+						{% endif %}
+							</span>
 					</span>
 					<span class="text-flex">
-						<h4>Street :</h4>
-						<span class="margining">Blue Ridge, Hinjewadi</span>
+						<h4>Address :</h4>
+						<span class="margining">{{address}}</span>
 					</span>
 					<span class="text-flex">
-						<h4>City :</h4>
-						<span class="margining">Pune</span>
-					</span>
-					<span class="text-flex">
-						<h4>State :</h4>
-						<span class="margining">Maharashtra</span>
-					</span>
-					<span class="text-flex">
-						<h4>Pincode :</h4>
-						<span class="margining">411018</span>
-					</span>
-					<br>
-					<span class="text-flex">
-						<h4>Emergency Contact :</h4>
-						<span class="margining">8765632134</span>
+						<h4>Contact :</h4>
+						<span class="margining">{{mobile}}</span>
 					</span>
 				</li>
 			</ul>
