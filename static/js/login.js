@@ -47,3 +47,45 @@ function hideAlert() {
   modal.style.display = "none";
 }
 
+// select the form element
+const form = document.querySelector('.sign-up-form');
+
+// select the radio buttons
+const withAadhaarRadio = document.querySelector('input[value="aadhaar_card"]');
+const withoutAadhaarRadio = document.querySelector('input[value="no_aadhaar_card"]');
+
+// add event listener to form submit event
+form.addEventListener('submit', function(event) {
+  // prevent form from submitting
+  event.preventDefault();
+
+  // get the input value and selected radio button value
+  const aadhaarInput = document.querySelector('input[name="patientaadhar1"]');
+  const selectedRadio = document.querySelector('input[name="patienttype"]:checked');
+
+  // check if the selected radio is "Without aadhaar card"
+  if (selectedRadio.value === 'no_aadhaar_card') {
+    // validate the input using regex
+    const regex = /^\d{20}$/;
+    if (regex.test(aadhaarInput.value)) {
+      // submit the form if validation passes
+      form.submit();
+    } else {
+      // display error message if validation fails
+      alert('Aadhaar card number should be 20 digits long.');
+    }
+  } else {
+    // validate the input using regex
+    const regex = /^\d{12}$/;
+    if (regex.test(aadhaarInput.value)) {
+      // submit the form if validation passes
+      form.submit();
+    } else {
+      // display error message if validation fails
+      alert('Aadhaar card number should be 12 digits long.');
+    }
+  }
+
+});
+
+
