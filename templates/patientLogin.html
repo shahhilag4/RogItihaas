@@ -25,7 +25,7 @@
           <h2 class="title">Patient Sign In</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Aadhar Card" name="patientaadhar" required />
+            <input type="text" placeholder="Aadhar Card Number" name="patientaadhar" required />
           </div>
           <div class="input-field">
             <i class="fas fa-lock"></i>
@@ -35,17 +35,26 @@
         </form>
         <form action="/patientsignup" class="sign-up-form" method="POST">
           <h2 class="title">Patient Sign Up</h2>
-          <div class="input-field">
-            <i class="fas fa-address-card"></i>
-            <input type="text" placeholder="Patient Registered Name" name="patientname" required />
-          </div>
+          <div>
+            <label>
+              <input type="radio" name="patienttype" value="no_aadhaar_card" />
+              Without aadhaar card
+            </label>
+            <label>
+              <input type="radio" name="patienttype" value="aadhaar_card" checked />
+              With aadhaar card
+            </label>
+          </div>          
           <div class="input-field">
             <i class="fas fa-briefcase-medical"></i>
             <input type="email" placeholder="Patient Email" name="patientemail" required />
           </div>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="year" placeholder="Aadhar Card Number" name="patientaadhar" required />
+            <input type="year" placeholder="Aadhar Card Number" name="patientaadhar1" required />
+          </div>
+          <div id="example" style="display: none; margin-top: 10px;">
+            Example: Aadhaar Card Number = 1022 1022 1022 + DOB = 09/02/2001 => 10221022102209022001 
           </div>
           <div class="input-field">
             <i class="fas fa-lock"></i>

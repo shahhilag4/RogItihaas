@@ -367,7 +367,7 @@ def uploadreport(name, aadhar):
 def patientsignup():
     if request.method == 'POST':
         name = request.form['patientname']
-        aadhar = request.form['patientaadhar']
+        aadhar = request.form['patientaadhar1']
         email = request.form['patientemail']
         exist = patientdetail.find_one({'aadhar': aadhar})
         if exist is None:
