@@ -336,7 +336,7 @@ form.sign-in-form {
 
   .container.sign-up-mode:before {
     transform: translate(-50%, 100%);
-    bottom: 32%;
+    bottom: 26%;
     right: initial;
   }
 
@@ -415,7 +415,7 @@ form.sign-in-form {
 
 
 #example {
-  width: 80%;
+  width: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -453,6 +453,10 @@ form.sign-in-form {
   .container:before {
     bottom: 72%;
     left: 50%;
+  }
+  #example
+  {
+    width: 52%;
   }
 
   .container.sign-up-mode:before {
