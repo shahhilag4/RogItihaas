@@ -1,4 +1,4 @@
-<!-- Patient-Doctor Reports -->
+<!-- Patient Track Delivery -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
-	<title>रोगइतिहास - Patient Medical Records</title>
+	<title>रोगइतिहास - Pharmacy Delivery</title>
 </head>
 
 <body>
@@ -30,46 +30,57 @@
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="/doctorpatientdashboard">
+				<a href="/patientdashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="/documents/{{drname}}/{{aadhar}}">
+				<a href="/patientdocuments">
 					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Previous Prescriptions</span>
+					<span class="text">Medical Records</span>
 				</a>
 			</li>
-
+			<li>
+				<a href="/patienthealthcard">
+					<i class="fa-solid fa-address-card"></i>
+					<span class="text">Health Card</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientdiagnosis">
+					<i class="fa-solid fa-message"></i>
+					<span class="text">Diagonsis</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientoredermed">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Order Medicine</span>
+				</a>
+			</li>
+			<li>
+				<a href="./deliverytrack.html">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Delivery Tracking</span>
+				</a>
+			</li>
 			<li class="active">
-				<a href="/reports/{{drname}}/{{aadhar}}">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Previous Reports</span>
-				</a>
-			</li>
-			<li>
-				<a href="./consentlist.html">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Consent List</span>
-				</a>
-			</li>
-			<li>
-				<a href="/consent/{{drname}}/{{aadhar}}">
-					<i class="fa-solid fa-folder-open"></i>
+				<a href="./consent.html">
+					<i class="fa-solid fa-tablets"></i>
 					<span class="text">Consent</span>
 				</a>
 			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="/writeprescription/{{name}}/{{aadhar}}">
-					<i class="fa-solid fa-tablets"></i>
-					<span class="text">Write Prescription</span>
+				<a href="/patientsettings">
+					<i class="fa-solid fa-gear"></i>
+					<span class="text">Settings</span>
 				</a>
 			</li>
 			<li>
-				<a href="/doctorsignin" class="logout">
+				<a href="/logout" class="logout">
 					<i class="fa-solid fa-right-from-bracket"></i>
 					<span class="text">Logout</span>
 				</a>
@@ -82,7 +93,8 @@
 		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
-			<form action="#"></form>
+			<form action="#">
+			</form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
@@ -94,55 +106,39 @@
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Previous Medical Reports</h1>
+					<h1>Medicines</h1>
 				</div>
 			</div>
 
 			<div class="table-data">
 				<div class="order">
 					<div class="head">
-
-						<strong>Upload Report : </strong>
-						<form action="/reports/{{name}}/{{aadhar}}" method="POST" enctype="multipart/form-data">
-							<input type="text" name="docname" placeholder="Enter Document Name" required>
-							<input class="upload" type="file" name="file" required>
-							<input type="submit" value="Upload">
-						</form>
-
-						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name"
-							onkeyup="searchDoc()">
+						<h3></h3>
+						<input type="search" class="search-1" placeholder="Search Medicine Name">
 						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</div>
 					<table>
 						<thead>
 							<tr>
 								<th>S.No</th>
-								<th>Document Name</th>
-								<th>Date</th>
-								<th>Uploaded By</th>
-								<th>View</th>
-								<th>Delete</th>
-								<th>Report</th>
-								<th>Download</th>
+								<th>Patient Name</th>
+								<th>Consent</th>
+								<th>Status</th>
 							</tr>
 						</thead>
-						<tbody id="tableBody1">
-							{% for data in files %}
+						<tbody>
 							<tr>
 								<td>
-									<p>{{loop.index}}</p>
+									<p>1</p>
 								</td>
 								<td>
-									<p>{{data.presname}}</p>
+									<p>Hrithik</p>
 								</td>
-								<td>{{data.todaydate}}</td>
-								<td class="drname">{{data.doctor}}</td>
-								<td><button class="status success">View</button></td>
-								<td><button class="status danger">Delete</button></td>
-								<td><i class="fa-sharp fa-solid fa-circle-exclamation"></i></td>
-								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
+								<td><a href="./accept_consent.html"><button class="status success">View</button></a></td>
+								<td>
+									<p>Waiting for approval</p>
+								</td>
 							</tr>
-							{% endfor %}
 						</tbody>
 					</table>
 				</div>
@@ -151,7 +147,6 @@
 	</section>
 
 	<!-- JS files -->
-	<script src="../../static/js/click.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 </body>
 

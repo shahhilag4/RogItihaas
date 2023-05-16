@@ -1,8 +1,8 @@
-<!-- Patient-Doctor Healthcard -->
+<!-- Patient Track Delivery -->
 
 <!DOCTYPE html>
 <html lang="en">
-	
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +10,10 @@
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
-	<link rel="stylesheet" href="../../static/css/card-flip.css">
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
-	<title>रोगइतिहास - Patient Health Card</title>
+	<title>रोगइतिहास - Pharmacy Delivery</title>
 </head>
 
 <body>
@@ -49,14 +48,12 @@
 					<span class="text">Previous Reports</span>
 				</a>
 			</li>
-
 			<li class="active">
-				<a href="/patdrhealthcard/{{aadhar}}">
-					<i class="fa-solid fa-address-card"></i>
-					<span class="text">Health Card</span>
+				<a href="./consentlist.html">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent List</span>
 				</a>
 			</li>
-
 			<li>
 				<a href="/consent/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
@@ -66,13 +63,13 @@
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="/writeprescription/{{name}}/{{aadhar}}">
-					<i class="fa-solid fa-tablets"></i>
-					<span class="text">Write Prescription</span>
+				<a href="/patientsettings">
+					<i class="fa-solid fa-gear"></i>
+					<span class="text">Settings</span>
 				</a>
 			</li>
 			<li>
-				<a href="/doctorsignin" class="logout">
+				<a href="/logout" class="logout">
 					<i class="fa-solid fa-right-from-bracket"></i>
 					<span class="text">Logout</span>
 				</a>
@@ -85,7 +82,8 @@
 		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
-			<form action="#"></form>
+			<form action="#">
+			</form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
@@ -97,24 +95,41 @@
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Health Card</h1>
+					<h1>Medicines</h1>
 				</div>
 			</div>
 
 			<div class="table-data">
 				<div class="order">
-					<div class="flip-card">
-						<div class="flip-card-inner">
-							<div class="flip-card-front">
-								<img src="../../static/img/Group_1.png" alt="Avatar" class="front-img">
-							</div>
-							<div class="flip-card-back">
-								<img src="../../static/img/qrcode/123456789.png" alt="qrcode" class="back-img"
-									id="back-img">
-								<h2 id="name"></h2>
-							</div>
-						</div>
+					<div class="head">
+						<h3></h3>
+						<input type="search" class="search-1" placeholder="Search Medicine Name">
+						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>S.No</th>
+								<th>Patient Name</th>
+								<th>Consent</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<p>1</p>
+								</td>
+								<td>
+									<p>Hrithik</p>
+								</td>
+								<td><a href="./accept_consent.html"><button class="status success">View</button></a></td>
+								<td>
+									<p>Waiting for approval</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</main>
@@ -122,7 +137,6 @@
 
 	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
-	<script src="../../static/js/healthcard.js"></script>
 </body>
 
 </html>
