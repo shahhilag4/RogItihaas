@@ -53,7 +53,7 @@ Two additional sections in the patient is the diagnosis section, wherein patient
 <br>
 
 <div align="center">
-<img width="1200" alt="Logo1" src="https://user-images.githubusercontent.com/64307441/228084008-a3c8b7a2-a286-4886-8089-80c5945fefc9.jpg">
+<img width="1200" alt="Logo1" src="https://github.com/shahhilag4/RogItihaas/assets/64307441/15ea2214-41be-4d11-b3ef-5e08f338f179">
 </div>
 
 <hr>
