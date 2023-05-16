@@ -102,10 +102,8 @@
 			</div>
 
 			<div class="table-data">
-				<div class="order">
-					<a href="/deliverytrack">
-						<button class="centering">Submit</button>
-					</a>
+				<input class="centering" type="button" onclick="printDiv('order')" value="Print Bill" />
+				<div id="order">
 					<header>
 						<h1>INVOICE</h1>
 						<address contenteditable>
@@ -172,6 +170,7 @@
 
 	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
+	<script src="../../static/js/print.js"></script>
 </body>
 
 </html>

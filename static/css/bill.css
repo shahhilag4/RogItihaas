@@ -242,10 +242,22 @@ aside h1 {
   border-bottom-style: solid;
 }
 
-/* javascript */
+
 .centering {
-  margin-left: 44%;
-  margin-bottom: 4%;
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.centering:hover {
+  background-color: #4b4949;
 }
 
 .add,
