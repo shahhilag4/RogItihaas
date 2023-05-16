@@ -24,11 +24,9 @@ function updatePlaceholder() {
   if (radioButtons[0].checked) {
     aadhaarInput.placeholder = "Aadhaar Card Number of Father + DOB";
     exampleDiv.style.display = 'block';
-    aadhaarDialog.style.display = 'block';
   } else {
     aadhaarInput.placeholder = "Aadhaar Card Number";
     exampleDiv.style.display = 'none';
-    aadhaarDialog.style.display = 'none';
   }
 }
 
