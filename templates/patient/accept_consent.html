@@ -31,48 +31,63 @@
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="/doctorpatientdashboard">
+				<a href="/patientdashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="/documents/{{drname}}/{{aadhar}}">
+				<a href="/patientdocuments">
 					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Previous Prescriptions</span>
+					<span class="text">Medical Records</span>
 				</a>
 			</li>
-
 			<li>
-				<a href="/reports/{{drname}}/{{aadhar}}">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Previous Reports</span>
-				</a>
-			</li>
-
-			<li>
-				<a href="/patdrhealthcard/{{aadhar}}">
+				<a href="/patienthealthcard">
 					<i class="fa-solid fa-address-card"></i>
 					<span class="text">Health Card</span>
 				</a>
 			</li>
-
-			<li class="active">
-				<a href="/consent/{{drname}}/{{aadhar}}">
-					<i class="fa-solid fa-folder-open"></i>
+			<li>
+				<a href="/patientdiagnosis">
+					<i class="fa-solid fa-message"></i>
+					<span class="text">Diagonsis</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientoredermed">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Order Medicine</span>
+				</a>
+			</li>
+			<li>
+				<a href="./deliverytrack.html">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Delivery Tracking</span>
+				</a>
+			</li>
+			<li>
+				<a href="./consent.html">
+					<i class="fa-solid fa-tablets"></i>
 					<span class="text">Consent</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="./accept_consent.html">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Accept consent</span>
 				</a>
 			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="/writeprescription/{{name}}/{{aadhar}}">
-					<i class="fa-solid fa-tablets"></i>
-					<span class="text">Write Prescription</span>
+				<a href="/patientsettings">
+					<i class="fa-solid fa-gear"></i>
+					<span class="text">Settings</span>
 				</a>
 			</li>
 			<li>
-				<a href="/doctorsignin" class="logout">
+				<a href="/logout" class="logout">
 					<i class="fa-solid fa-right-from-bracket"></i>
 					<span class="text">Logout</span>
 				</a>
@@ -107,6 +122,10 @@
 					<form id="consent-form">
 						<label class="drname" for="doctor_name">Doctor Name:</label>
 						<span id="drname" class="formInput">{{drname}}</span><br /><br />
+						<label class="drname" for="severity">Severity Score:</label>
+						<span id="drname" type="number" min="0" max="100" class="severity">20%</span><br /><br />
+						<label class="drname" for="doctor_name">Estimated Operation Cost:</label>
+						<span type="number" id="drname" class="formInput"></span>1200000₹<br /><br />
 						<label class="date" for="date">Date:</label>
 						<span id="date" class="formInput"> March 9, 2023</span><br /><br />
 						<label for="consent-decision">To Whomsoever It May Concern:</label>
@@ -121,7 +140,8 @@
 						<br />
 						<label for="signature">Guardian Signature:</label>
 						<input type="text" id="signature" name="signature" required>
-						<button type="submit">Send</button>
+						<button type="submit">Accept</button>
+						<button type="submit">Reject</button>
 					</form>
 				</div>
 			</div>

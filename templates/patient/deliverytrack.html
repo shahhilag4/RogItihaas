@@ -1,4 +1,4 @@
-<!-- Pharmacy Online Orders -->
+<!-- Patient Track Delivery -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,11 +13,10 @@
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
-	<title>रोगइतिहास - Pharmacy Online Orders</title>
+	<title>रोगइतिहास - Pharmacy Delivery</title>
 </head>
 
 <body>
-
 
 
 	<!-- Sidebar -->
@@ -31,37 +30,55 @@
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="#">
+				<a href="/patientdashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="/medicines">
+				<a href="/patientdocuments">
 					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Medicines</span>
+					<span class="text">Medical Records</span>
 				</a>
 			</li>
 			<li>
-				<a href="/deliverytrack">
-					<i class="fa-solid fa-truck"></i>
-					<span class="text">Delivery Track</span>
+				<a href="/patienthealthcard">
+					<i class="fa-solid fa-address-card"></i>
+					<span class="text">Health Card</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientdiagnosis">
+					<i class="fa-solid fa-message"></i>
+					<span class="text">Diagonsis</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientoredermed">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Order Medicine</span>
 				</a>
 			</li>
 			<li class="active">
-				<a href="/onlineorder">
-					<i class="fa-solid fa-message"></i>
-					<span class="text">Online Order</span>
+				<a href="./deliverytrack.html">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Delivery Tracking</span>
 				</a>
 			</li>
 			<li>
-				<a href="/offlineBilling">
-					<i class="fa-solid fa-address-card"></i>
-					<span class="text">Offline Billing</span>
+				<a href="./consent.html">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Consent</span>
 				</a>
 			</li>
 		</ul>
 		<ul class="side-menu">
+			<li>
+				<a href="/patientsettings">
+					<i class="fa-solid fa-gear"></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
 			<li>
 				<a href="/logout" class="logout">
 					<i class="fa-solid fa-right-from-bracket"></i>
@@ -77,10 +94,6 @@
 		<nav>
 			<i class="fa-solid fa-bars"></i>
 			<form action="#">
-				<div class="form-input">
-					<input type="search" placeholder="Search Patient">
-					<button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-				</div>
 			</form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
@@ -93,7 +106,7 @@
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Medical Records</h1>
+					<h1>Medicines</h1>
 				</div>
 			</div>
 
@@ -101,8 +114,7 @@
 				<div class="order">
 					<div class="head">
 						<h3></h3>
-						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name"
-							onkeyup="searchDoc()">
+						<input type="search" class="search-1" placeholder="Search Medicine Name">
 						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</div>
 					<table>
@@ -110,22 +122,26 @@
 							<tr>
 								<th>S.No</th>
 								<th>Patient Name</th>
-								<th>Accept</th>
-								<th>Reject</th>
 								<th>Prescription</th>
-								<th>Generate Bill</th>
+								<th>Bill</th>
+								<th>Status</th>
+								<th>Update Status</th>
 							</tr>
 						</thead>
-						<tbody id="tableBody1">
+						<tbody>
 							<tr>
 								<td>
 									<p>1</p>
 								</td>
-								<td>Hrithik</td>
-								<td><i class="fa-sharp fa-solid fa-check"></i></td>
-								<td><i class="fa-sharp fa-solid fa-xmark"></i></td>
-								<td><button class="status success">View</button></td>
-								<td><a href="./onlinebill.html"><button class="status success">Generate Bill</button></a></td>
+								<td>
+									<p>Hrithik</p>
+								</td>
+								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
+								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
+								<td>
+									<p>Packing</p>
+								</td>
+								<td><button class="status danger">Update</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -135,7 +151,6 @@
 	</section>
 
 	<!-- JS files -->
-	<script src="../../static/js/click.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 </body>
 
