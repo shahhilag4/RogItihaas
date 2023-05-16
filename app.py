@@ -4,12 +4,13 @@ from datetime import datetime
 import bcrypt
 import os
 import pyqrcode
+import pandas as pd
 from aadhaar import get_details
 
 app = Flask(__name__)
 app.secret_key = "@13@6$$#ddfccv"
 
-client = "mongodb+srv://project:hrithik1234@cluster0.yoorx.mongodb.net/?retryWrites=true&w=majority"
+client = "mongodb+srv://project:hrithik1234@cluster0.yoorx.mongodb.net/?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE"
 cluster = MongoClient(client)
 
 dbPatient = cluster["Patient"]
@@ -21,8 +22,9 @@ dbDoctor = cluster["Doctor"]
 doctordetail = dbDoctor["DoctorSignUp"]
 doctoraddress = dbDoctor["doctoraddress"]
 
-dbDoctor = cluster["Pharmacy"]
-pharmacydetail = dbDoctor["PharmacySignUp"]
+dbPharmacy = cluster["Pharmacy"]
+pharmacydetail = dbPharmacy["PharmacySignUp"]
+medicinedetail = dbPharmacy["MedicineDetail"]
 
 
 # Ending point for homepage
@@ -462,8 +464,18 @@ def patientdashboard():
                 "presname": row["presname"],
                 "draadhar": row["draadhar"],
             })
+        contain = "True"
+        if len(files)==0:
+            contain = "False"
+            files.append({
+                "name": "No Medical History",
+                "doctor": "No Medical History",
+                "todaydate": "No Medical History",
+                "presname": "No Medical History",
+                "draadhar": "No Medical History",
+            })
         data2 = patientdetail.find_one({"aadhar": session["patient"]})
-        return render_template('patient/dashboard.html', files=files, name=data2['name'], address=data2['address'], mobile=data2['mobile'], infant=data2['infant'],econtact=data2['econtact'])
+        return render_template('patient/dashboard.html', files=files, name=data2['name'], address=data2['address'], mobile=data2['mobile'], infant=data2['infant'], econtact=data2['econtact'], contain=contain)
     return render_template("patientLogin.html")
 
 
@@ -533,7 +545,32 @@ def patientdocuments():
                     "aadhar": row["aadhar"],
                     "url": row["url"],
                 })
-        return render_template("patient/documents.html", files=files)
+        contain = "Yes"
+        if len(files)==0:
+            contain = "No"
+            name: row["name"]
+            files.append({
+                "name": "No Record Found",
+                "doctor": "No Record Found",
+                "todaydate": "No Record Found",
+                "presname": "No Record Found",
+                "draadhar": "No Record Found",
+                "aadhar": "No Record Found",
+            })
+
+            data = patientreportdetail.find({"aadhar": session["patient"]})
+            for row in data:
+                name: row["name"]
+                files.append({
+                    "name": "No Record Found",
+                    "doctor": "No Record Found",
+                    "todaydate": "No Record Found",
+                    "presname": "No Record Found",
+                    "draadhar": "No Record Found",
+                    "aadhar": "No Record Found",
+                    "url": "No Record Found",
+                })
+        return render_template("patient/documents.html", files=files, contain=contain)
     return render_template("patientLogin.html")
 
 
@@ -556,11 +593,11 @@ def pharmacysignup():
             hashpass = bcrypt.hashpw(
                 request.form['password'].encode('utf-8'), bcrypt.gensalt())
             pharmacydetail.insert_one(
-                {'licensenumber': licensenumber, 'gstnumber': gstnumber, 'email': email, 'password': hashpass})
-
+                {'licensenumber': licensenumber, 'gstnumber': gstnumber, 'email': email, 'password': hashpass}
+            )
             session['pharmacy'] = licensenumber
 
-            return render_template('pharmacy/dashboard.html')
+            return render_template('pharmacy/dashboard.html', regnumber=licensenumber)
         message = "User Already Exist"
         return render_template("pharmacyLogin.html", message=message)
     return render_template("pharmacyLogin.html")
@@ -574,7 +611,7 @@ def pharmacysignin():
         if userLogin:
             if bcrypt.hashpw(request.form['password'].encode('utf-8'), userLogin['password']) == userLogin['password']:
                 session['pharmacy'] = licensenumber
-                return render_template('pharmacy/dashboard.html')
+                return render_template('pharmacy/dashboard.html', regnumber=licensenumber)
 
         message = "Invalid Credentials"
         return render_template('pharmacyLogin.html', message=message)
@@ -584,7 +621,17 @@ def pharmacysignin():
 @app.route('/medicines', methods=['GET', 'POST'])
 def medicines():
     if "pharmacy" in session:
-        return render_template("pharmacy/medicines.html")
+        data = medicinedetail.find({"Regnumber": session["pharmacy"]})
+        files = []
+        if data is not None:
+            for rec in data:
+               files.append({
+                    "Medicinename": rec["Medicinename"],
+                    "Companyname": rec["Companyname"],
+                    "Expiry": rec["Expiry"],
+                    "Quantity": int(rec["Quantity"]),
+                   })
+            return render_template("pharmacy/medicines.html", regnumber=session["pharmacy"], files=files)
     return render_template('pharmacyLogin.html')
 
 
@@ -615,6 +662,18 @@ def onlinebill():
         return render_template("pharmacy/onlinebill.html")
     return render_template('pharmacyLogin.html')
 
+
+@app.route('/uploadmedicine/<string:regnumber>', methods=['GET', 'POST'])
+def uploadmedicine(regnumber):
+    if "pharmacy" in session:
+        if request.method == 'POST':
+            f = request.files['file']
+            df = pd.read_csv(f)
+            for ind in df.index:
+                medicinedetail.insert_one({"Regnumber": regnumber, "Medicinename": df["Medicine Name"][ind], "Companyname": df["Company Name"][ind],
+                                          "Expiry": df["Expiry Date"][ind], "Quantity": int(df["Quantity"][ind])})
+        return render_template("pharmacy/medicines.html")
+    return render_template('pharmacyLogin.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
