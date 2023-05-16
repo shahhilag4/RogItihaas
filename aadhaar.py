@@ -11,7 +11,7 @@ def get_details(aadhaar):
         dob = data['DOB']
         age = calculate_age(dob)
     else:
-        return "Aadhaar record not found"
+        return None
     return {
         'aadhaar': data['adhar_no'],
         'name': data['name'],

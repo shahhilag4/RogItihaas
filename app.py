@@ -76,8 +76,10 @@ def doctorsignup():
         councilnum = request.form['doctorcouncilnumber']
         exist = doctordetail.find_one({'aadhar': aadhar})
         if exist is None:
-            hashpass = bcrypt.hashpw(request.form['doctorpassword'].encode('utf-8'), bcrypt.gensalt())
-            doctordetail.insert_one({'name': name, 'aadhar': aadhar, 'email': email, 'councilnum': councilnum, 'password': hashpass})
+            hashpass = bcrypt.hashpw(
+                request.form['doctorpassword'].encode('utf-8'), bcrypt.gensalt())
+            doctordetail.insert_one(
+                {'name': name, 'aadhar': aadhar, 'email': email, 'councilnum': councilnum, 'password': hashpass})
 
             session['doctor'] = aadhar
 
@@ -90,6 +92,9 @@ def doctorsignup():
 # End point for logging out
 @app.route("/logout")
 def customerLogout():
+    if 'patient' in session:
+        patientdetail.update_one({'aadhar': session['patient']}, {
+                                 "$set": {'verified': "No"}})
     session.clear()
     return redirect(url_for('homepage'))
 
@@ -115,7 +120,8 @@ def doctorpatientdashboard():
 
             if exist:
                 files = []
-                data = patientmedicaldetail.find({"draadhar": session['doctor']})
+                data = patientmedicaldetail.find(
+                    {"draadhar": session['doctor']})
                 for row in data:
                     files.append({
                         "doctor": row['drname'],
@@ -135,6 +141,8 @@ def doctorpatientdashboard():
     return render_template("login.html")
 
 # End point for seeing medical records
+
+
 @app.route("/documents/<string:name>/<string:aadhar>")
 def documents(name, aadhar):
     if 'doctor' in session:
@@ -155,18 +163,19 @@ def documents(name, aadhar):
     return render_template("login.html")
 
 
-#Open write prescription page from doctors side
+# Open write prescription page from doctors side
 
 @app.route('/writeprescription/<string:name>/<string:aadhar>')
 def writeprescription(name, aadhar):
     if 'doctor' in session:
         exist = doctoraddress.find_one({"aadhar": session["doctor"]})
-        return render_template("patient-doctor/prescription.html", name=name, drname=exist["name"], addlineone= exist["addlineone"],
-                                          statecountry= exist["statecountry"], phone=exist["phone"],aadhar=aadhar)
+        return render_template("patient-doctor/prescription.html", name=name, drname=exist["name"], addlineone=exist["addlineone"],
+                               statecountry=exist["statecountry"], phone=exist["phone"], aadhar=aadhar)
     return render_template("login.html")
 
+
 @app.route('/uploadpresciption/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
-def uploadpresciption(aadhar,drname):
+def uploadpresciption(aadhar, drname):
     if 'doctor' in session:
         if request.method == 'POST':
 
@@ -214,35 +223,35 @@ def uploadpresciption(aadhar,drname):
 
             if a == 1 and b == 1 and c == 1:
                 available = patientmedicaldetail.find_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
-                                     "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2,
-                                     "medicine3": medicine3, "mg3": mg3, "dose3": dose3, "days3": days3, "food3": food3})
+                                                           'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
+                                                           "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2,
+                                                           "medicine3": medicine3, "mg3": mg3, "dose3": dose3, "days3": days3, "food3": food3})
 
                 if available == None:
                     patientmedicaldetail.insert_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
-                                     "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2,
-                                     "medicine3": medicine3, "mg3": mg3, "dose3": dose3, "days3": days3, "food3": food3,
+                                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
+                                                     "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2,
+                                                     "medicine3": medicine3, "mg3": mg3, "dose3": dose3, "days3": days3, "food3": food3,
                                                      "draadhar": session["doctor"], "presname": "Prescription"})
 
             if a == 1 and b == 1 and c == 0:
                 available = patientmedicaldetail.find_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
-                                     "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2, "presname": "Prescription"})
+                                                           'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
+                                                           "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2, "presname": "Prescription"})
 
                 if available == None:
                     patientmedicaldetail.insert_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
-                                     "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2,
+                                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
+                                                     "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2,
                                                      "draadhar": session["doctor"], "presname": "Prescription"})
 
             if a == 1 and b == 0 and c == 0:
                 available = patientmedicaldetail.find_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1})
+                                                           'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1})
 
                 if available == None:
                     patientmedicaldetail.insert_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
+                                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
                                                      "draadhar": session["doctor"], "presname": "Prescription"})
 
             files = []
@@ -302,7 +311,7 @@ def prescription_template():
                                           "statecountry": statecountry, "phone": phone})
         exist = doctoraddress.find_one({"aadhar": session["doctor"]})
         return render_template("doctor/sample.html", name=exist["name"], addlineone=exist["addlineone"],
-                                          statecountry=exist["statecountry"], phone=exist["phone"])
+                               statecountry=exist["statecountry"], phone=exist["phone"])
     return render_template("login.html")
 
 # @app.route('/consent/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
@@ -312,11 +321,13 @@ def prescription_template():
 #             return render_template("patient-doctor/consent.html")
 #     return render_template("login.html")
 
+
 @app.route("/drsettings", methods=["POST", "GET"])
 def drsettings():
     if "doctor" in session:
         return render_template("doctor/settings.html")
     return render_template("login.html")
+
 
 @app.route("/reports/<string:name>/<string:aadhar>", methods=["POST", "GET"])
 def uploadreport(name, aadhar):
@@ -342,7 +353,7 @@ def uploadreport(name, aadhar):
             drexist = doctordetail.find_one({"aadhar": session["doctor"]})
             patientreportdetail.insert_one(
                 {'name': name, "aadhar": aadhar, 'drname': "Dr. "+drexist["name"],
-                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": docname, "url":path})
+                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": docname, "url": path})
         files = []
 
         data = patientreportdetail.find({"aadhar": aadhar})
@@ -358,7 +369,7 @@ def uploadreport(name, aadhar):
         drexist = doctordetail.find_one({"aadhar": session['doctor']})
         data = patientmedicaldetail.find_one({"aadhar": aadhar})
         return render_template("patient-doctor/reports.html", files=files, aadhar=aadhar, name=data["name"],
-                          drname=drexist["name"])
+                               drname=drexist["name"])
     return render_template("login.html")
 
 
@@ -367,24 +378,57 @@ def uploadreport(name, aadhar):
 def patientsignup():
     if request.method == 'POST':
         radio = request.form['patienttype']
-        print(radio)
-        if radio=='aadhaar_card':
-            print("cdddddddddd")
-            aadhar = request.form['patientaadhar1']
-            print(aadhar)
-            email = request.form['patientemail']
-            data=get_details(aadhar)
-            exist=patientdetail.find_one({'aadhar':aadhar})
-            if len(data)>1 and exist is None:
-                hashpass = bcrypt.hashpw(request.form['patientpassword'].encode('utf-8'), bcrypt.gensalt())
-                patientdetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender':data['gender'], 'DOB':data['dob'], 'age':data['age'],'address':data['address'], 'mobile':data['mobile'], 'email':email,'password': hashpass})
+        aadhar = request.form['patientaadhar1']
+        email = request.form['patientemail']
+        econtact = request.form['emergency']
+        if radio == 'aadhaar_card':
+            data = get_details(aadhar)
+            exist = patientdetail.find_one({'aadhar': aadhar})
+            if data is not None and exist is None:
+                hashpass = bcrypt.hashpw(
+                    request.form['patientpassword'].encode('utf-8'), bcrypt.gensalt())
+                patientdetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass, 'infant': 0, 'verified': "No"})
+                s = "http://34.28.38.229/patientsignup"
+                url = pyqrcode.create(s)
+                path = "static/img/qrcode/"+aadhar+".png"
+                url.png(path, scale=6)
+                return render_template('patient/modal.html', name=data['name'], mobile=data['mobile'], aadhar=aadhar)
+
+            message = "Aadhar Record not found"
+            return render_template("patientLogin.html", message=message)
+        else:
+            sliceaadhar = aadhar[0:12]
+            data = get_details(sliceaadhar)
+            exist = patientdetail.find_one({'aadhar': sliceaadhar})
+            if data is not None and exist is None:
+                hashpass = bcrypt.hashpw(
+                    request.form['patientpassword'].encode('utf-8'), bcrypt.gensalt())
+                patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],
+                                         'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact, 'email': email, 'password': hashpass, 'infant': 1, 'verified': "No"})
                 s = "http://34.28.38.229/patientsignup"
                 url = pyqrcode.create(s)
                 path = "static/img/qrcode/"+aadhar+".png"
                 url.png(path, scale=6)
 
-                session['patient'] = aadhar
+                return render_template('patient/modal.html', name=data['name'], mobile=data['mobile'], aadhar=sliceaadhar)
 
+            message = "Aadhar Record not found"
+            return render_template("patientLogin.html", message=message)
+    return render_template("patientLogin.html")
+
+
+@app.route('/twofactorauth/<string:aadhar>', methods=['Post', 'Get'])
+def twoFacAuth(aadhar):
+    mobile_num = request.form['mob_number']
+    exist = patientdetail.find_one({'aadhar': aadhar})
+    print(exist['verified'])
+    if request.method == 'POST':
+        if exist['verified'] == "No":
+            mobile = exist['mobile']
+            if mobile == mobile_num:
+                patientdetail.update_one({'aadhar': aadhar}, {
+                                         "$set": {'verified': "Yes"}})
+                session['patient'] = aadhar
                 files = []
                 pData = patientmedicaldetail.find({"aadhar": aadhar})
 
@@ -396,41 +440,12 @@ def patientsignup():
                         "presname": row["presname"],
                         "draadhar": row["draadhar"],
                     })
-                return render_template('patient/dashboard.html', files=files,name=data['name'],address=data['address'],mobile=data['mobile'],infant='No')
-            message = "Aadhar Record not found"
-            return render_template("patientLogin.html", message=message)
-        elif radio=='no_aadhaar_card':
-            aadhar = request.form['patientaadhar1']
-            email = request.form['patientemail']
-            sliceAadhar=aadhar[0:12]
-
-            data=get_details(sliceAadhar)
-            exist=patientdetail.find_one({'aadhar':sliceAadhar})
-            if len(data)>1 and exist is None:
-                hashpass = bcrypt.hashpw(request.form['patientpassword'].encode('utf-8'), bcrypt.gensalt())
-                patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender':data['gender'], 'DOB':data['dob'], 'age':data['age'],'address':data['address'], 'mobile':data['mobile'], 'email':email,'password': hashpass})
-                s = "http://34.28.38.229/patientsignup"
-                url = pyqrcode.create(s)
-                path = "static/img/qrcode/"+aadhar+".png"
-                url.png(path, scale=6)
-
-                session['patient'] = aadhar
-
-                files = []
-                pData = patientmedicaldetail.find({"aadhar": sliceAadhar})
-
-                for row in pData:
-                    files.append({
-                        "name": row["name"],
-                        "doctor": row['drname'],
-                        "todaydate": row['todaydate'],
-                        "presname": row["presname"],
-                        "draadhar": row["draadhar"],
-                    })
-                return render_template('patient/dashboard.html', files=files,name=data['name'],address=data['address'],mobile=data['mobile'],infant='Yes')
-            message = "Aadhar Record not found"
-            return render_template("patientLogin.html", message=message)
-    return render_template("patientLogin.html")
+                return redirect(url_for('patientdashboard'))
+            message = "Incorrect Mobile No. Try again"
+            return render_template('patient/modal.html', message=message, name=exist['name'], mobile=exist['mobile'], aadhar=exist['aadhar'])
+        messageVerify = "Already verified"
+        return redirect(url_for('patientdashboard', message=messageVerify))
+    return render_template('patientLogin.html')
 
 
 @app.route('/patientdashboard', methods=['POST', 'GET'])
@@ -440,7 +455,6 @@ def patientdashboard():
         data = patientmedicaldetail.find({"aadhar": session["patient"]})
 
         for row in data:
-            name: row["name"]
             files.append({
                 "name": row["name"],
                 "doctor": row['drname'],
@@ -448,8 +462,8 @@ def patientdashboard():
                 "presname": row["presname"],
                 "draadhar": row["draadhar"],
             })
-        data2=patientdetail.find_one({"aadhar": session["patient"]})
-        return render_template('patient/dashboard.html', files=files,name=data2['name'],address=data2['address'],mobile=data2['mobile'])
+        data2 = patientdetail.find_one({"aadhar": session["patient"]})
+        return render_template('patient/dashboard.html', files=files, name=data2['name'], address=data2['address'], mobile=data2['mobile'], infant=data2['infant'],econtact=data2['econtact'])
     return render_template("patientLogin.html")
 
 
@@ -474,7 +488,6 @@ def patientsettings():
     return render_template("patientLogin.html")
 
 
-
 # Ending point for patient login
 @app.route('/patientsignin', methods=['GET', 'POST'])
 def patientsignin():
@@ -483,20 +496,7 @@ def patientsignin():
         userLogin = patientdetail.find_one({'aadhar': aadhar})
         if userLogin:
             if bcrypt.hashpw(request.form['patientpassword'].encode('utf-8'), userLogin['password']) == userLogin['password']:
-                session['patient'] = aadhar
-                files = []
-                data = patientmedicaldetail.find({"aadhar": aadhar})
-                for row in data:
-                    name: row["name"]
-                    files.append({
-                        "name": row["name"],
-                        "doctor": row['drname'],
-                        "todaydate": row['todaydate'],
-                        "presname": row["presname"],
-                        "draadhar": row["draadhar"],
-                    })
-                data2=patientdetail.find_one({"aadhar": session["patient"]})
-                return render_template('patient/dashboard.html', files=files,name=data2['name'],address=data2['address'],mobile=data2['mobile'])
+                return render_template('patient/modal.html', name=userLogin['name'], mobile=userLogin['mobile'], aadhar=aadhar)
 
         message = "Invalid Credentials"
         return render_template('patientLogin.html', message=message)
@@ -553,8 +553,10 @@ def pharmacysignup():
         email = request.form['email']
         exist = pharmacydetail.find_one({'licensenumber': licensenumber})
         if exist is None:
-            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            pharmacydetail.insert_one({'licensenumber': licensenumber, 'gstnumber': gstnumber, 'email': email, 'password': hashpass})
+            hashpass = bcrypt.hashpw(
+                request.form['password'].encode('utf-8'), bcrypt.gensalt())
+            pharmacydetail.insert_one(
+                {'licensenumber': licensenumber, 'gstnumber': gstnumber, 'email': email, 'password': hashpass})
 
             session['pharmacy'] = licensenumber
 
@@ -613,6 +615,6 @@ def onlinebill():
         return render_template("pharmacy/onlinebill.html")
     return render_template('pharmacyLogin.html')
 
-if __name__ == '__main__':
-    app.run()
 
+if __name__ == '__main__':
+    app.run(debug=True)
