@@ -1,0 +1,124 @@
+<!-- Patient Dashboard -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+
+	<title>रोगइतिहास - Patient Emergency Dashboard</title>
+</head>
+
+<body>
+	<!-- Sidebar -->
+	<section id="sidebar">
+		<a href="/patientdashboard" class="brand">
+			<i class="fa-solid">
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+			</i>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+			class="india-green">हास</span></span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="/doctorpatientdashboard">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Emergency Dashboard</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="../scanqrLogin.html">
+					<i class="fa-solid fa-right-from-bracket"></i>
+					<span class="text">Login As Doctor</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+	<!-- Content -->
+	<section id="content">
+		<!-- Navbar -->
+		<nav>
+			<i class="fa-solid fa-bars"></i>
+			<form action="#"></form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="profile">
+				<img src="../../static/img/rishi.jpg">
+			</a>
+		</nav>
+		<!-- Main -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Patient Emergency Dashboard</h1>
+				</div>
+			</div>
+
+			<ul class="box-info">
+				<li class="block-list">
+					<span class="text-flex">
+						<h4>Name :</h4>
+						<span class="margining">
+							{{name}}
+						</span>
+					</span>
+					<span class="text-flex">
+						<h4>Address :</h4>
+						<span class="margining">{{address}}</span>
+					</span>
+					<span class="text-flex">
+						<h4>Emergency Contact :</h4>
+						<span class="margining">{{mobile}}</span>
+					</span>
+				</li>
+			</ul>
+			<!-- Table to display recent history -->
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Emergency Contacts</h3>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Service</th>
+								<th>Contact</th>
+							</tr>
+						</thead>
+						<tbody id="tableBody">
+							<tr>
+								<td>
+									<p>Police</p>
+								</td>
+								<td class="patientuid">100</td>
+							</tr>
+							<tr>
+								<td>
+									<p>Ambulance</p>
+								</td>
+								<td class="patientuid">108</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+	</section>
+
+	<!-- JS files -->
+	<script src="../../static/js/dashboard.js"></script>
+	<script src="../../static/js/searchdoc.js"></script>
+</body>
+
+</html>
