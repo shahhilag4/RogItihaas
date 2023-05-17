@@ -110,18 +110,24 @@
 							</tr>
 						</thead>
 						<tbody>
+						{% for data in files %}
 							<tr>
+								{% if contain=='Yes' %}
 								<td>
-									<p>1</p>
+									<p>{{loop.index}}</p>
 								</td>
+								{% endif %}
 								<td>
-									<p>Hrithik</p>
+									<p>{{data.name}}</p>
 								</td>
+								{% if contain=='Yes' %}
 								<td><a href="/consent/{{drname}}/{{aadhar}}"><button class="status success">View</button></a></td>
+								{% endif %}
 								<td>
-									<p>Waiting for approval</p>
+									<p>{{data.status}}</p>
 								</td>
 							</tr>
+						{% endfor %}
 						</tbody>
 					</table>
 				</div>
