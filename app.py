@@ -100,7 +100,7 @@ def customerLogout():
     session.clear()
     return redirect(url_for('homepage'))
 
-#Patient-Doctor Section
+# Patient-Doctor Section
 
 # @app.route("/patdrhealthcard/<string:aadhar>", methods=['POST', 'GET'])
 # def patdrhealthcard(aadhar):
@@ -605,7 +605,7 @@ def patienthealthcard():
         return render_template("patient/healthcard.html", aadhar=session["patient"])
     return render_template("patientLogin.html")
 
-#Pharmacy Section
+# Pharmacy Section
 
 @app.route('/pharmacysignup', methods=['POST', 'GET'])
 def pharmacysignup():
@@ -687,13 +687,6 @@ def onlinebill():
         return render_template("pharmacy/onlinebill.html")
     return render_template('pharmacyLogin.html')
 
-# @app.route('/onlinebill', methods=['GET', 'POST'])
-# def onlinebill():
-#     if "pharmacy" in session:
-#         return render_template("pharmacy/onlinebill.html")
-#     return render_template('pharmacyLogin.html')
-
-
 @app.route('/uploadmedicine/<string:regnumber>', methods=['GET', 'POST'])
 def uploadmedicine(regnumber):
     if "pharmacy" in session:
@@ -705,6 +698,15 @@ def uploadmedicine(regnumber):
                                           "Expiry": df["Expiry Date"][ind], "Quantity": int(df["Quantity"][ind])})
         return render_template("pharmacy/medicines.html")
     return render_template('pharmacyLogin.html')
+
+# Scan QR Section
+@app.route('/emergencydashboard', methods=['GET', 'POST'])
+def emergencydashboard():
+    return render_template("scanqr/dashboard.html")
+
+@app.route('/emergencydoctorsignin', methods=['GET', 'POST'])
+def emergencydoctorsignin():
+        return render_template("scanqrLogin.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
