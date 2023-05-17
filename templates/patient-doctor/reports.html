@@ -129,18 +129,24 @@
 						<tbody id="tableBody1">
 							{% for data in files %}
 							<tr>
+								{% if contain == "Yes" %}
 								<td>
 									<p>{{loop.index}}</p>
 								</td>
+								{% endif %}
+								{% if contain == "Yes" %}
 								<td>
 									<p>{{data.presname}}</p>
 								</td>
+								{% endif %}
 								<td>{{data.todaydate}}</td>
+								{% if contain == "Yes" %}
 								<td class="drname">{{data.doctor}}</td>
 								<td><button class="status success">View</button></td>
 								<td><button class="status danger">Delete</button></td>
 								<td><i class="fa-sharp fa-solid fa-circle-exclamation"></i></td>
 								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
+								{% endif %}
 							</tr>
 							{% endfor %}
 						</tbody>

@@ -34,6 +34,7 @@ def homepage():
 
 # Doctor Section
 
+
 # Ending point for doctor login
 @app.route('/doctorsignin', methods=['GET', 'POST'])
 def doctorsignin():
@@ -50,8 +51,8 @@ def doctorsignin():
         return render_template('doctor/dashboard.html', files=files, size=size)
     elif request.method == 'POST':
         aadhar = request.form['doctoraadhar']
-        userLogin = doctordetail.find_one({'aadhar': aadhar})
-        if userLogin:
+        userlogin = doctordetail.find_one({'aadhar': aadhar})
+        if userlogin:
             if bcrypt.hashpw(request.form['doctorpassword'].encode('utf-8'), userLogin['password']) == userLogin['password']:
                 session['doctor'] = aadhar
                 data = patientmedicaldetail.find({"draadhar": aadhar})
@@ -152,17 +153,24 @@ def documents(name, aadhar):
         files = []
 
         data = patientmedicaldetail.find({"aadhar": aadhar})
-        for row in data:
-            name: row["name"]
+        if data is not None:
+            for row in data:
+                name: row["name"]
+                files.append({
+                    "name": row["name"],
+                    "doctor": row['drname'],
+                    "todaydate": row['todaydate'],
+                    "presname": row["presname"],
+                })
+        contain = "Yes"
+        if len(files) == 0:
+            contain = "No"
             files.append({
-                "name": row["name"],
-                "doctor": row['drname'],
-                "todaydate": row['todaydate'],
-                "presname": row["presname"],
+                "doctor": "No record found",
             })
         drexist = doctordetail.find_one({"aadhar": session['doctor']})
-        data = patientmedicaldetail.find_one({"aadhar": aadhar})
-        return render_template("patient-doctor/documents.html", files=files, aadhar=aadhar, name=data["name"], drname=drexist["name"])
+        data = patientdetail.find_one({"aadhar": aadhar})
+        return render_template("patient-doctor/documents.html", files=files, aadhar=aadhar, name=data["name"], drname=drexist["name"], contain=contain)
     return render_template("login.html")
 
 
@@ -198,7 +206,6 @@ def uploadpresciption(aadhar, drname):
             age = request.form['age']
             gender = request.form['gender']
             disease = request.form['disease']
-            drexist = doctordetail.find_one({"aadhar": session['doctor']})
 
             medicine1 = request.form['medicine1']
             if len(medicine1) > 1:
@@ -337,6 +344,59 @@ def drsettings():
     return render_template("login.html")
 
 
+@app.route("/uploadprescription/<string:name>/<string:aadhar>", methods=["POST", "GET"])
+def uploadprescription(name, aadhar):
+    if "doctor" in session:
+        if request.method == "POST":
+            file = request.files['file']
+            path = "static/prescription/"
+            parent = str(aadhar)
+            final_path = os.path.join(path, parent)
+            os.mkdir(final_path)
+
+            path = os.path.join(final_path, file.filename)
+            print(path)
+            file.save(path)
+
+            now = datetime.now()  # current date and time
+
+            year = now.strftime("%Y")
+            month = now.strftime("%m")
+            day = now.strftime("%d")
+
+            todaydate = day + "/" + month + "/" + year
+
+            drexist = doctordetail.find_one({"aadhar": session["doctor"]})
+            patientreportdetail.insert_one(
+                {'name': name, "aadhar": aadhar, 'drname': "Dr. " + drexist["name"],
+                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": "Prescription", "url": path})
+        files = []
+
+        data = patientreportdetail.find({"aadhar": aadhar})
+
+        if data is not None:
+            for row in data:
+                name: row["name"]
+                files.append({
+                    "name": row["name"],
+                    "doctor": row['drname'],
+                    "todaydate": row['todaydate'],
+                    "presname": row["presname"],
+                    "url": row["url"],
+                })
+        contain = "Yes"
+        if len(files) == 0:
+            contain = "No"
+            files.append({
+                "todaydate": "No record found",
+            })
+        drexist = doctordetail.find_one({"aadhar": session['doctor']})
+        data = patientdetail.find_one({"aadhar": aadhar})
+        return render_template("patient-doctor/documents.html", files=files, aadhar=aadhar, name=data["name"],
+                               drname=drexist["name"], contain=contain)
+    return render_template("login.html")
+
+
 @app.route("/reports/<string:name>/<string:aadhar>", methods=["POST", "GET"])
 def uploadreport(name, aadhar):
     if "doctor" in session:
@@ -346,8 +406,10 @@ def uploadreport(name, aadhar):
             path = "static/reports/"
             parent = str(aadhar)
             final_path = os.path.join(path, parent)
+            os.mkdir(final_path)
 
             path = os.path.join(final_path, file.filename)
+            print(path)
             file.save(path)
 
             now = datetime.now()  # current date and time
@@ -365,19 +427,26 @@ def uploadreport(name, aadhar):
         files = []
 
         data = patientreportdetail.find({"aadhar": aadhar})
-        for row in data:
-            name: row["name"]
+
+        if data is not None:
+            for row in data:
+                name: row["name"]
+                files.append({
+                    "name": row["name"],
+                    "doctor": row['drname'],
+                    "todaydate": row['todaydate'],
+                    "presname": row["presname"],
+                    "url": row["url"],
+                })
+        contain = "Yes"
+        if len(files) == 0:
+            contain = "No"
             files.append({
-                "name": row["name"],
-                "doctor": row['drname'],
-                "todaydate": row['todaydate'],
-                "presname": row["presname"],
-                "url": row["url"],
+                "todaydate": "No record found",
             })
         drexist = doctordetail.find_one({"aadhar": session['doctor']})
-        data = patientmedicaldetail.find_one({"aadhar": aadhar})
-        return render_template("patient-doctor/reports.html", files=files, aadhar=aadhar, name=data["name"],
-                               drname=drexist["name"])
+        data = patientdetail.find_one({"aadhar": aadhar})
+        return render_template("patient-doctor/reports.html", files=files, aadhar=aadhar, name=data["name"], drname=drexist["name"], contain=contain)
     return render_template("login.html")
 
 # Patient Section
