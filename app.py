@@ -51,8 +51,8 @@ def doctorsignin():
         return render_template('doctor/dashboard.html', files=files, size=size)
     elif request.method == 'POST':
         aadhar = request.form['doctoraadhar']
-        userlogin = doctordetail.find_one({'aadhar': aadhar})
-        if userlogin:
+        userLogin = doctordetail.find_one({'aadhar': aadhar})
+        if userLogin:
             if bcrypt.hashpw(request.form['doctorpassword'].encode('utf-8'), userLogin['password']) == userLogin['password']:
                 session['doctor'] = aadhar
                 data = patientmedicaldetail.find({"draadhar": aadhar})

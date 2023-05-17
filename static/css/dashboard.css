@@ -579,6 +579,10 @@ button:hover {
 }
 
  /* Modal styles */
+ .modal-backdrop.show {
+  opacity: 0;
+  position: static;
+}
 
 
 

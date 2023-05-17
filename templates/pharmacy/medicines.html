@@ -113,28 +113,36 @@
 								<th>Expiry Date</th>
 								<th>Quantity</th>
 								<th>Update</th>
+								<th>Delete Medicine</th>
 							</tr>
 						</thead>
 						<tbody>
-						{% for data in files %}
-							<tr>
+							{% for data in files %}
+							  <tr>
 								<td>
-									<p>{{loop.index}}</p>
+								  <p>{{loop.index}}</p>
 								</td>
 								<td>
-									<p>{{data.Medicinename}}</p>
+								  <p>{{data.Medicinename}}</p>
 								</td>
 								<td>
-									<p>{{data.Companyname}}</p>
+								  <p>{{data.Companyname}}</p>
 								</td>
 								<td>
-									<p>{{data.Expiry}}</p>
+								  <p>{{data.Expiry}}</p>
 								</td>
-								<td>{{data.Quantity}}</td>
-								<td><button class="status danger">Update</button></td>
-							</tr>
-						{% endfor %}
-						</tbody>
+								<td>
+								  <span class="quantity">{{data.Quantity}}</span>
+								</td>
+								<td>
+								  <button class="status success">Update</button>
+								</td>
+								<td>
+								  <button class="status danger">Delete</button>
+								</td>
+							  </tr>
+							{% endfor %}
+						  </tbody>
 					</table>
 				</div>
 			</div>
@@ -143,6 +151,7 @@
 
 	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
+	<script src="../../static/js/updateQty.js"></script>
 </body>
 
 </html>

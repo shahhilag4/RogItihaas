@@ -88,7 +88,7 @@
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Medicines</h1>
+					<h1>Delivery Track</h1>
 				</div>
 			</div>
 
@@ -120,10 +120,15 @@
 								</td>
 								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
 								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
-								<td>
-									<p>Packing</p>
-								</td>
-								<td><button class="status danger">Update</button></td>
+								<td data-label="Status">
+									<select name="status">
+										<option value="accepted">Accepted</option>
+										<option value="packing">Packing</option>
+										<option value="on the way">On the Way</option>
+										<option value="delivered">Delivered</option>
+									</select>
+								</td>								
+								<td><button id="update-btn" class="status danger">Update</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -134,6 +139,7 @@
 
 	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
+	<script src="../../static/js/updateState.js"></script>
 </body>
 
 </html>
