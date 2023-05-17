@@ -30,6 +30,7 @@ pharmacydetail = dbDoctor["PharmacySignUp"]
 def homepage():
     return render_template("home.html")
 
+# Doctor Section
 
 # Ending point for doctor login
 @app.route('/doctorsignin', methods=['GET', 'POST'])
@@ -88,7 +89,6 @@ def doctorsignup():
         return render_template("login.html", message=message)
     return render_template("login.html")
 
-
 # End point for logging out
 @app.route("/logout")
 def customerLogout():
@@ -98,14 +98,15 @@ def customerLogout():
     session.clear()
     return redirect(url_for('homepage'))
 
+#Patient-Doctor Section
 
-@app.route("/patdrhealthcard/<string:aadhar>", methods=['POST', 'GET'])
-def patdrhealthcard(aadhar):
-    if 'doctor' in session:
-        drexist = doctordetail.find_one({"aadhar": session['doctor']})
-        exist = patientdetail.find_one({'aadhar': aadhar})
-        return render_template("patient-doctor/healthcard.html", aadhar=aadhar, drname=drexist["name"], name=exist["name"])
-    return render_template("login.html")
+# @app.route("/patdrhealthcard/<string:aadhar>", methods=['POST', 'GET'])
+# def patdrhealthcard(aadhar):
+#     if 'doctor' in session:
+#         drexist = doctordetail.find_one({"aadhar": session['doctor']})
+#         exist = patientdetail.find_one({'aadhar': aadhar})
+#         return render_template("patient-doctor/healthcard.html", aadhar=aadhar, drname=drexist["name"], name=exist["name"])
+#     return render_template("login.html")
 
 
 # End point for grabbing patient
@@ -314,12 +315,17 @@ def prescription_template():
                                statecountry=exist["statecountry"], phone=exist["phone"])
     return render_template("login.html")
 
-# @app.route('/consent/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
-# def consent(aadhar,drname):
-#     if 'doctor' in session:
-#         if request.method == 'POST':
-#             return render_template("patient-doctor/consent.html")
-#     return render_template("login.html")
+@app.route('/consentlist/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
+def consentlist(aadhar,drname):
+    if 'doctor' in session:
+        return render_template("patient-doctor/consentlist.html")
+    return render_template("login.html")
+
+@app.route('/consent/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
+def consent(aadhar,drname):
+    if 'doctor' in session:
+        return render_template("patient-doctor/consent.html")
+    return render_template("login.html")
 
 
 @app.route("/drsettings", methods=["POST", "GET"])
@@ -372,6 +378,7 @@ def uploadreport(name, aadhar):
                                drname=drexist["name"])
     return render_template("login.html")
 
+# Patient Section
 
 # Ending point for patient signup
 @app.route('/patientsignup', methods=['POST', 'GET'])
@@ -480,6 +487,23 @@ def patientoredermed():
         return render_template('patient/oredermed.html')
     return render_template("patientLogin.html")
 
+@app.route('/patientdeliverytracking', methods=['GET', 'POST'])
+def patientdeliverytracking():
+    if "patient" in session:
+        return render_template("patient/deliverytrack.html")
+    return render_template('patientLogin.html')
+
+@app.route('/patientconsent', methods=['GET', 'POST'])
+def patientconsent():
+    if "patient" in session:
+        return render_template("patient/consent.html")
+    return render_template('patientLogin.html')
+
+@app.route('/patientconsentletter', methods=['GET', 'POST'])
+def patientconsentletter():
+    if "patient" in session:
+        return render_template("patient/accept_consent.html")
+    return render_template('patientLogin.html')
 
 @app.route('/patientsettings', methods=['POST', 'GET'])
 def patientsettings():
@@ -544,6 +568,7 @@ def patienthealthcard():
         return render_template("patient/healthcard.html", aadhar=session["patient"])
     return render_template("patientLogin.html")
 
+#Pharmacy Section
 
 @app.route('/pharmacysignup', methods=['POST', 'GET'])
 def pharmacysignup():
@@ -614,6 +639,12 @@ def onlinebill():
     if "pharmacy" in session:
         return render_template("pharmacy/onlinebill.html")
     return render_template('pharmacyLogin.html')
+
+# @app.route('/onlinebill', methods=['GET', 'POST'])
+# def onlinebill():
+#     if "pharmacy" in session:
+#         return render_template("pharmacy/onlinebill.html")
+#     return render_template('pharmacyLogin.html')
 
 
 if __name__ == '__main__':
