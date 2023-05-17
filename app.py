@@ -21,6 +21,7 @@ patientreportdetail = dbPatient["patientreportdetail"]
 dbDoctor = cluster["Doctor"]
 doctordetail = dbDoctor["DoctorSignUp"]
 doctoraddress = dbDoctor["doctoraddress"]
+consentlist = dbDoctor["ConsentList"]
 
 dbPharmacy = cluster["Pharmacy"]
 pharmacydetail = dbPharmacy["PharmacySignUp"]
@@ -156,12 +157,24 @@ def documents(name, aadhar):
         if data is not None:
             for row in data:
                 name: row["name"]
-                files.append({
-                    "name": row["name"],
-                    "doctor": row['drname'],
-                    "todaydate": row['todaydate'],
-                    "presname": row["presname"],
-                })
+                if row["presname"] == "Prescription":
+                    files.append({
+                        "name": row["name"],
+                        "doctor": row['drname'],
+                        "todaydate": row['todaydate'],
+                        "presname": row["presname"],
+                    })
+        data = patientreportdetail.find({"aadhar": aadhar})
+        if data is not None:
+            for row in data:
+                name: row["name"]
+                if row["presname"] == "Prescription":
+                    files.append({
+                        "name": row["name"],
+                        "doctor": row['drname'],
+                        "todaydate": row['todaydate'],
+                        "presname": row["presname"],
+                    })
         contain = "Yes"
         if len(files) == 0:
             contain = "No"
@@ -324,16 +337,70 @@ def prescription_template():
                                statecountry=exist["statecountry"], phone=exist["phone"])
     return render_template("login.html")
 
-@app.route('/consentlist/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
-def consentlist(aadhar,drname):
+@app.route('/consentlist/<string:drname>/<string:aadhar>',  methods=['POST', 'GET'])
+def consentList(aadhar,drname):
     if 'doctor' in session:
-        return render_template("patient-doctor/consentlist.html")
+        data = consentlist.find({"aadhar": aadhar})
+        files = []
+        if data is not None:
+            for row in data:
+                files.append({
+                    "name": row["name"],
+                    "aadhar": row["aadhar"],
+                    "drname": row["drname"],
+                    "status": row["status"],
+                    "draadhar": session["doctor"],
+                    "severity": row["severity"],
+                    "cost": row["cost"],
+                    "date": row["date"],
+                    "signature": row["signature"],
+                    "econtact": row["econtact"],
+                })
+        contain = "Yes"
+        if len(files) == 0:
+            contain="No"
+            files.append({
+                "name": "No Record Found",
+            })
+
+        data = patientdetail.find_one({"aadhar": aadhar})
+
+        return render_template("patient-doctor/consentlist.html", contain=contain, files=files, aadhar=aadhar, name=data["name"], drname=drname)
     return render_template("login.html")
 
-@app.route('/consent/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
+@app.route('/consent/<string:drname>/<string:aadhar>',  methods=['POST', 'GET'])
 def consent(aadhar,drname):
     if 'doctor' in session:
-        return render_template("patient-doctor/consent.html")
+        data = patientdetail.find_one({"aadhar": aadhar})
+        if request.method == "POST":
+            severity = request.form['severity']
+            cost = request.form["cost"]
+            signature = request.form["signature"]
+
+            now = datetime.now()  # current date and time
+
+            year = now.strftime("%Y")
+            month = now.strftime("%m")
+            day = now.strftime("%d")
+
+            todaydate = day + "/" + month + "/" + year
+            datapatient = get_details(aadhar)
+
+            consentlist.insert_one({
+                "name": data["name"],
+                "aadhar": aadhar,
+                "drname": drname,
+                "status": "Waiting for approval",
+                "draadhar": session["doctor"],
+                "severity": severity,
+                "cost": cost,
+                "date": todaydate,
+                "signature": signature,
+                "econtact": datapatient["mobile"],
+            })
+
+        drexist = doctordetail.find_one({"aadhar": session['doctor']})
+        return render_template("patient-doctor/consent.html", aadhar=aadhar, name=data["name"], drname=drexist["name"])
     return render_template("login.html")
 
 
@@ -352,7 +419,8 @@ def uploadprescription(name, aadhar):
             path = "static/prescription/"
             parent = str(aadhar)
             final_path = os.path.join(path, parent)
-            os.mkdir(final_path)
+            if os.path.isdir(final_path) == "False":
+                os.mkdir(final_path)
 
             path = os.path.join(final_path, file.filename)
             print(path)
@@ -377,13 +445,14 @@ def uploadprescription(name, aadhar):
         if data is not None:
             for row in data:
                 name: row["name"]
-                files.append({
-                    "name": row["name"],
-                    "doctor": row['drname'],
-                    "todaydate": row['todaydate'],
-                    "presname": row["presname"],
-                    "url": row["url"],
-                })
+                if row["presname"] != "Prescription":
+                    files.append({
+                        "name": row["name"],
+                        "doctor": row['drname'],
+                        "todaydate": row['todaydate'],
+                        "presname": row["presname"],
+                        "url": row["url"],
+                    })
         contain = "Yes"
         if len(files) == 0:
             contain = "No"
@@ -406,7 +475,8 @@ def uploadreport(name, aadhar):
             path = "static/reports/"
             parent = str(aadhar)
             final_path = os.path.join(path, parent)
-            os.mkdir(final_path)
+            if os.path.isdir(final_path) == "False":
+                os.mkdir(final_path)
 
             path = os.path.join(final_path, file.filename)
             print(path)
@@ -431,13 +501,14 @@ def uploadreport(name, aadhar):
         if data is not None:
             for row in data:
                 name: row["name"]
-                files.append({
-                    "name": row["name"],
-                    "doctor": row['drname'],
-                    "todaydate": row['todaydate'],
-                    "presname": row["presname"],
-                    "url": row["url"],
-                })
+                if row["presname"] != "Prescription":
+                    files.append({
+                        "name": row["name"],
+                        "doctor": row['drname'],
+                        "todaydate": row['todaydate'],
+                        "presname": row["presname"],
+                        "url": row["url"],
+                    })
         contain = "Yes"
         if len(files) == 0:
             contain = "No"
