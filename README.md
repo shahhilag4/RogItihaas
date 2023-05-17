@@ -83,7 +83,7 @@ The doctor section also has a search bar at the top to search for patients they 
 <li><strong>Benefits for poor people</strong>-We aim to add in benefits for the poor by linking our application to online donation agencies which will be very beneficial to procide free healthcare facilities for the poor.</li>
 <li><strong>A centralized application for all medical needs</strong>-Our final destination is to add value to humanity with centralizing all medical needs for the people not diverting from our original goal.We want to contribute to the easy availability of doctors,medical equipments,blood and organ donors,oxygen cylinder,etc. This will ensure that we are not underprepared in case a global pandemic such as COVID-19 hits us again.</li>
 <li><strong>We aim to centralize the finances of the pharmacy and doctors so that we could track their income and prevent malpractice.</strong></li>
-<li><strong>We also want to integrate an online billing system for pharmasist to make their job easier.</li>
+<li><strong>We also want to integrate an online billing system for pharmasist to make their job easier.</strong></li>
 <li><strong>Integration of ML for diagnosis</strong>-By integrating ML into our system we could more precisely figure out the disease the person is suffering and recommend relevant prescription to the patient.</li>
 </ol>
 <br>
