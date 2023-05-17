@@ -12,4 +12,18 @@ function editInstructions() {
     instructionsCell.textContent = instructionInput.value;
     $('#myModal').modal('hide');
   }
-  
+
+  function updatecost() {
+    var uploadText = document.querySelector(".upload");
+    if (uploadText) {
+      console.log(uploadText.value);
+      var target = document.querySelector("#cost");
+      if (target) {
+        target.textContent=uploadText.value
+      } else {
+        console.error("Element with ID 'cost' not found.");
+      }
+    } else {
+      console.error("Element with class 'update' not found.");
+    }
+  }
