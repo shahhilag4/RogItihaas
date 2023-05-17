@@ -156,18 +156,22 @@
 							<tr>
 								<th>Doctor Name</th>
 								<th>ID</th>
-								<th>Disease</th>
+								<th>Date</th>
 							</tr>
 						</thead>
 						<tbody id="tableBody">
 							{% for data in files %}
 							<tr>
 								<td>
-									<img src="../../static/img/hilag.jpg">
+                                    {% if contain == 'True' %}
+                                        <img src="../../static/img/hilag.jpg">
+                                    {% endif %}
 									<p>{{data.doctor}}</p>
 								</td>
 								<td class="patientuid">{{data.draadhar}}</td>
-								<td><span class="status danger">Viral</span></td>
+								<td>
+									<p>{{data.todaydate}}</p>
+								</td>
 							</tr>
 							{% endfor %}
 						</tbody>

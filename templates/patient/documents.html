@@ -139,13 +139,18 @@
 							{% for data in files %}
 							<tr>
 								<td>
+									{% if contain == 'Yes' %}
 									<p>{{loop.index}}</p>
+									{% else %}
+									<p>No Record Found</p>
+									{% endif %}
 								</td>
 								<td>
 									<p>{{data.presname}}</p>
 								</td>
 								<td>{{data.todaydate}}</td>
 								<td class="drname">{{data.doctor}}</td>
+								{% if contain == 'Yes' %}
 								<td><button class="status success"
 										onclick="viewPDF('../../static/reports/{{data.aadhar}}/{{data.aadhar}}.pdf')">View</button></td>
 								<div id="pdf-modal" class="modal">
@@ -154,9 +159,16 @@
 										<canvas id="pdf-canvas"></canvas>
 									</div>
 								</div>
+								{% endif %}
+								{% if contain == 'Yes' %}
 								<td><button class="status danger">Delete</button></td>
+								{% endif %}
+								{% if contain == 'Yes' %}
 								<td><i class="fa-sharp fa-solid fa-circle-exclamation"></i></td>
+								{% endif %}
+								{% if contain == 'Yes' %}
 								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
+								{% endif %}
 							</tr>
 							{% endfor %}
 						</tbody>
