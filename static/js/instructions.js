@@ -10,6 +10,7 @@ function editInstructions() {
     var instructionInput = document.getElementById("instruction-input");
     var instructionsCell = document.getElementById("instructions-cell");
     instructionsCell.textContent = instructionInput.value;
+    instructionsCell.style.width="100%"
     $('#myModal').modal('hide');
   }
 
@@ -19,7 +20,7 @@ function editInstructions() {
       console.log(uploadText.value);
       var target = document.querySelector("#cost");
       if (target) {
-        target.textContent=uploadText.value
+        target.textContent=uploadText.value+"₹";
       } else {
         console.error("Element with ID 'cost' not found.");
       }

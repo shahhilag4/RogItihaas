@@ -1,4 +1,9 @@
-/* Health card styles */
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+*
+{
+  font-family: 'Lato', sans-serif;
+}
 
 .flip-card {
   margin: 0 auto;

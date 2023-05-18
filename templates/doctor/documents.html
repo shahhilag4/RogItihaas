@@ -43,6 +43,24 @@
 					<span class="text">Medical Records</span>
 				</a>
 			</li>
+			<li>
+				<a href="/consentlist">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consents</span>
+				</a>
+			</li>
+			<li>
+				<a href="/consent">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent Form</span>
+				</a>
+			</li>
+			<li>
+				<a href="/prescriptiondecision">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Prescription Requests</span>
+				</a>
+			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
@@ -90,10 +108,6 @@
 				<div class="left">
 					<h1>Medical Records</h1>
 				</div>
-				<a href="#" class="btn-download">
-					<i class="fa-sharp fa-solid fa-arrow-down"></i>
-					<span class="text">Download Zip</span>
-				</a>
 			</div>
 
 			<div class="table-data">
@@ -108,27 +122,27 @@
 					<table>
 						<thead>
 							<tr>
-								<th>S.No</th>
-								<th>Patient Name</th>
-								<th>Document Name</th>
-								<th>Aadhar No</th>
-								<th>Date</th>
-								<th>View</th>
-								<th>Delete</th>
-								<th>Download</th>
+								<th class="th-gap">S.No</th>
+								<th class="th-gap">Patient Name</th>
+								<th class="th-gap">Document Name</th>
+								<th class="th-gap">Aadhar No</th>
+								<th class="th-gap">Date</th>
+								<th class="th-gap">View</th>
+								<th class="th-gap">Delete</th>
+								<th class="th-gap">Download</th>
 							</tr>
 						</thead>
 						<tbody id="tableBody1">
 							{% for data in files %}
 							<tr>
-								<td>
+								<td class="td-gap">
 									<p>{{loop.index}}</p>
 								</td>
-								<td>{{data.name}}</td>
-								<td>Prescription</td>
-								<td>{{data.aadhar}}</td>
-								<td>{{data.todaydate}}</td>
-								<td><button class="status success"
+								<td class="td-gap">{{data.name}}</td>
+								<td class="td-gap">Prescription</td>
+								<td class="td-gap">{{data.aadhar}}</td>
+								<td class="td-gap">{{data.todaydate}}</td>
+								<td class="td-gap"><button class="status success"
 										onclick="viewPDF('../../static/reports/{{data.aadhar}}/{{data.aadhar}}.pdf')">View</button></td>
 								<div id="pdf-modal" class="modal">
 									<div class="modal-content">
@@ -137,8 +151,8 @@
 									</div>
 								</div>
 
-								<td><button class="status danger">Delete</button></td>
-								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
+								<td class="td-gap"><button class="status danger">Delete</button></td>
+								<td class="td-gap"><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
 							</tr>
 							{% endfor %}
 						</tbody>

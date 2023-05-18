@@ -1,4 +1,10 @@
 /* Convert text to tags */
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+*
+{
+  font-family: 'Lato', sans-serif;
+}
 
 .tagger {
   border: 1px solid #909497;

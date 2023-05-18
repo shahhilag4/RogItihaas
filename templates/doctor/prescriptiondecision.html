@@ -10,15 +10,14 @@
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
-	<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../static/css/modal1.css">
 
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- Bootstrap JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 	<!-- Favicon -->
@@ -42,37 +41,49 @@
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="#">
+				<a href="/doctorsignin">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="/medicines">
+				<a href="/documents">
 					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Medicines</span>
+					<span class="text">Medical Records</span>
 				</a>
 			</li>
 			<li>
-				<a href="/deliverytrack">
-					<i class="fa-solid fa-truck"></i>
-					<span class="text">Delivery Track</span>
+				<a href="/consentlist">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consents</span>
+				</a>
+			</li>
+			<li>
+				<a href="/consent">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent Form</span>
 				</a>
 			</li>
 			<li class="active">
-				<a href="/onlineorder">
-					<i class="fa-solid fa-message"></i>
-					<span class="text">Online Order</span>
-				</a>
-			</li>
-			<li>
-				<a href="/offlineBilling">
-					<i class="fa-solid fa-address-card"></i>
-					<span class="text">Offline Billing</span>
+				<a href="/prescriptiondecision">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Prescription Requests</span>
 				</a>
 			</li>
 		</ul>
 		<ul class="side-menu">
+			<li>
+				<a href="/prescription_template">
+					<i class="fa-solid fa-prescription"></i>
+					<span class="text">Prescription Template</span>
+				</a>
+			</li>
+			<li>
+				<a href="/drsettings">
+					<i class="fa-solid fa-gear"></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
 			<li>
 				<a href="/logout" class="logout">
 					<i class="fa-solid fa-right-from-bracket"></i>
@@ -104,7 +115,7 @@
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Medical Records</h1>
+					<h1>Prescription Requests</h1>
 				</div>
 			</div>
 
@@ -125,29 +136,27 @@
 					<table>
 						<thead>
 							<tr>
-								<th>S.No</th>
-								<th>Patient Name</th>
-								<th>Accept</th>
-								<th>Reject</th>
-								<th>Prescription Requested</th>
-								<th>Cost</th>
-								<th>Instructions</th>
-								<th>Symptoms</th>
+								<th class="th-gap">S.No</th>
+								<th class="th-gap">Patient Name</th>
+								<th class="th-gap">Accept</th>
+								<th class="th-gap">Reject</th>
+								<th class="th-gap">Prescription Requested</th>
+								<th class="th-gap">Cost</th>
+								<th class="th-gap">Tests</th>
+								<th class="th-gap">Symptoms</th>
 							</tr>
 						</thead>
 						<tbody id="tableBody1">
 							<tr>
-								<td>
-									<p>1</p>
-								</td>
-								<td>Hrithik</td>
-								<td><a href="/onlinebill"><i class="fa-sharp fa-solid fa-check success"></i></a></td>
-								<td><i class="fa-sharp fa-solid fa-xmark"></i></td>
-								<td><button class="status success"
+								<td class="td-gap">1</td>
+								<td class="td-gap">Hrithik</td>
+								<td class="td-gap"><i class="fa-sharp fa-solid fa-check success"></i></td>
+								<td class="td-gap"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+								<td class="td-gap"><button class="status success"
 									onclick="viewPDF('../../static/reports/{{data.aadhar}}/{{data.aadhar}}.pdf')">View</button></td>
-								<td id="cost">100</td>
-								<td><p id="instructions-cell">No instructions</p><button class="status success"  data-target="#myModal" onclick="editInstructions()">Edit</button></td>
-								<td>Fever,cough</td>
+								<td class="td-gap" id="cost">100₹</td>
+								<td class="td-gap"><p id="instructions-cell">Recommend tests</p><button class="status success"  data-target="#myModal" onclick="editInstructions()">Edit</button></td>
+								<td class="td-gap">Fever,cough</td>
 								
 							</tr>
 

@@ -242,6 +242,12 @@ aside h1 {
   border-bottom-style: solid;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+*
+{
+  font-family: 'Lato', sans-serif;
+}
 
 .centering {
   display: block;

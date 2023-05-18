@@ -13,7 +13,7 @@
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
-	<title>रोगइतिहास - Pharmacy Delivery</title>
+	<title>रोगइतिहास - Doctor Consents</title>
 </head>
 
 <body>
@@ -30,42 +30,47 @@
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="/doctorpatientdashboard">
+				<a href="/doctorsignin">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="/documents/{{drname}}/{{aadhar}}">
+				<a href="/documents">
 					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Previous Prescriptions</span>
-				</a>
-			</li>
-
-			<li>
-				<a href="/reports/{{drname}}/{{aadhar}}">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Previous Reports</span>
+					<span class="text">Medical Records</span>
 				</a>
 			</li>
 			<li class="active">
-				<a href="/consentlist/{{drname}}/{{aadhar}}">
+				<a href="/consentlist">
 					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Consent List</span>
+					<span class="text">Consents</span>
 				</a>
 			</li>
 			<li>
-				<a href="/consent/{{drname}}/{{aadhar}}">
+				<a href="/consent">
 					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Consent</span>
+					<span class="text">Consent Form</span>
+				</a>
+			</li>
+			<li>
+				<a href="/prescriptiondecision">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Prescription Requests</span>
 				</a>
 			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="/writeprescription/{{name}}/{{aadhar}}">
-					<i class="fa-solid fa-tablets"></i>
-					<span class="text">Write Prescription</span>
+				<a href="/prescription_template">
+					<i class="fa-solid fa-prescription"></i>
+					<span class="text">Prescription Template</span>
+				</a>
+			</li>
+			<li>
+				<a href="/drsettings">
+					<i class="fa-solid fa-gear"></i>
+					<span class="text">Settings</span>
 				</a>
 			</li>
 			<li>
@@ -82,7 +87,11 @@
 		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
-			<form action="#">
+			<form action="doctorpatientdashboard" method="POST">
+				<div class="form-input">
+					<input type="search" placeholder="Search Patient" name="aadhar" required>
+					<button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+				</div>
 			</form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
@@ -95,7 +104,7 @@
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Medicines</h1>
+					<h1>Consents</h1>
 				</div>
 			</div>
 
@@ -109,27 +118,27 @@
 					<table>
 						<thead>
 							<tr>
-								<th>S.No</th>
-								<th>Patient Name</th>
-								<th>Consent</th>
-								<th>Status</th>
+								<th class="th-gap">S.No</th>
+								<th class="th-gap">Patient Name</th>
+								<th class="th-gap">Consent</th>
+								<th class="th-gap">Status</th>
 							</tr>
 						</thead>
 						<tbody>
 						{% for data in files %}
-							<tr>
+							<tr class="td-gap">
 								{% if contain=='Yes' %}
-								<td>
+								<td class="td-gap">
 									<p>{{loop.index}}</p>
 								</td>
 								{% endif %}
-								<td>
+								<td class="td-gap">
 									<p>{{data.name}}</p>
 								</td>
 								{% if contain=='Yes' %}
-								<td><a href="/consent/{{drname}}/{{aadhar}}"><button class="status success">View</button></a></td>
+								<td class="td-gap"><a href="/consent/{{drname}}/{{aadhar}}"><button class="status success">View</button></a></td>
 								{% endif %}
-								<td>
+								<td class="td-gap">
 									<p>{{data.status}}</p>
 								</td>
 							</tr>

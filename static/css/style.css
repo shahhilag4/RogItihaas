@@ -10,8 +10,9 @@
 html {
   scroll-behavior: smooth;
 }
+
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 header {

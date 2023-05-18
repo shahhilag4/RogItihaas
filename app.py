@@ -198,6 +198,7 @@ def writeprescription(name, aadhar):
     return render_template("login.html")
 
 
+
 @app.route('/uploadpresciption/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
 def uploadpresciption(aadhar, drname):
     if 'doctor' in session:
@@ -306,6 +307,24 @@ def drdocuments():
                 "presname": row["presname"]
             })
         return render_template("doctor/documents.html", files=files)
+    return render_template("login.html")
+
+@app.route("/consentlist")
+def consentlist():
+    if 'doctor' in session:
+        return render_template("doctor/consentlist.html")
+    return render_template("login.html")
+
+@app.route("/consent")
+def consent():
+    if 'doctor' in session:
+        return render_template("doctor/consent.html")
+    return render_template("login.html")
+
+@app.route("/prescriptiondecision")
+def prescriptiondecision():
+    if 'doctor' in session:
+        return render_template("doctor/prescriptiondecision.html")
     return render_template("login.html")
 
 
@@ -627,6 +646,12 @@ def patientdashboard():
 
 
 @app.route('/patientdiagnosis', methods=['POST', 'GET'])
+def patientdiagnosis():
+    if "patient" in session:
+        return render_template('patient/diagnosis.html')
+    return render_template("patientLogin.html")
+
+@app.route('/prescriptionstatus', methods=['POST', 'GET'])
 def patientdiagnosis():
     if "patient" in session:
         return render_template('patient/diagnosis.html')
