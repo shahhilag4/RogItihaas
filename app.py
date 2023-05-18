@@ -309,14 +309,14 @@ def drdocuments():
         return render_template("doctor/documents.html", files=files)
     return render_template("login.html")
 
-@app.route("/consentlist")
-def consentlist():
+@app.route("/consentlist1")
+def consentlist1():
     if 'doctor' in session:
         return render_template("doctor/consentlist.html")
     return render_template("login.html")
 
-@app.route("/consent")
-def consent():
+@app.route("/consent1")
+def consent1():
     if 'doctor' in session:
         return render_template("doctor/consent.html")
     return render_template("login.html")
@@ -352,8 +352,8 @@ def prescription_template():
                 doctoraddress.insert_one({"aadhar": session["doctor"], "name": drname, "addlineone": addlineone,
                                           "statecountry": statecountry, "phone": phone})
         exist = doctoraddress.find_one({"aadhar": session["doctor"]})
-        return render_template("doctor/sample.html", name=exist["name"], addlineone=exist["addlineone"],
-                               statecountry=exist["statecountry"], phone=exist["phone"])
+        # print(exist)
+        return render_template("doctor/sample.html", name=exist["name"], addlineone=exist["addlineone"], statecountry=exist["statecountry"], phone=exist["phone"])
     return render_template("login.html")
 
 @app.route('/consentlist/<string:drname>/<string:aadhar>',  methods=['POST', 'GET'])
@@ -652,9 +652,9 @@ def patientdiagnosis():
     return render_template("patientLogin.html")
 
 @app.route('/prescriptionstatus', methods=['POST', 'GET'])
-def patientdiagnosis():
+def prescriptionstatus():
     if "patient" in session:
-        return render_template('patient/diagnosis.html')
+        return render_template('patient/prescriptiondecision.html')
     return render_template("patientLogin.html")
 
 
@@ -697,6 +697,7 @@ def patientsignin():
         userLogin = patientdetail.find_one({'aadhar': aadhar})
         if userLogin:
             if bcrypt.hashpw(request.form['patientpassword'].encode('utf-8'), userLogin['password']) == userLogin['password']:
+                print("success")
                 return render_template('patient/modal.html', name=userLogin['name'], mobile=userLogin['mobile'], aadhar=aadhar)
 
         message = "Invalid Credentials"
