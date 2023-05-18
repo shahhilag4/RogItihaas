@@ -17,7 +17,6 @@ li {
 }
 
 :root {
-  --poppins: "Poppins", sans-serif;
   --lato: "Lato", sans-serif;
 
   --light: #f9f9f9;
@@ -299,7 +298,7 @@ body {
 #content main {
   width: 100%;
   padding: 36px 24px;
-  font-family: var(--poppins);
+  font-family: var(--lato);
   /* max-height: calc(100vh - 56px); */
   overflow-y: auto;
 }
@@ -495,7 +494,7 @@ button {
   padding: 0.5rem;
   border: none;
   border-radius: 10px;
-  font-family: "Poppins", "sans-serif";
+  font-family: "Lato", "sans-serif";
 }
 .footer_buttons:hover,
 button:hover {
@@ -584,7 +583,16 @@ button:hover {
   position: static;
 }
 
+.td-gap
+{
+  text-align: center;
+}
 
+.th-gap
+{
+  padding: 1rem;
+  text-align: center !important;
+}
 
 /* MAIN */
 /* CONTENT */

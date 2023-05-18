@@ -16,7 +16,7 @@
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
-	<title>रोगइतिहास - Patient Consent Letter</title>
+	<title>रोगइतिहास - Doctor Consent Letter</title>
 </head>
 
 <body>
@@ -33,57 +33,45 @@
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="/patientdashboard">
+				<a href="/doctorsignin">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="/patientdocuments">
+				<a href="/documents">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Medical Records</span>
 				</a>
 			</li>
 			<li>
-				<a href="/patienthealthcard">
-					<i class="fa-solid fa-address-card"></i>
-					<span class="text">Health Card</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientdiagnosis">
-					<i class="fa-solid fa-message"></i>
-					<span class="text">Diagonsis</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientoredermed">
-					<i class="fa-solid fa-tablets"></i>
-					<span class="text">Order Medicine</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientdeliverytracking">
-					<i class="fa-solid fa-truck"></i>
-					<span class="text">Delivery Tracking</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientconsent">
-					<i class="fa-solid fa-file"></i>
-					<span class="text">Consent</span>
+				<a href="/consentlist1">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consents</span>
 				</a>
 			</li>
 			<li class="active">
-				<a href="/patientconsentletter">
-					<i class="fa-solid fa-square-check"></i>
-					<span class="text">Accept consent</span>
+				<a href="/consent1">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent Form</span>
+				</a>
+			</li>
+			<li>
+				<a href="/prescriptiondecision">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Prescription Requests</span>
 				</a>
 			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="/patientsettings">
+				<a href="/prescription_template">
+					<i class="fa-solid fa-prescription"></i>
+					<span class="text">Prescription Template</span>
+				</a>
+			</li>
+			<li>
+				<a href="/drsettings">
 					<i class="fa-solid fa-gear"></i>
 					<span class="text">Settings</span>
 				</a>
@@ -102,7 +90,12 @@
 		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
-			<form action="#"></form>
+			<form action="doctorpatientdashboard" method="POST">
+				<div class="form-input">
+					<input type="search" placeholder="Search Patient" name="aadhar" required>
+					<button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+				</div>
+			</form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
@@ -134,16 +127,16 @@
 						<label for="consent-decision">{{name}} is the patient under my care.They are under a critical condition and in a condition of medical emergency. I request your permission to make decisions for and/or provide care for the patient.<br /><br />During a medical emergency there may not be time to contact a guardian prior to action being taken and I assure you that the actions taken will  be in the best interest of the patient. We will notify you incase of any emergency as soon as possible. These decisions may include:</label>
 						<br /><br />
 						<ul class="un-list">
-							<li class="list"><input type="checkbox" id="emergency-transportation" name="emergency-transportation" value="Emergency transportation (i.e. ambulance)"> <label for="emergency-transportation">Emergency transportation (i.e. ambulance)</label></li>
-							<li class="list"><input type="checkbox" id="emergency-treatment" name="emergency-treatment" value="Permission for emergency personnel to provide treatment (i.e. EMT/Emergency Room staff)"> <label for="emergency-treatment">Permission for emergency personnel to provide treatment (i.e. EMT/Emergency Room staff)</label></li>
-							<li class="list"><input type="checkbox" id="first-aid" name="first-aid" value="Permission for staff trained in First Aid to provide treatment until other emergency personnel arrive."> <label for="first-aid">Permission for staff trained in First Aid to provide treatment until other emergency personnel arrive.</label></li>
-							<li class="list"><input type="checkbox" id="directing-transportation" name="directing-transportation" value="Directing emergency transportation to the closest hospital (the parents’ choice of hospital will always tried to be honored unless the situation dictates otherwise, i.e. field trip out of area)."> <label for="directing-transportation">Directing emergency transportation to the closest hospital (the parents’ choice of hospital will always tried to be honored unless the situation dictates otherwise, i.e. field trip out of area).</label></li>
+							<li class="list"><input type="checkbox" id="emergency-transportation" name="emergency-transportation" value="Emergency transportation (i.e. ambulance)" checked disabled> <label for="emergency-transportation">Emergency transportation (i.e. ambulance)</label></li>
+							<li class="list"><input type="checkbox" id="emergency-treatment" name="emergency-treatment" value="Permission for emergency personnel to provide treatment (i.e. EMT/Emergency Room staff)" checked disabled> <label for="emergency-treatment">Permission for emergency personnel to provide treatment (i.e. EMT/Emergency Room staff)</label></li>
+							<li class="list"><input type="checkbox" id="first-aid" name="first-aid" value="Permission for staff trained in First Aid to provide treatment until other emergency personnel arrive." checked disabled> <label for="first-aid">Permission for staff trained in First Aid to provide treatment until other emergency personnel arrive.</label></li>
+							<li class="list"><input type="checkbox" id="directing-transportation" name="directing-transportation" value="Directing emergency transportation to the closest hospital (the parents’ choice of hospital will always tried to be honored unless the situation dictates otherwise, i.e. field trip out of area)." checked disabled> <label for="directing-transportation">Directing emergency transportation to the closest hospital (the parents’ choice of hospital will always tried to be honored unless the situation dictates otherwise, i.e. field trip out of area).</label></li>
 						</ul>
 						<br />
 						<label for="signature">Doctor Signature:</label>
 						<span>{{drname}}</span><br />
 						<label for="signature">Guardian Signature:</label>
-						<input type="text" id="signature" name="signature" required>
+						<span>{{name}}</span>
 						<button class="button-style" type="submit">Accept</button>
 						<button class="button-style" type="submit">Reject</button>
 					</form>

@@ -107,37 +107,37 @@
 					<table>
 						<thead>
 							<tr>
-								<th>S.No</th>
-								<th>Medicine Name</th>
-								<th>Company Name</th>
-								<th>Expiry Date</th>
-								<th>Quantity</th>
-								<th>Update</th>
-								<th>Delete Medicine</th>
+								<th class="th-gap">S.No</th>
+								<th class="th-gap">Medicine Name</th>
+								<th class="th-gap">Company Name</th>
+								<th class="th-gap">Expiry Date</th>
+								<th class="th-gap">Quantity</th>
+								<th class="th-gap">Update</th>
+								<th class="th-gap">Delete Medicine</th>
 							</tr>
 						</thead>
 						<tbody>
 							{% for data in files %}
 							  <tr>
-								<td>
+								<td class="td-gap">
 								  <p>{{loop.index}}</p>
 								</td>
-								<td>
+								<td class="td-gap">
 								  <p>{{data.Medicinename}}</p>
 								</td>
-								<td>
+								<td class="td-gap">
 								  <p>{{data.Companyname}}</p>
 								</td>
-								<td>
+								<td class="td-gap">
 								  <p>{{data.Expiry}}</p>
 								</td>
-								<td>
+								<td class="td-gap">
 								  <span class="quantity">{{data.Quantity}}</span>
 								</td>
-								<td>
+								<td class="td-gap">
 								  <button class="status success">Update</button>
 								</td>
-								<td>
+								<td class="td-gap">
 								  <button class="status danger">Delete</button>
 								</td>
 							  </tr>
