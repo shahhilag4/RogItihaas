@@ -48,12 +48,6 @@
 				</a>
 			</li>
 			<li>
-				<a href="/consent1">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Consent Form</span>
-				</a>
-			</li>
-			<li>
 				<a href="/prescriptiondecision">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Prescription Requests</span>
@@ -136,7 +130,8 @@
 									<p>{{data.name}}</p>
 								</td>
 								{% if contain=='Yes' %}
-								<td class="td-gap"><a href="/consent/{{drname}}/{{aadhar}}"><button class="status success">View</button></a></td>
+								<!-- <td class="td-gap"><a href="/consent/{{drname}}/{{aadhar}}"><button class="status success">View</button></a></td> -->
+								<td class="td-gap"><a href="/consent1"><button class="status success">View</button></a></td>
 								{% endif %}
 								<td class="td-gap">
 									<p>{{data.status}}</p>
