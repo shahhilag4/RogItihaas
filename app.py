@@ -358,7 +358,7 @@ def consentList(aadhar,drname):
                 })
         contain = "Yes"
         if len(files) == 0:
-            contain="No"
+            contain = "No"
             files.append({
                 "name": "No Record Found",
             })
