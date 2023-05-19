@@ -51,7 +51,7 @@ The doctor section also has a search bar at the top to search for patients they 
 <br>
 
 <div align="center">
-<img width="1500" alt="Logo1" src="https://github.com/shahhilag4/RogItihaas/assets/64307441/a2171e32-5fa6-44d8-ba13-3813267ddd54">
+<img width="1500" alt="Logo1" src="https://github.com/shahhilag4/RogItihaas/assets/64307441/3c0ae6d1-3660-4243-9aba-0db8b43f4362">
 </div>
 
 <hr>
