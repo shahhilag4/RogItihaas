@@ -13,3 +13,8 @@ form.addEventListener('submit', (event) => {
 
 	form.reset();
 });
+
+function disableButton(button) {
+	button.disabled = true;
+  }
+  

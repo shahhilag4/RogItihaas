@@ -1,9 +1,9 @@
-1. Patient1 (Shalini Sharma)-:
+1. Patient1 (Shalini Sharma)-: Accident
    678901234567
    1
    4321098765
 
-   Patient2 (Pooja Mehta)-:
+   Patient2 (Pooja Mehta)-: Relative
    012345678901
    1
    9456718688
