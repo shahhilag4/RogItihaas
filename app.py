@@ -364,10 +364,13 @@ def drdocuments():
         return render_template("doctor/documents.html", files=files, found = found)
     return render_template("login.html")
 
-@app.route("/consent1")
-def consent1():
+@app.route("/consent1/<string:draadhar>/<string:econtact>", methods=["POST", "GET"])
+def consent1(draadhar, econtact):
     if 'doctor' in session:
-        return render_template("doctor/consent.html")
+        data = consentlist.find_one({"draadhar": draadhar, "econtact": econtact})
+        data1 = patientdetail.find_one({"mobile": econtact})
+        return render_template("doctor/consent.html", name=data["name"], drname=data["drname"], draadhar=draadhar, relname = data1["name"],
+                           econtact=econtact, status=data["status"], cost=data["cost"], severity=data["severity"], date=data["date"])
     return render_template("login.html")
 
 @app.route("/prescriptiondecision")
