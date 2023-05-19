@@ -95,42 +95,54 @@
 			<div class="table-data">
 				<div class="order">
 					<div class="head">
-						<h3></h3>
-						<strong>Upload Medicines(CSV file)</strong>
-						<input class="upload" type="file"></input>
-						<input type="submit" value="Upload">
+						<form action="/uploadmedicine/{{regnumber}}" method="POST"
+							enctype="multipart/form-data">
+							<strong>Upload Medicines(CSV file)</strong>
+							<input class="upload" type="file" name="file">
+							<input type="submit" value="Upload">
+						</form>
 						<input type="search" class="search-1" placeholder="Search Medicine Name">
 						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</div>
 					<table>
 						<thead>
 							<tr>
-								<th>S.No</th>
-								<th>Medicine Name</th>
-								<th>Company Name</th>
-								<th>Expiry Date</th>
-								<th>Quantity</th>
-								<th>Update</th>
+								<th class="th-gap">S.No</th>
+								<th class="th-gap">Medicine Name</th>
+								<th class="th-gap">Company Name</th>
+								<th class="th-gap">Expiry Date</th>
+								<th class="th-gap">Quantity</th>
+								<th class="th-gap">Update</th>
+								<th class="th-gap">Delete Medicine</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>
-									<p>1</p>
+							{% for data in files %}
+							  <tr>
+								<td class="td-gap">
+								  <p>{{loop.index}}</p>
 								</td>
-								<td>
-									<p>Aspirin</p>
+								<td class="td-gap">
+								  <p>{{data.Medicinename}}</p>
 								</td>
-								<td>
-									<p>Bayer</p>
+								<td class="td-gap">
+								  <p>{{data.Companyname}}</p>
 								</td>
-								<td>
-									<p>20/05/2024</p>
+								<td class="td-gap">
+								  <p>{{data.Expiry}}</p>
 								</td>
-								<td>10</td>
-								<td><button class="status danger">Update</button></td>
-							</tr>
-						</tbody>
+								<td class="td-gap">
+								  <span class="quantity">{{data.Quantity}}</span>
+								</td>
+								<td class="td-gap">
+								  <button class="status success">Update</button>
+								</td>
+								<td class="td-gap">
+								  <button class="status danger">Delete</button>
+								</td>
+							  </tr>
+							{% endfor %}
+						  </tbody>
 					</table>
 				</div>
 			</div>
@@ -139,6 +151,7 @@
 
 	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
+	<script src="../../static/js/updateQty.js"></script>
 </body>
 
 </html>

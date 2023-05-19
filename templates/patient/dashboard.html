@@ -20,7 +20,7 @@
 <body>
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="/patientdashboard" class="brand">
+		<a href="/patientdashboard/{{econtact}}" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -59,14 +59,14 @@
 				</a>
 			</li>
 			<li>
-				<a href="./deliverytrack.html">
-					<i class="fa-solid fa-tablets"></i>
+				<a href="/patientdeliverytracking">
+					<i class="fa-solid fa-truck"></i>
 					<span class="text">Delivery Tracking</span>
 				</a>
 			</li>
 			<li>
-				<a href="./consent.html">
-					<i class="fa-solid fa-tablets"></i>
+				<a href="/patientconsent">
+					<i class="fa-solid fa-file"></i>
 					<span class="text">Consent</span>
 				</a>
 			</li>
@@ -152,18 +152,22 @@
 							<tr>
 								<th>Doctor Name</th>
 								<th>ID</th>
-								<th>Disease</th>
+								<th>Date</th>
 							</tr>
 						</thead>
 						<tbody id="tableBody">
 							{% for data in files %}
 							<tr>
 								<td>
-									<img src="../../static/img/hilag.jpg">
+                                    {% if contain == 'True' %}
+                                        <img src="../../static/img/hilag.jpg">
+                                    {% endif %}
 									<p>{{data.doctor}}</p>
 								</td>
 								<td class="patientuid">{{data.draadhar}}</td>
-								<td><span class="status danger">Viral</span></td>
+								<td>
+									<p>{{data.todaydate}}</p>
+								</td>
 							</tr>
 							{% endfor %}
 						</tbody>

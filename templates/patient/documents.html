@@ -62,14 +62,14 @@
 				</a>
 			</li>
 			<li>
-				<a href="./deliverytrack.html">
-					<i class="fa-solid fa-tablets"></i>
+				<a href="/patientdeliverytracking">
+					<i class="fa-solid fa-truck"></i>
 					<span class="text">Delivery Tracking</span>
 				</a>
 			</li>
 			<li>
-				<a href="./consent.html">
-					<i class="fa-solid fa-tablets"></i>
+				<a href="/patientconsent">
+					<i class="fa-solid fa-file"></i>
 					<span class="text">Consent</span>
 				</a>
 			</li>
@@ -125,28 +125,32 @@
 					<table>
 						<thead>
 							<tr>
-								<th>S.No</th>
-								<th>Document Name</th>
-								<th>Date</th>
-								<th>Uploaded By</th>
-								<th>View</th>
-								<th>Delete</th>
-								<th>Report</th>
-								<th>Download</th>
+								<th class="th-gap">S.No</th>
+								<th class="th-gap">Document Name</th>
+								<th class="th-gap">Date</th>
+								<th class="th-gap">Uploaded By</th>
+								<th class="th-gap">View</th>
+								<th class="th-gap">Delete</th>
+								<th class="th-gap">Download</th>
 							</tr>
 						</thead>
 						<tbody id="tableBody1">
 							{% for data in files %}
 							<tr>
-								<td>
+								<td class="td-gap">
+									{% if contain == 'Yes' %}
 									<p>{{loop.index}}</p>
+									{% else %}
+									<p>No Record Found</p>
+									{% endif %}
 								</td>
-								<td>
+								<td class="td-gap">
 									<p>{{data.presname}}</p>
 								</td>
-								<td>{{data.todaydate}}</td>
-								<td class="drname">{{data.doctor}}</td>
-								<td><button class="status success"
+								<td class="td-gap">{{data.todaydate}}</td>
+								<td class="drname th-gap">{{data.doctor}}</td>
+								{% if contain == 'Yes' %}
+								<td class="td-gap"><button class="status success"
 										onclick="viewPDF('../../static/reports/{{data.aadhar}}/{{data.aadhar}}.pdf')">View</button></td>
 								<div id="pdf-modal" class="modal">
 									<div class="modal-content">
@@ -154,9 +158,13 @@
 										<canvas id="pdf-canvas"></canvas>
 									</div>
 								</div>
-								<td><button class="status danger">Delete</button></td>
-								<td><i class="fa-sharp fa-solid fa-circle-exclamation"></i></td>
-								<td><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
+								{% endif %}
+								{% if contain == 'Yes' %}
+								<td class="td-gap"><button class="status danger">Delete</button></td>
+								{% endif %}
+								{% if contain == 'Yes' %}
+								<td class="td-gap"><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
+								{% endif %}
 							</tr>
 							{% endfor %}
 						</tbody>

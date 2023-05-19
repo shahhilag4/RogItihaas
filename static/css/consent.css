@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+*
+{
+  font-family: 'Lato', sans-serif;
+}
+
 .container {
 	max-width: 600px;
 	margin: 0 auto;
@@ -44,17 +51,17 @@ input[type="date"] {
 	box-sizing: border-box;
 }
 
-ul {
+.un-list {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
 
-li {
+.list {
 	margin-bottom: 10px;
 }
 
-button[type="submit"] {
+.button-style {
 	display: block;
 	margin: 20px auto 0;
 	padding: 10px 20px;
@@ -67,7 +74,7 @@ button[type="submit"] {
 	font-weight: bold;
 }
 
-button[type="submit"]:hover {
+.button-style:hover {
 	background-color: #3e8e41;
 }
 
