@@ -386,27 +386,6 @@ def prescription_repository():
         return render_template("patient/prescription_repository.html")
     return render_template("login.html")
 
-
-@app.route("/prescription_template", methods=["POST", "GET"])
-def prescription_template():
-    if "doctor" in session:
-        if request.method == 'POST':
-            drname = request.form["drname"]
-            addlineone = request.form["addlineone"]
-            statecountry = request.form["statecountry"]
-            phone = request.form["phone"]
-            exit = doctoraddress.find_one({"aadhar": session["doctor"]})
-            if exit == None:
-                doctoraddress.insert_one({"aadhar": session["doctor"], "name": drname, "addlineone": addlineone,
-                                          "statecountry": statecountry, "phone": phone})
-            else:
-                doctoraddress.delete_one({"aadhar": session["doctor"]})
-                doctoraddress.insert_one({"aadhar": session["doctor"], "name": drname, "addlineone": addlineone,
-                                          "statecountry": statecountry, "phone": phone})
-        exist = doctoraddress.find_one({"aadhar": session["doctor"]})
-        return render_template("doctor/sample.html", name=exist["name"], addlineone=exist["addlineone"], statecountry=exist["statecountry"], phone=exist["phone"])
-    return render_template("login.html")
-
 @app.route('/consentlist1',  methods=['POST', 'GET'])
 def consentList1():
     if 'doctor' in session:
