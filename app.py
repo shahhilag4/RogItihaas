@@ -707,7 +707,8 @@ def patientconsent():
     if "patient" in session:
         data = patientdetail.find_one({"aadhar": session["patient"]})
         econtact = data["econtact"]
-        data = consentlist
+        data = consentlist.find({"econtact": econtact})
+        
         return render_template("patient/consent.html")
     return render_template('patientLogin.html')
 
