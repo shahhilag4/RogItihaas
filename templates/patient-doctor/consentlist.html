@@ -32,6 +32,12 @@
 			<li>
 				<a href="/doctorpatientdashboard">
 					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dr. {{drname}} Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patienthome/{{aadhar}}">
+					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
@@ -82,19 +88,13 @@
 		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
-			<form action="doctorpatientdashboard" method="POST">
-				<div class="form-input">
-					<input type="search" placeholder="Search Patient" name="aadhar" required>
-					<button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-				</div>
-			</form>
+			<form action="#"></form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
 				<img src="../../static/img/rishi.jpg">
 			</a>
 		</nav>
-
 		<!-- Main -->
 		<main>
 			<div class="head-title">
