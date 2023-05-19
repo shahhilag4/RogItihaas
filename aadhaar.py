@@ -1,11 +1,17 @@
 from datetime import datetime
 import requests
+import uuid
+
+def generate_unique_token():
+    token = str(uuid.uuid4())
+    return token
 
 def get_details(aadhaar):
     url = f"https://testapi-11co.onrender.com/aadhaar/{aadhaar}"
     response = requests.get(url)
+    print(response.content, "aadhar.py")
     length=len(response.json())
-    
+    print(length, "Print the length of the data")
     if length>1:
         data = response.json()
         dob = data['DOB']
