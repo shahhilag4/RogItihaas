@@ -129,10 +129,13 @@
 						<tbody id="tableBody1">
 							{% for data in files %}
 							<tr>
+								{% if found == "Yes" %}
 								<td class="td-gap">
 									<p>{{loop.index}}</p>
 								</td>
+								{% endif %}
 								<td class="td-gap">{{data.name}}</td>
+								{% if found == "Yes" %}
 								<td class="td-gap">Prescription</td>
 								<td class="td-gap">{{data.aadhar}}</td>
 								<td class="td-gap">{{data.todaydate}}</td>
@@ -147,6 +150,7 @@
 
 								<td class="td-gap"><button class="status danger">Delete</button></td>
 								<td class="td-gap"><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
+								{% endif %}
 							</tr>
 							{% endfor %}
 						</tbody>

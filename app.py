@@ -298,21 +298,24 @@ def drdocuments():
     if 'doctor' in session:
         data = patientmedicaldetail.find({"draadhar": session['doctor']})
         files = []
-        for row in data:
-            files.append({
-                "name": row["name"],
-                "aadhar": row["aadhar"],
-                "drname": row["drname"],
-                "todaydate": row["todaydate"],
-                "presname": row["presname"]
-            })
-        return render_template("doctor/documents.html", files=files)
-    return render_template("login.html")
+        found = "Yes"
 
-@app.route("/consentlist1")
-def consentlist1():
-    if 'doctor' in session:
-        return render_template("doctor/consentlist.html")
+        if data is not None:
+            for row in data:
+                files.append({
+                    "name": row["name"],
+                    "aadhar": row["aadhar"],
+                    "drname": row["drname"],
+                    "todaydate": row["todaydate"],
+                    "presname": row["presname"]
+                })
+
+        if len(files) == 0:
+            found = "No"
+            files.append({
+                "name": "No records found",
+            })
+        return render_template("doctor/documents.html", files=files, found = found)
     return render_template("login.html")
 
 @app.route("/consent1")
@@ -356,6 +359,36 @@ def prescription_template():
         return render_template("doctor/sample.html", name=exist["name"], addlineone=exist["addlineone"], statecountry=exist["statecountry"], phone=exist["phone"])
     return render_template("login.html")
 
+@app.route('/consentlist1',  methods=['POST', 'GET'])
+def consentList1():
+    if 'doctor' in session:
+        data = consentlist.find({"draadhar": session["doctor"]})
+        files = []
+        if data is not None:
+            for row in data:
+                files.append({
+                    "name": row["name"],
+                    "aadhar": row["aadhar"],
+                    "drname": row["drname"],
+                    "status": row["status"],
+                    "draadhar": session["doctor"],
+                    "severity": row["severity"],
+                    "cost": row["cost"],
+                    "date": row["date"],
+                    "signature": row["signature"],
+                    "econtact": row["econtact"],
+                })
+        contain = "Yes"
+        if len(files) == 0:
+            contain = "No"
+            files.append({
+                "name": "No Record Found",
+            })
+
+        return render_template("doctor/consentlist.html", contain=contain, files=files)
+    return render_template("login.html")
+
+
 @app.route('/consentlist/<string:drname>/<string:aadhar>',  methods=['POST', 'GET'])
 def consentList(aadhar,drname):
     if 'doctor' in session:
@@ -388,7 +421,7 @@ def consentList(aadhar,drname):
     return render_template("login.html")
 
 @app.route('/consent/<string:drname>/<string:aadhar>',  methods=['POST', 'GET'])
-def consent(aadhar,drname):
+def consent(drname,aadhar):
     if 'doctor' in session:
         data = patientdetail.find_one({"aadhar": aadhar})
         if request.method == "POST":
@@ -403,7 +436,6 @@ def consent(aadhar,drname):
             day = now.strftime("%d")
 
             todaydate = day + "/" + month + "/" + year
-            datapatient = get_details(aadhar)
 
             consentlist.insert_one({
                 "name": data["name"],
@@ -415,7 +447,7 @@ def consent(aadhar,drname):
                 "cost": cost,
                 "date": todaydate,
                 "signature": signature,
-                "econtact": datapatient["mobile"],
+                "econtact": data["econtact"],
             })
 
         drexist = doctordetail.find_one({"aadhar": session['doctor']})
@@ -673,6 +705,9 @@ def patientdeliverytracking():
 @app.route('/patientconsent', methods=['GET', 'POST'])
 def patientconsent():
     if "patient" in session:
+        data = patientdetail.find_one({"aadhar": session["patient"]})
+        econtact = data["econtact"]
+        data = consentlist
         return render_template("patient/consent.html")
     return render_template('patientLogin.html')
 

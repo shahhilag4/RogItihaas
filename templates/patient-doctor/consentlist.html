@@ -30,45 +30,46 @@
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="/doctorsignin">
+				<a href="/doctorpatientdashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="/documents">
+				<a href="/documents/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Medical Records</span>
+					<span class="text">Previous Prescriptions</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/reports/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Previous Reports</span>
 				</a>
 			</li>
 			<li class="active">
-				<a href="/consentlist1">
+				<a href="/consentlist/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Consents</span>
+					<span class="text">Consent List</span>
 				</a>
 			</li>
 			<li>
-				<a href="/prescriptiondecision">
+				<a href="/consent/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Prescription Requests</span>
+					<span class="text">Consent</span>
 				</a>
 			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="/prescription_template">
-					<i class="fa-solid fa-prescription"></i>
-					<span class="text">Prescription Template</span>
+				<a href="/writeprescription/{{name}}/{{aadhar}}">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Write Prescription</span>
 				</a>
 			</li>
 			<li>
-				<a href="/drsettings">
-					<i class="fa-solid fa-gear"></i>
-					<span class="text">Settings</span>
-				</a>
-			</li>
-			<li>
-				<a href="/logout" class="logout">
+				<a href="/doctorsignin" class="logout">
 					<i class="fa-solid fa-right-from-bracket"></i>
 					<span class="text">Logout</span>
 				</a>
@@ -113,7 +114,7 @@
 						<thead>
 							<tr>
 								<th class="th-gap">S.No</th>
-								<th class="th-gap">Patient Name</th>
+								<th class="th-gap">Doctor Name</th>
 								<th class="th-gap">Consent</th>
 								<th class="th-gap">Status</th>
 							</tr>
@@ -127,11 +128,11 @@
 								</td>
 								{% endif %}
 								<td class="td-gap">
-									<p>{{data.name}}</p>
+									<p>{{data.drname}}</p>
 								</td>
 								{% if contain=='Yes' %}
 								<!-- <td class="td-gap"><a href="/consent/{{drname}}/{{aadhar}}"><button class="status success">View</button></a></td> -->
-								<td class="td-gap"><a href="/consent1"><button class="status success">View</button></a></td>
+								<td class="td-gap"><a href="/consentpatient/{{aadhar}}"><button class="status success">View</button></a></td>
 								{% endif %}
 								<td class="td-gap">
 									<p>{{data.status}}</p>

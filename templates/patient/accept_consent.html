@@ -121,9 +121,9 @@
 			<div class="table-data">
 				
 				<div class="order">
-					<form>
+					<form action="acceptaction" method="POST">
 						<label class="drname" for="doctor_name">Doctor Name:</label>
-						<span id="drname" class="formInput">{{drname}}</span><br /><br />
+						<span id="drname" class="formInput">Dr.{{drname}}</span><br /><br />
 						<label class="drname" for="severity">Severity Score:</label>
 						<span id="drname" type="number" min="0" max="100" class="severity">20%</span><br /><br />
 						<label class="drname" for="doctor_name">Estimated Operation Cost:</label>
@@ -141,11 +141,11 @@
 						</ul>
 						<br />
 						<label for="signature">Doctor Signature:</label>
-						<span>{{drname}}</span><br />
+						<span>Dr.{{drname}}</span><br />
 						<label for="signature">Guardian Signature:</label>
 						<input type="text" id="signature" name="signature" required>
-						<button class="button-style" type="submit">Accept</button>
-						<button class="button-style" type="submit">Reject</button>
+						<button class="button-style" type="submit" name="accept">Accept</button>
+						<button class="button-style" type="submit" name="reject">Reject</button>
 					</form>
 				</div>
 			</div>
