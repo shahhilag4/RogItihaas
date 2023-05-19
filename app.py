@@ -673,7 +673,7 @@ def patientsignup():
                     'econtact': econtact,
                     'name': data['name'],
                     'mobile': data['mobile'],
-                    'var':0
+                    'var': 0
                 }
                 token = generate_unique_token()
                 print(token)
@@ -790,17 +790,57 @@ def patientdeliverytracking():
 def patientconsent():
     if "patient" in session:
         data = patientdetail.find_one({"aadhar": session["patient"]})
-        econtact = data["econtact"]
-        data = consentlist.find({"econtact": econtact})
-        
+        mobile = data["mobile"]
+        data = consentlist.find({"econtact": mobile})
+
+        files = []
+        for row in data:
+            files.append({
+                "name": row["name"],
+                "econtact": row["econtact"],
+                "status": row["status"],
+                "draadhar": row["draadhar"],
+            })
+        return render_template("patient/consent.html", files=files)
+    return render_template('patientLogin.html')
+
+
+@app.route('/patientconsentletter/<string:econtact>/<string:draadhar>', methods=['GET', 'POST'])
+def patientconsentletter(econtact, draadhar):
+    if "patient" in session:
+        if request.method == "POST":
+            accept = request.form.get("accept")
+            if accept == "accept":
+                consentlist.update_one({'econtact': econtact, 'draadhar': draadhar}, {
+                                        "$set": {'status': "Approved"}})
+            else:
+                consentlist.update_one({'econtact': econtact, 'draadhar': draadhar}, {
+                    "$set": {'status': "Rejected"}})
+            data = patientdetail.find_one({"aadhar": session["patient"]})
+            mobile = data["mobile"]
+            data = consentlist.find({"econtact": mobile})
+
+            files = []
+            for row in data:
+                files.append({
+                    "name": row["name"],
+                    "econtact": row["econtact"],
+                    "status": row["status"],
+                    "draadhar": row["draadhar"],
+                })
+            return render_template("patient/consent.html", files=files)
+        data = consentlist.find_one({"econtact": econtact, "draadhar": draadhar})
+        return render_template("patient/accept_consent.html", name=data["name"], drname=data["drname"], draadhar=draadhar, econtact=econtact,
+                               status=data["status"], cost=data["cost"], severity=data["severity"], date=data["date"])
+    return render_template('patientLogin.html')
+
+
+@app.route('/acceptaction/<string:econtact>/<string:draadhar>', methods=['GET', 'POST'])
+def acceptaction(econtact, draadhar):
+    if "patient" in session:
         return render_template("patient/consent.html")
     return render_template('patientLogin.html')
 
-@app.route('/patientconsentletter', methods=['GET', 'POST'])
-def patientconsentletter():
-    if "patient" in session:
-        return render_template("patient/accept_consent.html")
-    return render_template('patientLogin.html')
 
 @app.route('/patientsettings', methods=['POST', 'GET'])
 def patientsettings():
@@ -998,4 +1038,4 @@ def emergencydoctorsignin():
         return render_template("scanqrLogin.html")
 
 if __name__ == '__main__':
-    app.run(port=4000)
+    app.run(port=4000, debug=True)
