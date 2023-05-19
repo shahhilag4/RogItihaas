@@ -383,6 +383,7 @@ def prescriptiondecision():
 @app.route("/prescription_repository")
 def prescription_repository():
     if "patient" in session:
+        print("Hello")
         return render_template("patient/prescription_repository.html")
     return render_template("login.html")
 
