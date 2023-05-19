@@ -9,9 +9,7 @@ def generate_unique_token():
 def get_details(aadhaar):
     url = f"https://testapi-11co.onrender.com/aadhaar/{aadhaar}"
     response = requests.get(url)
-    print(response.content, "aadhar.py")
     length=len(response.json())
-    print(length, "Print the length of the data")
     if length>1:
         data = response.json()
         dob = data['DOB']
@@ -26,6 +24,23 @@ def get_details(aadhaar):
         'gender': data['gender'],
         'address': data['address'],
         'mobile': data['mobile_no']
+    }
+
+def get_licence_detail(licence):
+    url = f"https://pharmacyapi.onrender.com/licence/{licence}"
+    response = requests.get(url)
+    length=len(response.json())
+    print(response.json())
+    if length>1:
+        data = response.json()
+    else:
+        return None
+    return {
+        'licence': data['licence'],
+        'gst' : data['gst_no'],
+        'name': data['name'],
+        'address': data['address'],
+        'mobile': data['mobile_number']
     }
 
 def calculate_age(dob):
