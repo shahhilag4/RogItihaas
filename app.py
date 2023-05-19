@@ -4,7 +4,7 @@ from datetime import datetime
 import bcrypt
 import os
 import pyqrcode
-from aadhaar import get_details, generate_unique_token
+from aadhaar import get_details, generate_unique_token, get_licence_detail
 import pandas as pd
 
 app = Flask(__name__)
@@ -80,8 +80,6 @@ def doctorsignup():
             token = generate_unique_token()
             return redirect(url_for('twoFacAuthDoc', token=token))
 
-            # return render_template('doctor/modal.html', name=data['name'], mobile=data['mobile'], aadhar=aadhar)
-
         message = "User Already Exist"
         return render_template("login.html", message=message)
     return render_template("login.html")
@@ -100,22 +98,14 @@ def twoFacAuthDoc(token):
                 hashpass = user_data['password']
                 email = user_data['email']
                 councilnum = user_data['councilnum']
-            if len(aadhar)!=12:
-                data=get_details(str(aadhar[0:12]))
-            else:
-                data=get_details(aadhar)
+            data=get_details(aadhar)
             exist = doctordetail.find_one({'aadhar': aadhar})
-            print(data)
-            print(exist)
             if request.method == 'POST':
                 mobile_num = request.form.get('mob_number')
-                print("Post success")
-                print(mobile_num)
                 session.pop('doctor')
                 if "doctor" not in session:
                     mobile = data['mobile']
                     if mobile == mobile_num:
-                        print("Yes we did")
                         if exist is None:
                             doctordetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'councilnum' : councilnum,  'email': email, 'password': hashpass})
                             s = "http://34.28.38.229/doctorsignup"
@@ -411,7 +401,6 @@ def prescription_template():
                 doctoraddress.insert_one({"aadhar": session["doctor"], "name": drname, "addlineone": addlineone,
                                           "statecountry": statecountry, "phone": phone})
         exist = doctoraddress.find_one({"aadhar": session["doctor"]})
-        # print(exist)
         return render_template("doctor/sample.html", name=exist["name"], addlineone=exist["addlineone"], statecountry=exist["statecountry"], phone=exist["phone"])
     return render_template("login.html")
 
@@ -530,7 +519,6 @@ def uploadprescription(name, aadhar):
                 os.mkdir(final_path)
 
             path = os.path.join(final_path, file.filename)
-            print(path)
             file.save(path)
 
             now = datetime.now()  # current date and time
@@ -586,7 +574,6 @@ def uploadreport(name, aadhar):
                 os.mkdir(final_path)
 
             path = os.path.join(final_path, file.filename)
-            print(path)
             file.save(path)
 
             now = datetime.now()  # current date and time
@@ -639,7 +626,6 @@ def patientsignup():
         econtact = request.form['emergency']
         hashpass=request.form['patientpassword']
         if radio == 'aadhaar_card':
-            print("inside aadhar card")
             data = get_details(aadhar)
             exist = patientdetail.find_one({'aadhar': aadhar})
             if data is not None and exist is None:
@@ -676,7 +662,6 @@ def patientsignup():
                     'var': 0
                 }
                 token = generate_unique_token()
-                print(token)
                 return redirect(url_for('twoFacAuth', token=token))
 
 
@@ -702,17 +687,12 @@ def twoFacAuth(token):
             else:
                 data=get_details(aadhar)
             exist = patientdetail.find_one({'aadhar': aadhar})
-            print(data)
-            print(exist)
             if request.method == 'POST':
                 mobile_num = request.form.get('mob_number')
-                print("Post success")
-                print(mobile_num)
                 session.pop('patient')
                 if "patient" not in session:
                     mobile = data['mobile']
                     if mobile == mobile_num:
-                        print("Yes we did")
                         if exist is None:
                             patientdetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
                             s = "http://34.28.38.229/patientsignup"
@@ -930,7 +910,6 @@ def patientdocuments():
 @app.route("/patienthealthcard")
 def patienthealthcard():
     if 'patient' in session:
-        # print(session["patient"])
         return render_template("patient/healthcard.html", aadhar=session["patient"])
     return render_template("patientLogin.html")
 
@@ -938,39 +917,86 @@ def patienthealthcard():
 
 @app.route('/pharmacysignup', methods=['POST', 'GET'])
 def pharmacysignup():
+    licensenumber = request.form['licensenum']
+    email = request.form['email']
+    licensenumber=licensenumber.upper()
     if request.method == 'POST':
-        licensenumber = request.form['licensenum']
-        gstnumber = request.form['gstnumber']
-        email = request.form['email']
-        exist = pharmacydetail.find_one({'licensenumber': licensenumber})
-        if exist is None:
+        exist = pharmacydetail.find_one({'licence': licensenumber})
+        data = get_licence_detail(licensenumber)
+        if data is not None and exist is None:
             hashpass = bcrypt.hashpw(
                 request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            pharmacydetail.insert_one(
-                {'licensenumber': licensenumber, 'gstnumber': gstnumber, 'email': email, 'password': hashpass}
-            )
-            session['pharmacy'] = licensenumber
+            session['pharmacy'] = {
+                    'password': hashpass,
+                    'email': email,
+                    'licence' : data['licence'],
+                    'var':0
+                }
+            token = generate_unique_token()
+            return redirect(url_for('twoFacAuthPharmacy', token=token))
 
-            return render_template('pharmacy/dashboard.html', regnumber=licensenumber)
         message = "User Already Exist"
         return render_template("pharmacyLogin.html", message=message)
     return render_template("pharmacyLogin.html")
+
+
+
+@app.route('/twofactorauthpharmacy/<string:token>', methods=['POST', 'GET'])
+def twoFacAuthPharmacy(token):
+    if 'pharmacy' in session:
+        user_data = session.get('pharmacy')
+        contains="No"
+        if user_data:
+            licence = user_data['licence']
+            if user_data['var']==0:
+                contains="Yes"
+                hashpass = user_data['password']
+                email = user_data['email']
+            data=get_licence_detail(licence)
+            exist = pharmacydetail.find_one({'licence': licence})
+            if request.method == 'POST':
+                mobile_num = request.form.get('mob_number')
+                session.pop('pharmacy')
+                if "pharmacy" not in session:
+                    mobile = data['mobile']
+                    if mobile == mobile_num:
+                        if exist is None:
+                            pharmacydetail.insert_one({'licence':data['licence'],'name': data['name'], 'gst':data['gst'], 'address': data['address'], 'mobile': data['mobile'], 'email': email, 'password': hashpass})
+                        session['pharmacy'] = licence
+                        return redirect(url_for('pharmacydashboard'))
+                    else:
+                        message = "Incorrect Mobile No. Try again"
+                        return render_template('pharmacy/modal.html', message=message, name=data['name'], mobile=mobile,token=token)
+                return redirect(url_for('pharmacydashboard'))
+            if contains=="Yes":
+                return render_template('pharmacy/modal.html', licence=licence, hashpass=hashpass, email=email, name=data['name'], mobile=data['mobile'],token=token)
+    return render_template('pharmacy/modal.html', licence=licence, name=data['name'], mobile=data['mobile'],token=token)
 
 
 @app.route('/pharmacysignin', methods=['GET', 'POST'])
 def pharmacysignin():
     if request.method == 'POST':
         licensenumber = request.form['licensenumber']
-        userLogin = pharmacydetail.find_one({'licensenumber': licensenumber})
+        licensenumber = licensenumber.upper()
+        userLogin = pharmacydetail.find_one({'licence': licensenumber})
         if userLogin:
             if bcrypt.hashpw(request.form['password'].encode('utf-8'), userLogin['password']) == userLogin['password']:
-                session['pharmacy'] = licensenumber
-                return render_template('pharmacy/dashboard.html', regnumber=licensenumber)
+                token=generate_unique_token()
+                session['pharmacy'] = {
+                    'licence': licensenumber,
+                    'var':1
+                }
+                return redirect(url_for('twoFacAuthPharmacy',token=token))
 
         message = "Invalid Credentials"
         return render_template('pharmacyLogin.html', message=message)
     return render_template('pharmacyLogin.html')
 
+@app.route('/pharmacydashboard', methods=['POST', 'GET'])
+def pharmacydashboard():
+    if "pharmacy" in session:
+        return render_template('pharmacy/dashboard.html')
+    return render_template("pharmacyLogin.html")
 
 @app.route('/medicines', methods=['GET', 'POST'])
 def medicines():
