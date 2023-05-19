@@ -155,7 +155,11 @@
 						<label for="signature">Doctor Signature:</label>
 						<span>{{drname}}</span><br />
 						<label for="signature">Guardian Signature:</label>
+						{% if status == "Waiting for approval" %}
 						<input type="text" id="signature" name="signature" required>
+						{%else%}
+						<span>{{relname}}</span>
+						{% endif %}
 						<!-- Send varibale to hide buttons -->
 
 						{% if status == "Waiting for approval" %}

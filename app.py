@@ -833,8 +833,9 @@ def patientconsentletter(econtact, draadhar):
                 })
             return render_template("patient/consent.html", files=files)
         data = consentlist.find_one({"econtact": econtact, "draadhar": draadhar})
+        data1 = patientdetail.find_one({"aadhar": session["patient"]})
         return render_template("patient/accept_consent.html", name=data["name"], drname=data["drname"], draadhar=draadhar, econtact=econtact,
-                               status=data["status"], cost=data["cost"], severity=data["severity"], date=data["date"])
+                               status=data["status"], cost=data["cost"], severity=data["severity"], date=data["date"],relname=data1["name"])
     return render_template('patientLogin.html')
 
 
