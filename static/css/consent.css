@@ -54,11 +54,12 @@ input[type="date"] {
 .un-list {
 	margin: 0;
 	padding: 0;
-	list-style: none;
 }
 
 .list {
 	margin-bottom: 10px;
+	list-style:lower-latin;
+	margin-left: 1rem;
 }
 
 .button-style {

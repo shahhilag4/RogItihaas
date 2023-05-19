@@ -114,7 +114,7 @@
 				<div class="order">
 					<div class="head">
 						<h3></h3>
-						<input type="search" class="search-1" placeholder="Search Medicine Name">
+						<input type="search" class="search-1" placeholder="Search Consent Letter">
 						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</div>
 					<table>
@@ -127,18 +127,20 @@
 							</tr>
 						</thead>
 						<tbody>
+						{% for data in files %}
 							<tr>
 								<td class="td-gap">
-									<p>1</p>
+									<p>{{loop.index}}</p>
 								</td>
 								<td class="td-gap">
-									<p>Hrithik</p>
+									<p>{{data.name}}</p>
 								</td>
-								<td class="td-gap"><a href="/patientconsentletter"><button class="status success">View</button></a></td>
+								<td class="td-gap"><a href="/patientconsentletter/{{data.econtact}}/{{data.draadhar}}"><button class="status success">View</button></a></td>
 								<td class="td-gap">
-									<p>Waiting for approval</p>
+									<p>{{data.status}}</p>
 								</td>
 							</tr>
+						{% endfor %}
 						</tbody>
 					</table>
 				</div>
