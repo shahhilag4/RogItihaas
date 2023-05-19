@@ -761,6 +761,26 @@ def patientdashboard():
     return render_template("patientLogin.html")
 
 
+@app.route('/patienthome/<string:aadhar>', methods=['POST', 'GET'])
+def patienthome(aadhar):
+    if "doctor" in session:
+        exist = patientdetail.find_one({'aadhar': aadhar})
+        drexist = doctordetail.find_one({"aadhar": session['doctor']})
+
+        if exist:
+            files = []
+            data = patientmedicaldetail.find(
+                {"draadhar": session['doctor']})
+            for row in data:
+                files.append({
+                    "doctor": row['drname'],
+                    "todaydate": row['todaydate'],
+                })
+            return render_template("patient-doctor/dashboard.html", aadhar=aadhar, name=exist['name'],
+                                   drname=drexist["name"], draadhar=session["doctor"])
+    return render_template("patientLogin.html")
+
+
 @app.route('/patientdiagnosis', methods=['POST', 'GET'])
 def patientdiagnosis():
     if "patient" in session:
