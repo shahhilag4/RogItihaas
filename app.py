@@ -178,7 +178,7 @@ def doctorpatientdashboard():
                         "doctor": row['drname'],
                         "todaydate": row['todaydate'],
                     })
-                return render_template("patient-doctor/dashboard.html", aadhar=aadhar, name=exist['name'], drname=drexist["name"], draadhar=session["doctor"])
+                return render_template("patient-doctor/dashboard.html", aadhar=aadhar, name=exist['name'], drname=drexist["name"], draadhar=session["doctor"],gender=exist['gender'],age=exist['age'],address=exist['address'],mobile=exist['mobile'])
         data = patientmedicaldetail.find({"draadhar": session['doctor']})
         files = []
         for row in data:
