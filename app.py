@@ -501,6 +501,19 @@ def consent(drname,aadhar):
 @app.route("/drsettings", methods=["POST", "GET"])
 def drsettings():
     if "doctor" in session:
+        exist=doctordetail.find_one({'aadhar':session['doctor']})
+        if request.method == "POST":
+            old_pass=request.form['old_pass']
+            new_pass=request.form['new_pass']
+            if bcrypt.hashpw(old_pass.encode('utf-8'), exist['password']) == exist['password']:
+                password = bcrypt.hashpw(
+                            new_pass.encode('utf-8'), bcrypt.gensalt())
+                doctordetail.update_one({'aadhar':session['doctor']},{"$set":{'password':password}})
+                message="Updation successfull"
+                return render_template("doctor/settings.html",message=message)
+            else:
+                message="Wrong Password! Please try again"
+                return render_template("doctor/settings.html",message=message)
         return render_template("doctor/settings.html")
     return render_template("login.html")
 

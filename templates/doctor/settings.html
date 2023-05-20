@@ -96,31 +96,29 @@
 					<h1>Settings</h1>
 				</div>
 			</div>
-
-			<div class="table-data">
-				<div class="order">
-					<h3>Old Password</h3>
-					<div class="table-data">
-						<input type="text" class="order" id="order" placeholder="Old Password">
-						</input>
-						<button class="update-button">Proceed</button>
+			<form action="/drsettings" method="POST">
+				<div class="table-data">
+					<div class="order">
+						<h3>Old Password</h3>
+						<div class="table-data">
+							<input type="text" class="order" id="order" name="old_pass" placeholder="Old Password">
+							</input>
+						</div>
+						<div class="order">
+							<h3>New Password</h3>
+							<div class="table-data">
+								<input type="text" class="order" id="order" name="new_pass" placeholder="New Password">
+								</input>
+							</div>
+						</div>
+						<div class="order">
+							<div class="table-data">
+								<button type="submit" class="update-button">Update</button>
+							</div>
+						</div>
 					</div>
-
 				</div>
-			</div>
-
-			<div class="table-data">
-				<div class="order">
-					<h3>New Password</h3>
-					<div class="table-data">
-						<input type="text" class="order" id="order" placeholder="New Password">
-						</input>
-						<button class="update-button">Update</button>
-					</div>
-
-				</div>
-			</div>
-
+			</form>
 		</main>
 	</section>
 
