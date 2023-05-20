@@ -1,0 +1,252 @@
+<!-- Patient-Doctor Prescription -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../static/css/dashboard.css">
+    <link rel="stylesheet" href="../../static/css/checkout.css">
+    <link rel="stylesheet" href="../../static/css/tagger.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+    
+    <title>रोगइतिहास - Patient Prescription</title>
+</head>
+
+<body>
+
+
+    <!-- Sidebar -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <i class="fa-solid">
+                <img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+            </i>
+            <span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+                    class="india-green">हास</span></span>
+        </a>
+        <ul class="side-menu top">
+			<li>
+				<a href="/doctorpatientdashboard">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dr. {{drname}} Dashboard</span>
+				</a>
+			</li>
+            <li>
+				<a href="/patienthome/{{aadhar}}">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/documents/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Previous Prescriptions</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/reports/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Previous Reports</span>
+				</a>
+			</li>
+			<li>
+				<a href="/consentlist/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent List</span>
+				</a>
+			</li>
+			<li>
+				<a href="/consent/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent</span>
+				</a>
+			</li>
+            <li class="active">
+                <a href="/writeprescription/{{name}}/{{aadhar}}">
+                    <i class="fa-solid fa-tablets"></i>
+                    <span class="text">Write Prescription</span>
+                </a>
+            </li>
+		</ul>
+    </section>
+
+    <!-- Content -->
+    <section id="content">
+        <!-- Navbar -->
+        <nav>
+            <i class="fa-solid fa-bars"></i>
+            <form action="#"></form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="profile">
+                <img src="../../static/img/rishi.jpg">
+            </a>
+        </nav>
+
+        <!-- Main -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Prescription</h1>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order" id="orderbill">
+                    <div id="container">
+                        <header class="prescription_head">
+                            <div class="prescription_block">
+                                <h1>Prescription</h1>
+                                <p>{{drname}}</p>
+                                <p>{{addlineone}}</p>
+                                <p>{{statecountry}}</p>
+                                <p>Phone: {{phone}}</p>
+                            </div>
+                            <!-- <img class="head_img" src="../../static/img/rishi.jpg" alt=""> -->
+                        </header>
+                        <main>
+                            <h2>Patient Information</h2>
+                            <form id="myForm" action="/uploadpresciption/{{aadhar}}/{{drname}}" method="POST">
+                                <ul>
+                                    <li><strong>Name:</strong> <input type="text" value="{{name}}" name="name"
+                                            class="formInput inputValue"></li>
+                                    <li><strong>Age:</strong> <input type="number" name="age" value="33"
+                                            class="formInput inputValue"></li>
+                                    <li><strong>Gender:</strong>
+                                        <label>
+                                            <input type="radio" name="gender" value="male" checked> Male
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="gender" value="female"> Female
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="gender" value="other"> Other
+                                        </label>
+                                    </li>
+                                    <li><strong>Weight:</strong> <input type="number" name="weight" placeholder="80"
+                                            class="formInput inputValue"> kg</li>
+                                    <li><strong>Disease:</strong><input type="text" name="disease"
+                                            value="fever,malaria,dengue" name="tags3a" />
+                                        <script src="../../static/js/tagger.js"></script>
+                                        <script>
+                                            var t3 = tagger(document.querySelectorAll('[name^="disease"]'), {
+                                                allow_duplicates: false,
+                                                allow_spaces: true,
+                                                wrap: true,
+                                                link: function (name) {
+                                                    return `javascript:alert('${name}');`;
+                                                }
+                                            });
+                                        </script>
+                                    </li>
+                                </ul>
+
+                                <h2>Medication Information</h2>
+                                <table id="demoA">
+                                    <tr>
+                                        <th>Medication Name</th>
+                                        <th>Dosage</th>
+                                        <th>Frequency</th>
+                                        <th>Duration</th>
+                                        <th>Instructions</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" list="dr" name="medicine1"
+                                                placeholder="Enter Medicine" />
+                                            <datalist id="dr">
+                                                <option value="Paracetamol">Paracetamol</option>
+                                                <option value="Citrazine">Citrazine</option>
+                                            </datalist>
+                                        </td>
+                                        <td><input type="number" name="mg1" value="10" class="formInput inputValue"> mg
+                                        </td>
+                                        <td><input type="number" name="dose1" value="1" class="formInput inputValue">
+                                            daily
+                                        </td>
+                                        <td><input type="number" name="days1" value="3" class="formInput inputValue">
+                                            days
+                                        </td>
+                                        <td><input type="text" name="food1" placeholder="Take with food"
+                                                class="formInput inputValue"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" list="dr" name="medicine2"
+                                                placeholder="Enter Medicine" />
+                                            <datalist id="dr">
+                                                <option value="Paracetamol">Paracetamol</option>
+                                                <option value="Citrazine">Citrazine</option>
+                                            </datalist>
+                                        </td>
+                                        <td><input type="number" name="mg2" value="1" class="formInput inputValue"> mg
+                                        </td>
+                                        <td><input type="number" name="dose2" value="1" class="formInput inputValue">
+                                            daily
+                                        </td>
+                                        <td><input type="number" name="days2" value="7" class="formInput inputValue">
+                                            days
+                                        </td>
+                                        <td><input type="text" name="food2" value="Take with food"
+                                                class="formInput inputValue"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" list="dr" name="medicine3"
+                                                placeholder="Enter Medicine" />
+                                            <datalist id="dr">
+                                                <option value="Paracetamol">Paracetamol</option>
+                                                <option value="Citrazine">Citrazine</option>
+                                            </datalist>
+                                        </td>
+                                        <td><input type="number" name="mg3" placeholder="1"
+                                                class="formInput inputValue"> mg
+                                        </td>
+                                        <td><input type="number" name="dose3" placeholder="1"
+                                                class="formInput inputValue"> daily
+                                        </td>
+                                        <td><input type="number" name="days3" placeholder="7"
+                                                class="formInput inputValue"> days
+                                        </td>
+                                        <td><input type="text" name="food3" placeholder="Take with food"
+                                                class="formInput inputValue"></td>
+                                    </tr>
+                                </table>
+                                <input type="button" value="Add Bottom" onclick="addRow()">
+                                
+                                <p><strong>Prescribed by:</strong> {{drname}}</p>
+                                <p><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span>
+                            </p>
+                        </main>
+                        <footer>
+                            <h3>Instructions :</h3>
+                            <textarea placeholder="Enter text here" class="txtarea" style="height:30px;" rows="3"
+                            name="Text" id="text"></textarea>
+                        </footer>
+                        <input type="submit" class="btn" value="Submit" />
+                    </div>
+                </div>
+            </div>
+
+            </form>
+        </main>
+    </section>
+
+    <!-- JS files -->
+    <script src="../../static/js/dashboard.js"></script>
+    <script src="../../static/js/date.js"></script>
+    <script src="../../static/js/main.js"></script>
+      
+</body>
+
+</html>

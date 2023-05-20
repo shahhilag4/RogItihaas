@@ -1,0 +1,141 @@
+<!-- Patient-Doctor Dashboard -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/consent.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+
+	<title>रोगइतिहास - Patient Dashboard</title>
+</head>
+
+<body>
+
+
+	<!-- Sidevar -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class="fa-solid">
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+			</i>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="/doctorpatientdashboard">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dr. {{drname}} Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patienthome/{{aadhar}}">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/documents/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Previous Prescriptions</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/reports/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Previous Reports</span>
+				</a>
+			</li>
+			<li>
+				<a href="/consentlist/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent List</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="/consent/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="/writeprescription/{{name}}/{{aadhar}}">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Write Prescription</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+	<!-- Content -->
+	<section id="content">
+		<!-- Navbar -->
+		<nav>
+			<i class="fa-solid fa-bars"></i>
+			<form action="#"></form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="profile">
+				<img src="../../static/img/rishi.jpg">
+			</a>
+		</nav>
+
+		<!-- Main -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Medical Consent Form</h1>
+				</div>
+			</div>
+			
+			<div class="table-data">
+				
+				<div class="order">
+					<form action="/consent/{{drname}}/{{aadhar}}" method="POST" enctype="multipart/form-data">
+						<label class="drname" for="doctor_name">Doctor Name:</label>
+						<span id="drname" class="formInput" >{{drname}}</span><br /><br />
+						<label class="drname" for="severity">Severity Score:</label>
+						<input id="drname" type="number" min="0" max="100" class="severity" placeholder="20" name="severity" required>%</input><br /><br />
+						<label class="drname" for="doctor_name">Estimated Operation Cost:</label>
+						<input type="number" id="drname" placeholder="1200000" class="formInput" name="cost" required></input>₹<br /><br />
+						<label class="date" for="date">Date:</label>
+						<span id="date" class="formInput"> March 9, 2023</span><br /><br />
+						<label for="consent-decision">To Whomsoever It May Concern:</label>
+						<label for="consent-decision">{{name}} is the patient under my care.He is under a critical condition and in a condition of medical emergency. I request your permission to make decisions for and/or provide care for the patient.<br /><br />During a medical emergency there may not be time to contact a guardian prior to action being taken and I assure you that the actions taken will  be in the best interest of the patient. We will notify you incase of any emergency as soon as possible. These decisions may include:</label>
+						<br /><br />
+						<ul class="un-list">
+							<li class="list"><label for="emergency-transportation">Emergency transportation (i.e. ambulance)</label></li>
+							<li class="list"><label for="emergency-treatment">Permission for emergency personnel to provide treatment (i.e. EMT/Emergency Room staff)</label></li>
+							<li class="list"><label for="first-aid">Permission for staff trained in First Aid to provide treatment until other emergency personnel arrive.</label></li>
+							<li class="list"><label for="directing-transportation">Directing emergency transportation to the closest hospital (the parents’ choice of hospital will always tried to be honored unless the situation dictates otherwise, i.e. field trip out of area).</label></li>
+						</ul>
+						<br />
+						<label for="signature">Doctor Signature:</label>
+						<input type="text" id="signature" name="signature" required>
+						<button class="button-style" type="submit">Send</button>
+					</form>
+				</div>
+			</div>
+
+
+		</main>
+	</section>
+
+	<!-- JS files -->
+	<script src="../../static/js/dashboard.js"></script>
+	<script src="../../static/js/date.js"></script>
+	<script src="../../static/js/consent.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!-- Patient-Doctor Reports -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<!-- pdf.js library imported -->
+	<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+
+	<title>रोगइतिहास - Patient Medical Records</title>
+</head>
+
+<body>
+
+
+	<!-- Sidebar -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class="fa-solid">
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+			</i>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="/doctorpatientdashboard">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dr. {{drname}} Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patienthome/{{aadhar}}">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/documents/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Previous Prescriptions</span>
+				</a>
+			</li>
+
+			<li class="active">
+				<a href="/reports/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Previous Reports</span>
+				</a>
+			</li>
+			<li>
+				<a href="/consentlist/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent List</span>
+				</a>
+			</li>
+			<li>
+				<a href="/consent/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="/writeprescription/{{name}}/{{aadhar}}">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Write Prescription</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+	<!-- Content -->
+	<section id="content">
+		<!-- Navbar -->
+		<nav>
+			<i class="fa-solid fa-bars"></i>
+			<form action="#"></form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="profile">
+				<img src="../../static/img/rishi.jpg">
+			</a>
+		</nav>
+
+		<!-- Main -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Previous Medical Reports</h1>
+				</div>
+			</div>
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+
+						<strong>Upload Report : </strong>
+						<form action="/reports/{{name}}/{{aadhar}}" method="POST" enctype="multipart/form-data">
+							<input type="text" name="docname" placeholder="Enter Document Name" required>
+							<input class="upload" type="file" name="file" required>
+							<input type="submit" value="Upload">
+						</form>
+
+						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name"
+							onkeyup="searchDoc()">
+						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th class="th-gap">S.No</th>
+								<th class="th-gap">Document Name</th>
+								<th class="th-gap">Date</th>
+								<th class="th-gap">Uploaded By</th>
+								<th class="th-gap">View</th>
+								<th class="th-gap">Delete</th>
+							</tr>
+						</thead>
+						<tbody id="tableBody1">
+							{% for data in files %}
+							<tr>
+								{% if contain == "Yes" %}
+								<td class="td-gap">
+									<p>{{loop.index}}</p>
+								</td>
+								{% endif %}
+								{% if contain == "Yes" %}
+								<td class="td-gap">
+									<p>{{data.presname}}</p>
+								</td>
+								{% endif %}
+								<td class="td-gap">{{data.todaydate}}</td>
+								{% if contain == "Yes" %}
+								<td class="td-gap" class="drname">{{data.doctor}}</td>
+								<td class="td-gap"><button class="status success"
+									onclick="viewPDF('../../static/Hilag.pdf')">View</button></td>
+								<div id="pdf-modal" class="modal">
+									<div class="modal-content">
+										<span class="close" onclick="closePDF()">&times;</span>
+										<button id="downloadButton" onclick="downloadPDF('../../static/reports/1/1.pdf')">Download PDF</button>
+										<canvas id="pdf-canvas"></canvas>
+									</div>
+								</div>
+								<td class="td-gap"><button class="status danger">Delete</button></td>
+								{% endif %}
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+	</section>
+
+	<!-- JS files -->
+	<script src="../../static/js/reportsave.js"></script>
+	<script src="../../static/js/click.js"></script>
+	<script src="../../static/js/dashboard.js"></script>
+</body>
+
+</html>

@@ -246,17 +246,15 @@ def consentview(aadhar, econtact):
 @app.route('/writeprescription/<string:name>/<string:aadhar>')
 def writeprescription(name, aadhar):
     if 'doctor' in session:
-        exist = doctoraddress.find_one({"aadhar": session["doctor"]})
-        return render_template("patient-doctor/prescription.html", name=name, drname=exist["name"], addlineone=exist["addlineone"],
-                               statecountry=exist["statecountry"], phone=exist["phone"], aadhar=aadhar)
+        exist = doctordetail.find_one({"aadhar": session["doctor"]})
+        return render_template("patient-doctor/prescription.html", name=name, drname=exist["name"], address=exist["address"], phone=exist["mobile"], aadhar=aadhar)
     return render_template("login.html")
 
 @app.route('/viewprescription/<string:name>/<string:aadhar>')
 def viewprescription(name, aadhar):
     if 'doctor' in session:
-        exist = doctoraddress.find_one({"aadhar": session["doctor"]})
-        return render_template("patient-doctor/prescription.html", name=name, drname=exist["name"], addlineone=exist["addlineone"],
-                               statecountry=exist["statecountry"], phone=exist["phone"], aadhar=aadhar)
+        exist = doctordetail.find_one({"aadhar": session["doctor"]})
+        return render_template("patient-doctor/prescription_readonly.html", name=name, drname=exist["name"], address=exist["address"], phone=exist["mobile"], aadhar=aadhar)
     return render_template("login.html")
 
 
@@ -750,6 +748,12 @@ def patientviewprescription():
         return render_template("patient/prescription_readonly.html")
     return render_template("patientLogin.html")
 
+@app.route("/patientviewbill", methods=["POST", "GET"])
+def patientviewbill():
+    if "patient" in session:
+        return render_template("patient/bill_readonly.html")
+    return render_template("patientLogin.html")
+
 @app.route('/patienthome/<string:aadhar>', methods=['POST', 'GET'])
 def patienthome(aadhar):
     if "doctor" in session:
@@ -887,7 +891,7 @@ def patientdocuments():
 
         data = patientmedicaldetail.find({"aadhar": session["patient"]})
         for row in data:
-            name: row["name"]
+            name = row["name"]
             files.append({
                 "name": row["name"],
                 "doctor": row['drname'],
@@ -895,24 +899,27 @@ def patientdocuments():
                 "presname": row["presname"],
                 "draadhar": row["draadhar"],
                 "aadhar": row["aadhar"],
+                "type": "Prescription",  # Assign type as "Prescription" for documents in the "prescription" folder
             })
 
-            data = patientreportdetail.find({"aadhar": session["patient"]})
-            for row in data:
-                name: row["name"]
-                files.append({
-                    "name": row["name"],
-                    "doctor": row['drname'],
-                    "todaydate": row['todaydate'],
-                    "presname": row["presname"],
-                    "draadhar": row["draadhar"],
-                    "aadhar": row["aadhar"],
-                    "url": row["url"],
-                })
+        data = patientreportdetail.find({"aadhar": session["patient"]})
+        for row in data:
+            name = row["name"]
+            files.append({
+                "name": row["name"],
+                "doctor": row['drname'],
+                "todaydate": row['todaydate'],
+                "presname": row["presname"],
+                "draadhar": row["draadhar"],
+                "aadhar": row["aadhar"],
+                "url": row["url"],
+                "type": "Report",  # Assign type as "Report" for documents in the "reports/{{aadhar}}" folder
+            })
+
         contain = "Yes"
-        if len(files)==0:
+        if len(files) == 0:
             contain = "No"
-            name: row["name"]
+            name = row["name"]
             files.append({
                 "name": "No Record Found",
                 "doctor": "No Record Found",
@@ -920,11 +927,12 @@ def patientdocuments():
                 "presname": "No Record Found",
                 "draadhar": "No Record Found",
                 "aadhar": "No Record Found",
+                "type": "None",  # Add a new key-value pair for no record found
             })
 
             data = patientreportdetail.find({"aadhar": session["patient"]})
             for row in data:
-                name: row["name"]
+                name = row["name"]
                 files.append({
                     "name": "No Record Found",
                     "doctor": "No Record Found",
@@ -933,9 +941,12 @@ def patientdocuments():
                     "draadhar": "No Record Found",
                     "aadhar": "No Record Found",
                     "url": "No Record Found",
+                    "type": "None",  # Add a new key-value pair for no record found
                 })
+    
         return render_template("patient/documents.html", files=files, contain=contain)
     return render_template("patientLogin.html")
+
 
 
 @app.route("/patienthealthcard")

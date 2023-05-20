@@ -1,0 +1,221 @@
+<!-- Patient-Doctor Prescription -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../static/css/dashboard.css">
+    <link rel="stylesheet" href="../../static/css/checkout.css">
+    <link rel="stylesheet" href="../../static/css/tagger.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+    
+    <title>रोगइतिहास - Patient View Prescription</title>
+</head>
+
+<body>
+
+
+    <!-- Sidebar -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <i class="fa-solid">
+                <img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+            </i>
+            <span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+                    class="india-green">हास</span></span>
+        </a>
+        <ul class="side-menu top">
+			<li>
+				<a href="/doctorpatientdashboard">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dr. {{drname}} Dashboard</span>
+				</a>
+			</li>
+            <li>
+				<a href="/patienthome/{{aadhar}}">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/documents/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Previous Prescriptions</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="/viewprescription/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">View prescription</span>
+				</a>
+			</li>
+			<li>
+				<a href="/reports/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Previous Reports</span>
+				</a>
+			</li>
+			<li>
+				<a href="/consentlist/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent List</span>
+				</a>
+			</li>
+			<li>
+				<a href="/consent/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consent</span>
+				</a>
+			</li>
+		</ul>
+        <ul class="side-menu">
+            <li>
+                <a href="/writeprescription/{{name}}/{{aadhar}}">
+                    <i class="fa-solid fa-tablets"></i>
+                    <span class="text">Write Prescription</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Content -->
+    <section id="content">
+        <!-- Navbar -->
+        <nav>
+            <i class="fa-solid fa-bars"></i>
+            <form action="#"></form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="profile">
+                <img src="../../static/img/rishi.jpg">
+            </a>
+        </nav>
+
+        <!-- Main -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>View Prescription</h1>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order" id="orderbill">
+                    <div id="container">
+                        <header class="prescription_head">
+                            <div class="prescription_block">
+                                <h1>Prescription</h1>
+                                <p>{{drname}}</p>
+                                <p>{{addlineone}}</p>
+                                <p>{{statecountry}}</p>
+                                <p>Phone: {{phone}}</p>
+                            </div>
+                            <!-- <img class="head_img" src="../../static/img/rishi.jpg" alt=""> -->
+                        </header>
+                        <main>
+                            <h2>Patient Information</h2>
+                            <form id="myForm" action="#" method="GET">
+                                <ul>
+                                    <li><strong>Name:</strong>{{name}}</li>
+                                    <li><strong>Age:</strong>{{age}}</li>
+                                    <li><strong>Gender:</strong>{{gender}}</li>
+                                    <li><strong>Weight:</strong>{{weight}}kg</li>
+                                    <li><strong>Disease:</strong><input type="text" name="disease"
+                                            value="fever,malaria,dengue" name="tags3a" />
+                                    <!-- <li><strong>Disease:</strong><input type="text" name="disease"
+                                            value="{{list of diseases}}" name="tags3a" /> -->
+                                        <script src="../../static/js/tagger.js"></script>
+                                        <script>
+                                            var t3 = tagger(document.querySelectorAll('[name^="disease"]'), {
+                                                allow_duplicates: false,
+                                                allow_spaces: true,
+                                                wrap: true,
+                                                link: function (name) {
+                                                    return `javascript:alert('${name}');`;
+                                                }
+                                            });
+                                        </script>
+                                    </li>
+                                </ul>
+
+                                <h2>Medication Information</h2>
+                                <table id="demoA">
+                                    <tr>
+                                        <th>Medication Name</th>
+                                        <th>Dosage</th>
+                                        <th>Frequency</th>
+                                        <th>Duration</th>
+                                        <th>Instructions</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{medicine1}}
+                                        </td>
+                                        <td>{{medicine1qty}} mg
+                                        </td>
+                                        <td>{{medicine1freq}} daily</td>
+                                        <td>{{medicine1time}} days
+                                        </td>
+                                        <td>{{medicine1instructions}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{medicine2}}
+                                        </td>
+                                        <td>{{medicine2qty}} mg
+                                        </td>
+                                        <td>{{medicine2freq}} daily</td>
+                                        <td>{{medicine2time}} days
+                                        </td>
+                                        <td>{{medicine2nstructions}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{medicine3}}
+                                        </td>
+                                        <td>{{medicine3qty}} mg
+                                        </td>
+                                        <td>{{medicine3freq}} daily</td>
+                                        <td>{{medicine3time}} days
+                                        </td>
+                                        <td>{{medicine3nstructions}}</td>
+                                    </tr>
+                                  
+                                    
+                                </table>
+                                
+                                <p><strong>Prescribed by:</strong> {{drname}}</p>
+                                <p><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span>
+                            </p>
+                        </main>
+                        <footer>
+                            <h3>Instructions :</h3>
+                           {{instructions}}
+                        </footer>
+                        <input type="submit" class="btn" value="Download" onclick="saveDivAsPdf()" />
+                    </div>
+                </div>
+            </div>
+
+            </form>
+        </main>
+    </section>
+
+    <!-- JS files -->
+    <script src="../../static/js/prescriptionsave.js"></script>
+    <script src="../../static/js/dashboard.js"></script>
+    <script src="../../static/js/date.js"></script>
+    <script src="../../static/js/main.js"></script>
+      
+</body>
+
+</html>

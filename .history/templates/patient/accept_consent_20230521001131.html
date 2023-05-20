@@ -1,0 +1,184 @@
+<!-- Patient-Doctor Dashboard -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<!-- JQuery -->
+	<script src="../../static/js/jquery-latest.min.js"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/consent.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+
+	<title>रोगइतिहास - Patient Consent Letter</title>
+</head>
+
+<body>
+
+
+	<!-- Sidevar -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class="fa-solid">
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+			</i>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="/patientdashboard">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientdocuments">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Medical Records</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patienthealthcard">
+					<i class="fa-solid fa-address-card"></i>
+					<span class="text">Health Card</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientdiagnosis">
+					<i class="fa-solid fa-message"></i>
+					<span class="text">Diagonsis</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientoredermed">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Order Medicine</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientdeliverytracking">
+					<i class="fa-solid fa-truck"></i>
+					<span class="text">Delivery Tracking</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientconsent">
+					<i class="fa-solid fa-file"></i>
+					<span class="text">Consent</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="/patientconsentletter">
+					<i class="fa-solid fa-square-check"></i>
+					<span class="text">Accept consent</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientsettings">
+					<i class="fa-solid fa-gear"></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+			<li>
+				<a href="/logout" class="logout">
+					<i class="fa-solid fa-right-from-bracket"></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+		</ul>
+	</section>
+
+	<!-- Content -->
+	<section id="content">
+		<!-- Navbar -->
+		<nav>
+			<i class="fa-solid fa-bars"></i>
+			<form action="#"></form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="profile">
+				<img src="../../static/img/rishi.jpg">
+			</a>
+		</nav>
+
+		<!-- Main -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Consent Form</h1>
+				</div>
+			</div>
+
+			<div class="table-data">
+
+				<div class="order">
+					<form action="/patientconsentletter/{{econtact}}/{{draadhar}}" method="POST">
+						<label class="drname" for="doctor_name">Doctor Name:</label>
+						<span id="drname" class="formInput">Dr. {{drname}}</span><br /><br />
+						<label class="drname" for="severity">Severity Score:</label>
+						<span id="drname" type="number" min="0" max="100"
+							class="severity">{{severity}}%</span><br /><br />
+						<label class="drname" for="doctor_name">Estimated Operation Cost:</label>
+						<span type="number" id="drname" class="formInput"></span>{{cost}}₹<br /><br />
+						<label class="date" for="date">Date:</label>
+						<span id="date" class="formInput"> {{date}}</span><br /><br />
+						<label for="consent-decision">To Whomsoever It May Concern: </label>
+						<label for="consent-decision"><u>{{name}}</u> is the patient under my care.She is under a
+							critical condition and in a condition of medical emergency. I request your permission to
+							make decisions for and/or provide care for the patient.<br /><br />During a medical
+							emergency there may not be time to contact a guardian prior to action being taken and I
+							assure you that the actions taken will be in the best interest of the patient. We will
+							notify you incase of any emergency as soon as possible. These decisions may include:</label>
+						<br /><br />
+						<ol class="un-list">
+							<li class="list"><label for="emergency-transportation">Emergency transportation (i.e.
+									ambulance)</label></li>
+							<li class="list"><label for="emergency-treatment">Permission for emergency personnel to
+									provide treatment (i.e. EMT/Emergency Room staff)</label></li>
+							<li class="list"><label for="first-aid">Permission for staff trained in First Aid to provide
+									treatment until other emergency personnel arrive.</label></li>
+							<li class="list"><label for="directing-transportation">Directing emergency transportation to
+									the closest hospital (the parents’ choice of hospital will always tried to be
+									honored unless the situation dictates otherwise, i.e. field trip out of
+									area).</label></li>
+						</ol>
+						<br />
+						<label for="signature">Doctor Signature:</label>
+						<span>{{drname}}</span><br />
+						<label for="signature">Guardian Signature:</label>
+						{% if status == "Waiting for approval" %}
+						<input type="text" id="signature" name="signature" required>
+						{%else%}
+						<span>{{relname}}</span>
+						{% endif %}
+						<!-- Send varibale to hide buttons -->
+
+						{% if status == "Waiting for approval" %}
+						<button class="button-style" type="submit" name="accept" value="accept">Accept</button>
+						<button class="button-style" type="submit" name="reject" value="reject">Reject</button>
+						{% endif %}
+
+					</form>
+				</div>
+			</div>
+
+
+		</main>
+	</section>
+
+	<!-- JS files -->
+	<script src="../../static/js/dashboard.js"></script>
+	<script src="../../static/js/date.js"></script>
+	<script src="../../static/js/consent.js"></script>
+</body>
+
+</html>
