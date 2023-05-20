@@ -898,6 +898,7 @@ def patientsettings():
 def aadharsettings():
     if "patient" in session:
         if request.method == "POST":
+            old_aadhar=session['patient']
             econtact=request.form['econtact']
             email=request.form['email']
             new_aadhar=request.form['new_aadhar']
@@ -906,7 +907,21 @@ def aadharsettings():
             data=get_details(new_aadhar)
             prevExist = patientdetail.find_one({'aadhar':data['aadhaar']})
             if bcrypt.hashpw(password.encode('utf-8'), exist['password']) == exist['password'] and data is not None and prevExist is None:
+
                 patientdetail.update_one({'aadhar':session['patient']},{"$set":{'name': data['name'], 'aadhar': new_aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': exist['password']}})
+
+                file_to_delete = old_aadhar+".png"  # Replace with the filename you want to delete
+                qr_code_dir = "static/img/qrcode/"
+
+                file_path = os.path.join(qr_code_dir, file_to_delete)
+
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+
+                s = "http://34.28.38.229/patientsignup"
+                url = pyqrcode.create(s)
+                path = "static/img/qrcode/"+new_aadhar+".png"
+                url.png(path, scale=6)
                 session['patient']=new_aadhar
                 message="Updation successfull"
                 return render_template("patient/settings.html",message=message, aadhar=new_aadhar)
