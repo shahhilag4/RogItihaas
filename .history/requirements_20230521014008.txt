@@ -18,5 +18,3 @@ Werkzeug==2.2.3
 pyqrcode==1.*
 pypng==0.0.*
 requests==2.30.*
- click==8.1.* 
- black==22.3.*
