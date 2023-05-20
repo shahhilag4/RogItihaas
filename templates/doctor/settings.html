@@ -95,6 +95,9 @@
 				</div>
 			</div>
 			<form action="/drsettings" method="POST">
+				{% if message is defined %}
+				<h5 style="color: rgb(226, 26, 26);">{{message}}</h5>
+				{% endif %}
 				<div class="table-data">
 					<div class="order">
 						<h3>Old Password</h3>
