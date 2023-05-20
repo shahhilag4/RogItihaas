@@ -246,9 +246,8 @@ def consentview(aadhar, econtact):
 @app.route('/writeprescription/<string:name>/<string:aadhar>')
 def writeprescription(name, aadhar):
     if 'doctor' in session:
-        exist = doctoraddress.find_one({"aadhar": session["doctor"]})
-        return render_template("patient-doctor/prescription.html", name=name, drname=exist["name"], addlineone=exist["addlineone"],
-                               statecountry=exist["statecountry"], phone=exist["phone"], aadhar=aadhar)
+        exist = doctordetail.find_one({"aadhar": session["doctor"]})
+        return render_template("patient-doctor/prescription.html", name=name, drname=exist["name"], address=exist["address"], phone=exist["mobile"], aadhar=aadhar)
     return render_template("login.html")
 
 @app.route('/viewprescription/<string:name>/<string:aadhar>')
