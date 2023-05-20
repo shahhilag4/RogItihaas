@@ -19,3 +19,4 @@ pyqrcode==1.*
 pypng==0.0.*
 requests==2.30.*
 black==22.3.*
+pandas==2.0.*
