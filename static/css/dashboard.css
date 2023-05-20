@@ -421,7 +421,8 @@ input[type="search"]::-webkit-search-results-decoration {
   display: flex;
   flex-wrap: wrap;
   grid-gap: 24px;
-  margin-top: 24px;
+  margin-top: 0px;
+  margin-bottom: 8px;
   width: 100%;
   color: var(--dark);
 }
