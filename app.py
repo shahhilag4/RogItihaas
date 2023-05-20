@@ -396,7 +396,6 @@ def prescriptiondecision():
 @app.route("/prescription_repository")
 def prescription_repository():
     if "patient" in session:
-        print("Hello")
         return render_template("patient/prescription_repository.html")
     return render_template("login.html")
 
@@ -700,7 +699,6 @@ def twoFacAuth(token):
                 data=get_details(str(aadhar[0:12]))
             else:
                 data=get_details(aadhar)
-            print(aadhar)
             exist = patientdetail.find_one({'aadhar': aadhar})
             if request.method == 'POST':
                 mobile_num = request.form.get('mob_number')
@@ -714,7 +712,6 @@ def twoFacAuth(token):
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
-                        print(aadhar, " indise post request")
                         session['patient'] = aadhar
                         return redirect(url_for('patientdashboard'))
                     else:
@@ -806,7 +803,6 @@ def patientoredermed():
     if "patient" in session:
         if request.method == "POST":
             multiselect = request.form.getlist('medicines')
-            print(multiselect)
             return render_template("patient/deliverytrack.html")
 
         data = medicinedetail.find()
@@ -911,7 +907,7 @@ def patientsettings():
                 message="Wrong Password! Please try again"
                 return render_template("patient/settings.html",message=message, aadhar=session['patient'])
         return render_template("patient/settings.html", aadhar=session['patient'])
-    return render_template("login.html")
+    return render_template("patientLogin.html")
 
 @app.route('/aadharsettings', methods=['POST', 'GET'])
 def aadharsettings():
@@ -947,9 +943,8 @@ def aadharsettings():
             else:
                 message="Wrong Credentials! Please try again"
                 return render_template("patient/settings.html",message=message, aadhar=session['patient'])
-        print("out of leageue")
         return render_template("patient/settings.html", aadhar=session['patient'])
-    return render_template("login.html")
+    return render_template("patientLogin.html")
 
 # Ending point for patient login
 @app.route('/patientsignin', methods=['GET', 'POST'])
@@ -1130,7 +1125,20 @@ def pharmacydashboard():
 @app.route('/pharmacysettings', methods=['POST', 'GET'])
 def pharmacysettings():
     if "pharmacy" in session:
-        return render_template('pharmacy/settings.html')
+        exist=pharmacydetail.find_one({'licence':session['pharmacy']})
+        if request.method == "POST":
+            old_pass=request.form['old_pass']
+            new_pass=request.form['new_pass']
+            if bcrypt.hashpw(old_pass.encode('utf-8'), exist['password']) == exist['password']:
+                password = bcrypt.hashpw(
+                            new_pass.encode('utf-8'), bcrypt.gensalt())
+                pharmacydetail.update_one({'licence':session['pharmacy']},{"$set":{'password':password}})
+                message="Updation successfull"
+                return render_template("pharmacy/settings.html",message=message, licence=session['pharmacy'])
+            else:
+                message="Wrong Password! Please try again"
+                return render_template("pharmacy/settings.html",message=message, licence=session['pharmacy'])
+        return render_template("pharmacy/settings.html", licence=session['pharmacy'])
     return render_template("pharmacyLogin.html")
 
 @app.route('/medicines', methods=['GET', 'POST'])
