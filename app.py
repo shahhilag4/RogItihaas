@@ -26,7 +26,7 @@ consentlist = dbDoctor["ConsentList"]
 dbPharmacy = cluster["Pharmacy"]
 pharmacydetail = dbPharmacy["PharmacySignUp"]
 medicinedetail = dbPharmacy["MedicineDetail"]
-
+orderedmedicinedetail = dbPharmacy["OrderedMedicine"]
 
 # Ending point for homepage
 @app.route("/")
@@ -791,7 +791,23 @@ def prescriptionstatus():
 @app.route('/patientoredermed', methods=['POST', 'GET'])
 def patientoredermed():
     if "patient" in session:
-        return render_template('patient/oredermed.html')
+        if request.method == "POST":
+            # prescriptionfile = request.form.file('file')
+            multiselect = request.form.getlist('medicines')
+            print(multiselect)
+            return render_template("patient/deliverytrack.html")
+        data = medicinedetail.find()
+        files = []
+        if data is not None:
+            for rec in data:
+                files.append({
+                    "Regnumber": rec["Regnumber"],
+                    "Medicinename": rec["Medicinename"],
+                    "Companyname": rec["Companyname"],
+                    "Expiry": rec["Expiry"],
+                    "Quantity": int(rec["Quantity"]),
+                })
+        return render_template('patient/oredermed.html', files=files)
     return render_template("patientLogin.html")
 
 @app.route('/patientdeliverytracking', methods=['GET', 'POST'])
@@ -1048,6 +1064,7 @@ def medicines():
         if data is not None:
             for rec in data:
                files.append({
+                    "Regnumber": rec["Regnumber"],
                     "Medicinename": rec["Medicinename"],
                     "Companyname": rec["Companyname"],
                     "Expiry": rec["Expiry"],
