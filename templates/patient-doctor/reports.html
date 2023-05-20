@@ -8,6 +8,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Fontawesome -->
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<!-- pdf.js library imported -->
+	<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
 	<!-- Favicon -->
@@ -122,7 +124,6 @@
 								<th class="th-gap">Uploaded By</th>
 								<th class="th-gap">View</th>
 								<th class="th-gap">Delete</th>
-								<th class="th-gap">Download</th>
 							</tr>
 						</thead>
 						<tbody id="tableBody1">
@@ -141,9 +142,16 @@
 								<td class="td-gap">{{data.todaydate}}</td>
 								{% if contain == "Yes" %}
 								<td class="td-gap" class="drname">{{data.doctor}}</td>
-								<td class="td-gap"><button class="status success">View</button></td>
+								<td class="td-gap"><button class="status success"
+									onclick="viewPDF('../../static/Hilag.pdf')">View</button></td>
+								<div id="pdf-modal" class="modal">
+									<div class="modal-content">
+										<span class="close" onclick="closePDF()">&times;</span>
+										<button id="downloadButton" onclick="downloadPDF('../../static/reports/1/1.pdf')">Download PDF</button>
+										<canvas id="pdf-canvas"></canvas>
+									</div>
+								</div>
 								<td class="td-gap"><button class="status danger">Delete</button></td>
-								<td class="td-gap"><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
 								{% endif %}
 							</tr>
 							{% endfor %}
@@ -155,6 +163,7 @@
 	</section>
 
 	<!-- JS files -->
+	<script src="../../static/js/reportsave.js"></script>
 	<script src="../../static/js/click.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 </body>

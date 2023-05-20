@@ -552,8 +552,8 @@ button:hover {
 }
 
 .modal-content {
-  margin: 11% 28%;
-  width: 80%;
+  margin: 11% 38%;
+  width: 60%;
   max-width: 800px;
   background-color: #fff;
   border-radius: 10px;
@@ -592,6 +592,28 @@ button:hover {
 {
   padding: 1rem;
   text-align: center !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--grey); 
+  border-radius: 5px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--grey); 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--grey); 
 }
 
 /* MAIN */

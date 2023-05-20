@@ -243,6 +243,14 @@ def writeprescription(name, aadhar):
                                statecountry=exist["statecountry"], phone=exist["phone"], aadhar=aadhar)
     return render_template("login.html")
 
+@app.route('/viewprescription/<string:name>/<string:aadhar>')
+def viewprescription(name, aadhar):
+    if 'doctor' in session:
+        exist = doctoraddress.find_one({"aadhar": session["doctor"]})
+        return render_template("patient-doctor/prescription.html", name=name, drname=exist["name"], addlineone=exist["addlineone"],
+                               statecountry=exist["statecountry"], phone=exist["phone"], aadhar=aadhar)
+    return render_template("login.html")
+
 
 
 @app.route('/uploadpresciption/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
@@ -489,6 +497,11 @@ def drsettings():
         return render_template("doctor/settings.html")
     return render_template("login.html")
 
+@app.route("/drviewprescription", methods=["POST", "GET"])
+def drviewprescription():
+    if "doctor" in session:
+        return render_template("doctor/prescription_readonly.html")
+    return render_template("login.html")
 
 @app.route("/uploadprescription/<string:name>/<string:aadhar>", methods=["POST", "GET"])
 def uploadprescription(name, aadhar):
@@ -723,6 +736,11 @@ def patientdashboard():
         return render_template('patient/dashboard.html', files=files, name=data2['name'], address=data2['address'], mobile=data2['mobile'], econtact=data2['econtact'], contain=contain)
     return render_template("patientLogin.html")
 
+@app.route("/patientviewprescription", methods=["POST", "GET"])
+def patientviewprescription():
+    if "patient" in session:
+        return render_template("patient/prescription_readonly.html")
+    return render_template("patientLogin.html")
 
 @app.route('/patienthome/<string:aadhar>', methods=['POST', 'GET'])
 def patienthome(aadhar):
@@ -1044,6 +1062,18 @@ def offlineBilling():
 def onlinebill():
     if "pharmacy" in session:
         return render_template("pharmacy/onlinebill.html")
+    return render_template('pharmacyLogin.html')
+
+@app.route('/pharmacyviewprescription', methods=['GET', 'POST'])
+def pharmacyviewprescription():
+    if "pharmacy" in session:
+        return render_template("pharmacy/prescription_readonly.html")
+    return render_template('pharmacyLogin.html')
+
+@app.route('/pharmacyviewbill', methods=['GET', 'POST'])
+def pharmacyviewbill():
+    if "pharmacy" in session:
+        return render_template("pharmacy/bill_readonly.html")
     return render_template('pharmacyLogin.html')
 
 @app.route('/uploadmedicine/<string:regnumber>', methods=['GET', 'POST'])

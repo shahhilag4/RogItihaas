@@ -38,31 +38,31 @@
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="./dashboard.html">
+				<a href="/pharmacydashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="./medicines.html">
+				<a href="/medicines">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Medicines</span>
 				</a>
 			</li>
 			<li>
-				<a href="./deliverytrack.html">
+				<a href="/deliverytrack">
 					<i class="fa-solid fa-truck"></i>
 					<span class="text">Delivery Track</span>
 				</a>
 			</li>
 			<li>
-				<a href="./onlineorder.html">
+				<a href="/onlineorder">
 					<i class="fa-solid fa-message"></i>
 					<span class="text">Online Order</span>
 				</a>
 			</li>
 			<li class="active">
-				<a href="#">
+				<a href="/onlinebill">
 					<i class="fa-solid fa-address-card"></i>
 					<span class="text">Online Billing</span>
 				</a>
@@ -109,10 +109,10 @@
 					<h1>Online Bill</h1>
 				</div>
 			</div>
-			<button class="centering" onclick="saveDivAsPdf()">Deliver Medicine</button>
-			<!-- <a href="./deliverytrack.html">
+			<a href="./deliverytrack.html">
+				<button class="centering">Deliver Medicine</button>
 			</a>
-			 -->
+			
 			<div class="table-data">
 				<div class="order" id="orderbill">
 					<header>
@@ -122,7 +122,6 @@
 							<p>Address Line 1<br> Address Line 2</p>
 							<p>+91 12345678</p>
 						</address>
-						<span><img alt="" src="../../static/img/logo.png"><input type="file" accept="image/*"></span>
 					</header>
 					<article>
 						<address contenteditable>
@@ -180,7 +179,6 @@
 	</section>
 	
 	<!-- JS files -->
-	<script src="../../static/js/onlinebillsave.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 </body>
 
