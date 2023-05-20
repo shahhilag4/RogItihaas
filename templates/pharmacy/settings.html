@@ -1,4 +1,4 @@
-<!-- Patient Track Delivery -->
+<!-- Doctor Settings -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,22 +6,23 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<!-- Fontawesome -->
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<link rel="stylesheet" href="../../static/css/settings.css">
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
-	<title>रोगइतिहास - Doctor Consents</title>
+	<title>रोगइतिहास - Doctor Settings</title>
 </head>
 
 <body>
 
-
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="/doctorsignin" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -41,7 +42,7 @@
 					<span class="text">Medical Records</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="/consentlist1">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Consents</span>
@@ -53,7 +54,7 @@
 					<span class="text">Prescription Requests</span>
 				</a>
 			</li>
-			<li>
+			<li class="active">
 				<a href="/drsettings">
 					<i class="fa-solid fa-gear"></i>
 					<span class="text">Settings</span>
@@ -65,8 +66,6 @@
 					<span class="text">Logout</span>
 				</a>
 			</li>
-		</ul>
-		<ul class="side-menu">
 		</ul>
 	</section>
 
@@ -92,49 +91,32 @@
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Consents</h1>
+					<h1>Settings</h1>
 				</div>
 			</div>
-
-			<div class="table-data">
-				<div class="order">
-					<div class="head">
-						<h3></h3>
-						<input type="search" class="search-1" placeholder="Search consent letter">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
+			<form action="/drsettings" method="POST">
+				<div class="table-data">
+					<div class="order">
+						<h3>Old Password</h3>
+						<div class="table-data">
+							<input type="text" class="order" id="order" name="old_pass" placeholder="Old Password">
+							</input>
+						</div>
+						<div class="order">
+							<h3>New Password</h3>
+							<div class="table-data">
+								<input type="text" class="order" id="order" name="new_pass" placeholder="New Password">
+								</input>
+							</div>
+						</div>
+						<div class="order">
+							<div class="table-data">
+								<button type="submit" class="update-button">Update</button>
+							</div>
+						</div>
 					</div>
-					<table>
-						<thead>
-							<tr>
-								<th class="th-gap">S.No</th>
-								<th class="th-gap">Patient Name</th>
-								<th class="th-gap">Consent</th>
-								<th class="th-gap">Status</th>
-							</tr>
-						</thead>
-						<tbody>
-						{% for data in files %}
-							<tr class="td-gap">
-								{% if contain=='Yes' %}
-								<td class="td-gap">
-									<p>{{loop.index}}</p>
-								</td>
-								{% endif %}
-								<td class="td-gap">
-									<p>{{data.name}}</p>
-								</td>
-								{% if contain=='Yes' %}
-								<td class="td-gap"><a href="/consent1/{{data.draadhar}}/{{data.econtact}}"><button class="status success">View</button></a></td>
-								{% endif %}
-								<td class="td-gap">
-									<p>{{data.status}}</p>
-								</td>
-							</tr>
-						{% endfor %}
-						</tbody>
-					</table>
 				</div>
-			</div>
+			</form>
 		</main>
 	</section>
 
