@@ -142,8 +142,20 @@
                                     <li><strong>Age:</strong>{{age}}</li>
                                     <li><strong>Gender:</strong>{{gender}}</li>
                                     <li><strong>Weight:</strong>{{weight}}kg</li>
-                                    <li><strong>Disease:</strong>
-                                        fever,malaria,dengue
+                                    <li><strong>Disease:</strong><input type="text" name="disease"
+                                            value="fever,malaria,dengue" name="tags3a" />
+        
+                                        <script src="../../static/js/tagger.js"></script>
+                                        <script>
+                                            var t3 = tagger(document.querySelectorAll('[name^="disease"]'), {
+                                                allow_duplicates: false,
+                                                allow_spaces: true,
+                                                wrap: true,
+                                                link: function (name) {
+                                                    return `javascript:alert('${name}');`;
+                                                }
+                                            });
+                                        </script>
                                     </li>
                                 </ul>
 
