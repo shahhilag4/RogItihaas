@@ -49,12 +49,6 @@
 					<span class="text">Medical Records</span>
 				</a>
 			</li>
-			<li class="active">
-				<a href="/patientviewprescription">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">View Prescription</span>
-				</a>
-			</li>
 			<li>
 				<a href="/patienthealthcard">
 					<i class="fa-solid fa-address-card"></i>
@@ -67,6 +61,12 @@
 					<span class="text">Diagonsis</span>
 				</a>
 			</li>
+            <li>
+                <a href="/prescriptionstatus">
+                    <i class="fa-solid fa-file"></i>
+                    <span class="text">Prescription Status</span>
+                </a>
+            </li>
 			<li>
 				<a href="/patientoredermed">
 					<i class="fa-solid fa-tablets"></i>
@@ -85,20 +85,18 @@
 					<span class="text">Consent</span>
 				</a>
 			</li>
-		</ul>
-		<ul class="side-menu">
-			<li>
-				<a href="/patientsettings">
-					<i class="fa-solid fa-gear"></i>
-					<span class="text">Settings</span>
-				</a>
-			</li>
-			<li>
-				<a href="/logout" class="logout">
-					<i class="fa-solid fa-right-from-bracket"></i>
-					<span class="text">Logout</span>
-				</a>
-			</li>
+            <li>
+                <a href="/patientsettings">
+                    <i class="fa-solid fa-gear"></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="/logout" class="logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
 		</ul>
     </section>
 
@@ -144,21 +142,8 @@
                                     <li><strong>Age:</strong>{{age}}</li>
                                     <li><strong>Gender:</strong>{{gender}}</li>
                                     <li><strong>Weight:</strong>{{weight}}kg</li>
-                                    <li><strong>Disease:</strong><input type="text" name="disease"
-                                            value="fever,malaria,dengue" name="tags3a" />
-                                    <!-- <li><strong>Disease:</strong><input type="text" name="disease"
-                                            value="list of diseases" name="tags3a" /> -->
-                                        <script src="../../static/js/tagger.js"></script>
-                                        <script>
-                                            var t3 = tagger(document.querySelectorAll('[name^="disease"]'), {
-                                                allow_duplicates: false,
-                                                allow_spaces: true,
-                                                wrap: true,
-                                                link: function (name) {
-                                                    return `javascript:alert('${name}');`;
-                                                }
-                                            });
-                                        </script>
+                                    <li><strong>Disease:</strong>
+                                        fever,malaria,dengue
                                     </li>
                                 </ul>
 

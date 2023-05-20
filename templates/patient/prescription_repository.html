@@ -50,7 +50,7 @@
 						<span class="text">Health Card</span>
 					</a>
 				</li>
-				<li>
+				<li class="active">
 					<a href="/patientdiagnosis">
 						<i class="fa-solid fa-message"></i>
 						<span class="text">Diagonsis</span>
@@ -60,12 +60,6 @@
 					<a href="/prescriptionstatus">
 						<i class="fa-solid fa-file"></i>
 						<span class="text">Prescription Status</span>
-					</a>
-				</li>
-				<li class="active">
-					<a href="/prescription_repository">
-						<i class="fa-solid fa-message"></i>
-						<span class="text">Prescription Repository</span>
 					</a>
 				</li>
 				<li>
@@ -86,21 +80,19 @@
 						<span class="text">Consent</span>
 					</a>
 				</li>
+				<li>
+					<a href="/patientsettings">
+						<i class="fa-solid fa-gear"></i>
+						<span class="text">Settings</span>
+					</a>
+				</li>
+				<li>
+					<a href="/logout" class="logout">
+						<i class="fa-solid fa-right-from-bracket"></i>
+						<span class="text">Logout</span>
+					</a>
+				</li>
 			</ul>
-		<ul class="side-menu">
-			<li>
-				<a href="/patientsettings">
-					<i class="fa-solid fa-gear"></i>
-					<span class="text">Settings</span>
-				</a>
-			</li>
-			<li>
-				<a href="/logout" class="logout">
-					<i class="fa-solid fa-right-from-bracket"></i>
-					<span class="text">Logout</span>
-				</a>
-			</li>
-		</ul>
 	</section>
 
 	<!-- Content -->
@@ -144,7 +136,7 @@
 									<h3>Prescription 1</h3>
 									<p>Symptoms - <span id="symptoms">Fever</span></p>
 									<p>Doctor Name- ABC</p>
-									<a href="#" class="custom-btn">Request</a>
+									<a href="/prescriptionstatus" class="custom-btn">Request</a>
 								</div>
 							</div>
 						</div>
@@ -156,7 +148,7 @@
 									<h3>Prescription 2</h3>
 									<p>Symptoms - <span id="symptoms">Fever</span></p>
 									<p>Doctor Name- ABC</p>
-									<a href="#" class="custom-btn">Request</a>
+									<a href="/prescriptionstatus" class="custom-btn">Request</a>
 								</div>
 							</div>
 						</div>

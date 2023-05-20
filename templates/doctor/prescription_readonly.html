@@ -49,12 +49,6 @@
 					<span class="text">Medical Records</span>
 				</a>
 			</li>
-			<li class="active">
-				<a href="/drviewprescription">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">View Prescription</span>
-				</a>
-			</li>
 			<li>
 				<a href="/consentlist1">
 					<i class="fa-solid fa-folder-open"></i>
@@ -67,20 +61,18 @@
 					<span class="text">Prescription Requests</span>
 				</a>
 			</li>
-		</ul>
-		<ul class="side-menu">
-			<li>
-				<a href="/drsettings">
-					<i class="fa-solid fa-gear"></i>
-					<span class="text">Settings</span>
-				</a>
-			</li>
-			<li>
-				<a href="/logout" class="logout">
-					<i class="fa-solid fa-right-from-bracket"></i>
-					<span class="text">Logout</span>
-				</a>
-			</li>
+            <li>
+                <a href="/drsettings">
+                    <i class="fa-solid fa-gear"></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="/logout" class="logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
 		</ul>
     </section>
 
@@ -126,22 +118,7 @@
                                     <li><strong>Age:</strong>{{age}}</li>
                                     <li><strong>Gender:</strong>{{gender}}</li>
                                     <li><strong>Weight:</strong>{{weight}}kg</li>
-                                    <li><strong>Disease:</strong><input type="text" name="disease"
-                                            value="fever,malaria,dengue" name="tags3a" />
-                                    <!-- <li><strong>Disease:</strong><input type="text" name="disease"
-                                            value="list of diseases" name="tags3a" /> -->
-                                        <script src="../../static/js/tagger.js"></script>
-                                        <script>
-                                            var t3 = tagger(document.querySelectorAll('[name^="disease"]'), {
-                                                allow_duplicates: false,
-                                                allow_spaces: true,
-                                                wrap: true,
-                                                link: function (name) {
-                                                    return `javascript:alert('${name}');`;
-                                                }
-                                            });
-                                        </script>
-                                    </li>
+                                    <li><strong>Disease:</strong>fever,malaria,dengue</li>
                                 </ul>
 
                                 <h2>Medication Information</h2>

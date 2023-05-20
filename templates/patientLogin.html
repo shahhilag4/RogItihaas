@@ -23,6 +23,9 @@
       <div class="signin-signup">
         <form action="/patientsignin" class="sign-in-form" method="POST">
           <h2 class="title">Patient Sign In</h2>
+          {% if message is defined %}
+          <h5 style="color: rgb(226, 26, 26);">{{message}}</h5>
+          {% endif %}
           <div class="input-field">
             <i class="fas fa-user"></i>
             <input type="text" placeholder="Aadhar Card Number" name="patientaadhar" required />
@@ -51,6 +54,9 @@
           </div>
           <button id="alert-button" onclick="showAlert()">Instructions</button>
           <h2 class="title">Patient Sign Up</h2>
+          {% if message is defined %}
+            <h5 style="color: rgb(226, 26, 26);">{{message}}</h5>
+          {% endif %}
           <div style="display: flex; flex-direction: row;">
             <label style="margin-right: 10px;">
               <input type="radio" name="patienttype" value="no_aadhaar_card" style="margin-right: 5px;" />
@@ -60,7 +66,7 @@
               <input type="radio" name="patienttype" value="aadhaar_card" checked style="margin-right: 5px;" />
               Have aadhaar card
             </label>
-          </div>          
+          </div>
           <div class="input-field">
             <i class="fas fa-briefcase-medical"></i>
             <input type="email" placeholder="Patient Email" name="patientemail" required />
@@ -71,7 +77,8 @@
           </div>
           <div id="example" style="display: none;">
             <span>Example:</span>
-            <code>1022 1022 1022</code> (Aadhaar Card Number Of Father) + <code>09/02/2001</code> (DOB) => <code>10221022102209022001</code>
+            <code>1022 1022 1022</code> (Aadhaar Card Number Of Father) + <code>09/02/2001</code> (DOB) =>
+            <code>10221022102209022001</code>
           </div>
           <div class="input-field">
             <i class="fas fa-user"></i>

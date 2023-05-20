@@ -55,12 +55,6 @@
 					<span class="text">Previous Prescriptions</span>
 				</a>
 			</li>
-			<li class="active">
-				<a href="/viewprescription/{{drname}}/{{aadhar}}">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">View prescription</span>
-				</a>
-			</li>
 			<li>
 				<a href="/reports/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
@@ -79,15 +73,13 @@
 					<span class="text">Consent</span>
 				</a>
 			</li>
-		</ul>
-        <ul class="side-menu">
             <li>
                 <a href="/writeprescription/{{name}}/{{aadhar}}">
                     <i class="fa-solid fa-tablets"></i>
                     <span class="text">Write Prescription</span>
                 </a>
             </li>
-        </ul>
+		</ul>
     </section>
 
     <!-- Content -->
@@ -118,8 +110,7 @@
                             <div class="prescription_block">
                                 <h1>Prescription</h1>
                                 <p>{{drname}}</p>
-                                <p>{{addlineone}}</p>
-                                <p>{{statecountry}}</p>
+                                <p>{{address}}</p>
                                 <p>Phone: {{phone}}</p>
                             </div>
                             <!-- <img class="head_img" src="../../static/img/rishi.jpg" alt=""> -->
@@ -132,22 +123,7 @@
                                     <li><strong>Age:</strong>{{age}}</li>
                                     <li><strong>Gender:</strong>{{gender}}</li>
                                     <li><strong>Weight:</strong>{{weight}}kg</li>
-                                    <li><strong>Disease:</strong><input type="text" name="disease"
-                                            value="fever,malaria,dengue" name="tags3a" />
-                                    <!-- <li><strong>Disease:</strong><input type="text" name="disease"
-                                            value="{{list of diseases}}" name="tags3a" /> -->
-                                        <script src="../../static/js/tagger.js"></script>
-                                        <script>
-                                            var t3 = tagger(document.querySelectorAll('[name^="disease"]'), {
-                                                allow_duplicates: false,
-                                                allow_spaces: true,
-                                                wrap: true,
-                                                link: function (name) {
-                                                    return `javascript:alert('${name}');`;
-                                                }
-                                            });
-                                        </script>
-                                    </li>
+                                    <li><strong>Disease:</strong><li>fever,cough,cold</li>
                                 </ul>
 
                                 <h2>Medication Information</h2>

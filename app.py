@@ -79,8 +79,7 @@ def doctorsignup():
                 }
             token = generate_unique_token()
             return redirect(url_for('twoFacAuthDoc', token=token))
-
-        message = "User Already Exist"
+        message = "Invalid Details"
         return render_template("login.html", message=message)
     return render_template("login.html")
 
@@ -253,9 +252,8 @@ def writeprescription(name, aadhar):
 @app.route('/viewprescription/<string:name>/<string:aadhar>')
 def viewprescription(name, aadhar):
     if 'doctor' in session:
-        exist = doctoraddress.find_one({"aadhar": session["doctor"]})
-        return render_template("patient-doctor/prescription.html", name=name, drname=exist["name"], addlineone=exist["addlineone"],
-                               statecountry=exist["statecountry"], phone=exist["phone"], aadhar=aadhar)
+        exist = doctordetail.find_one({"aadhar": session["doctor"]})
+        return render_template("patient-doctor/prescription_readonly.html", name=name, drname=exist["name"], address=exist["address"], phone=exist["mobile"], aadhar=aadhar)
     return render_template("login.html")
 
 
@@ -762,6 +760,12 @@ def patientviewprescription():
         return render_template("patient/prescription_readonly.html")
     return render_template("patientLogin.html")
 
+@app.route("/patientviewbill", methods=["POST", "GET"])
+def patientviewbill():
+    if "patient" in session:
+        return render_template("patient/bill_readonly.html")
+    return render_template("patientLogin.html")
+
 @app.route('/patienthome/<string:aadhar>', methods=['POST', 'GET'])
 def patienthome(aadhar):
     if "doctor" in session:
@@ -1126,4 +1130,4 @@ def emergencydoctorsignin():
         return render_template("scanqrLogin.html")
 
 if __name__ == '__main__':
-    app.run(port=4000, debug=True)
+    app.run(port=5000, debug=True)
