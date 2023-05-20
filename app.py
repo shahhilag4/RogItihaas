@@ -700,6 +700,7 @@ def twoFacAuth(token):
                 data=get_details(str(aadhar[0:12]))
             else:
                 data=get_details(aadhar)
+            print(aadhar)
             exist = patientdetail.find_one({'aadhar': aadhar})
             if request.method == 'POST':
                 mobile_num = request.form.get('mob_number')
@@ -708,11 +709,12 @@ def twoFacAuth(token):
                     mobile = data['mobile']
                     if mobile == mobile_num:
                         if exist is None:
-                            patientdetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
+                            patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
                             s = "http://34.28.38.229/patientsignup"
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
+                        print(aadhar, " indise post request")
                         session['patient'] = aadhar
                         return redirect(url_for('patientdashboard'))
                     else:
@@ -730,7 +732,6 @@ def patientdashboard():
     if "patient" in session:
         files = []
         data = patientmedicaldetail.find({"aadhar": session["patient"]})
-
         for row in data:
             files.append({
                 "name": row["name"],
@@ -739,7 +740,7 @@ def patientdashboard():
                 "presname": row["presname"],
                 "draadhar": row["draadhar"],
             })
-       
+    
         contain = "True"
         if len(files)==0:
             contain = "False"
@@ -751,7 +752,7 @@ def patientdashboard():
                 "draadhar": "No Medical History",
             })
         data2 = patientdetail.find_one({"aadhar": session["patient"]})
-        return render_template('patient/dashboard.html', files=files, name=data2['name'], address=data2['address'], mobile=data2['mobile'], econtact=data2['econtact'], contain=contain)
+        return render_template('patient/dashboard.html', files=files, aadhar=session['patient'],name=data2['name'], address=data2['address'], mobile=data2['mobile'], econtact=data2['econtact'], contain=contain)
     return render_template("patientLogin.html")
 
 @app.route("/patientviewprescription", methods=["POST", "GET"])
@@ -868,13 +869,53 @@ def acceptaction(econtact, draadhar):
         return render_template("patient/consent.html")
     return render_template('patientLogin.html')
 
+# @app.route('/settings', methods=['POST', 'GET'])
+# def settings(message):
+#     if 'patient' in session:
+#         exist=patientdetail.find_one({'aadhar':session['patient']})
+#         return render_template('patient/settings.html', aadhar=exist['aadhar'])
 
 @app.route('/patientsettings', methods=['POST', 'GET'])
 def patientsettings():
     if "patient" in session:
-        return render_template('patient/settings.html')
-    return render_template("patientLogin.html")
+        exist=patientdetail.find_one({'aadhar':session['patient']})
+        if request.method == "POST":
+            old_pass=request.form['old_pass']
+            new_pass=request.form['new_pass']
+            if bcrypt.hashpw(old_pass.encode('utf-8'), exist['password']) == exist['password']:
+                password = bcrypt.hashpw(
+                            new_pass.encode('utf-8'), bcrypt.gensalt())
+                patientdetail.update_one({'aadhar':session['patient']},{"$set":{'password':password}})
+                message="Updation successfull"
+                return render_template("patient/settings.html",message=message, aadhar=session['patient'])
+            else:
+                message="Wrong Password! Please try again"
+                return render_template("patient/settings.html",message=message, aadhar=session['patient'])
+        return render_template("patient/settings.html", aadhar=session['patient'])
+    return render_template("login.html")
 
+@app.route('/aadharsettings', methods=['POST', 'GET'])
+def aadharsettings():
+    if "patient" in session:
+        if request.method == "POST":
+            econtact=request.form['econtact']
+            email=request.form['email']
+            new_aadhar=request.form['new_aadhar']
+            password=request.form['password']
+            exist=patientdetail.find_one({'aadhar':session['patient']})
+            data=get_details(new_aadhar)
+            prevExist = patientdetail.find_one({'aadhar':data['aadhaar']})
+            if bcrypt.hashpw(password.encode('utf-8'), exist['password']) == exist['password'] and data is not None and prevExist is None:
+                patientdetail.update_one({'aadhar':session['patient']},{"$set":{'name': data['name'], 'aadhar': new_aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': exist['password']}})
+                session['patient']=new_aadhar
+                message="Updation successfull"
+                return render_template("patient/settings.html",message=message, aadhar=new_aadhar)
+            else:
+                message="Wrong Credentials! Please try again"
+                return render_template("patient/settings.html",message=message, aadhar=session['patient'])
+        print("out of leageue")
+        return render_template("patient/settings.html", aadhar=session['patient'])
+    return render_template("login.html")
 
 # Ending point for patient login
 @app.route('/patientsignin', methods=['GET', 'POST'])

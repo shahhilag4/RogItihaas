@@ -109,36 +109,79 @@
 
 		<!-- Main -->
 		<main>
+			{% if message %}
+				{{message}}
+			{% endif %}
 			<div class="head-title">
 				<div class="left">
 					<h1>Settings</h1>
 				</div>
 			</div>
 
-			<div class="table-data">
-				<div class="order">
-					<h3>Old Password</h3>
-					<div class="table-data">
-						<input type="text" class="order" id="order" placeholder="Old Password">
-						</input>
-						<button class="update-button">Proceed</button>
+			<form action="/patientsettings" method="POST">
+				<div class="table-data">
+					<div class="order">
+						<h3>Old Password</h3>
+						<div class="table-data">
+							<input type="text" class="order" id="order" name="old_pass" placeholder="Old Password">
+							</input>
+						</div>
+						<div class="order">
+							<h3>New Password</h3>
+							<div class="table-data">
+								<input type="text" class="order" id="order" name="new_pass" placeholder="New Password">
+								</input>
+							</div>
+						</div>
+						<div class="order">
+							<div class="table-data">
+								<button type="submit" class="update-button">Update</button>
+							</div>
+						</div>
 					</div>
-
 				</div>
-			</div>
-
-			<div class="table-data">
-				<div class="order">
-					<h3>New Password</h3>
-					<div class="table-data">
-						<input type="text" class="order" id="order" placeholder="New Password">
-						</input>
-						<button class="update-button">Update</button>
+			</form>
+			{% if aadhar|length ==20 %}
+			<form action="/aadharsettings" method="POST">
+				<div class="table-data">
+					<div class="order">
+						<div class="order">
+							<h3>New Aadhar Number</h3>
+							<div class="table-data">
+								<input type="text" class="order" id="order" name="new_aadhar" placeholder="New Aadhar Number">
+								</input>
+							</div>
+						</div>
+						<div class="order">
+							<h3>New Emergency Contact</h3>
+							<div class="table-data">
+								<input type="text" class="order" id="order" name="econtact" placeholder="Emergency Contact">
+								</input>
+							</div>
+						</div>
+						<div class="order">
+							<h3>New Email</h3>
+							<div class="table-data">
+								<input type="email" class="order" id="order" name="email" placeholder="Email">
+								</input>
+							</div>
+						</div>
+						<div class="order">
+							<h3>Password</h3>
+							<div class="table-data">
+								<input type="text" class="order" id="order" name="password" placeholder="Password">
+								</input>
+							</div>
+						</div>
+						<div class="order">
+							<div class="table-data">
+								<button type="submit" class="update-button">Update</button>
+							</div>
+						</div>
 					</div>
-
 				</div>
-			</div>
-
+			</form>
+			{% endif %}
 		</main>
 	</section>
 

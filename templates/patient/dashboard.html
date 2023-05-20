@@ -123,9 +123,15 @@
 			<ul class="box-info">
 				<li class="block-list">
 					<span class="text-flex">
-						<h4>Name :</h4>
-						<span class="margining">{{name}}
-							</span>
+						{% if aadhar|length == 12 %}
+							<h4>Name :</h4>
+							<span class="margining">{{name}}</span>
+						{% else %}
+							<h4>Parent's Name :</h4>
+							<span class="margining">{{name}}</span>
+						{% endif %}
+						
+						
 					</span>
 					<span class="text-flex">
 						<h4>Address :</h4>
