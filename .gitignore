@@ -1,2 +1,3 @@
 .idea
-../.history
+.history
+__pycache__

@@ -11,10 +11,40 @@
   display: block;
 }
 
-.options-container {
+#options-container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+#options-container label {
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 10px;
+  align-items: center;
+  padding: 5px;
+  justify-content: center;
+  text-align: center;
+}
+
+#options-container label:last-child {
+  border-bottom: none;
+}
+
+#options-container input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  #options-container {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #options-container {
+      grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .custom-btn {

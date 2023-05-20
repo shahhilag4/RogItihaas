@@ -1,7 +1,7 @@
 <!-- Patient Order Medicine Section -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
 	<meta charset="UTF-8">
@@ -57,7 +57,7 @@
 			</li>
 			<li>
 				<a href="/prescriptionstatus">
-					<i class="fa-solid fa-file"></i>
+					<i class="fa-solid fa-clock"></i>
 					<span class="text">Prescription Status</span>
 				</a>
 			</li>
@@ -116,46 +116,30 @@
 				</div>
 			</div>
 			<div class="table-data">
+				<form action="patientoredermed" enctype = "multipart/form-data" method="POST">
 				<div class="order">
-					<h3>Enter the name of Doctor</h3>
-					<div class="input-field">
-						<input type="text" list="dr" class="text-container" placeholder="Enter Doctor Name" />
-						<datalist id="dr">
-							<option value="Objective C">Objective C</option>
-							<option value="C++">C++</option>
-							<option value="C#">C#</option>
-							<option value="Cobol">Cobol</option>
-							<option value="Go">Go</option>
-							<option value="Java">Java</option>
-							<option value="JavaScript">JavaScript</option>
-							<option value="Python">Python</option>
-							<option value="PHP">PHP</option>
-							<option value="Pascal">Pascal</option>
-							<option value="Perl">Perl</option>
-							<option value="R">R</option>
-							<option value="Swift">Swift</option>
-						</datalist>
-					</div>
 					<div class="container">
-						<h3>Enter Medicine Name</h3>
-						<input id="myInput" type="text" class="search-bar" placeholder="Search Medicine"
-							onkeyup="myFunction()">
-						<div class="options-container" id="options">
-							<div class="option">Option 1</div>
-							<div class="option">Option 2</div>
-							<div class="option">Option 3</div>
-							<div class="option">Option 4</div>
-							<div class="option">Option 5</div>
-						</div>
+						<h3>Enter Medicine Name: </h3>
+						<input id="myInput" type="text" class="search-bar" placeholder="Search Medicine" onkeyup="myFunction()">
+
+						<div id="options-container">
+							{% for data in files %}
+								<label>
+									<input type="checkbox" name="medicines" value="{{ data.Medicinename }}_{{ data.Regnumber }}">
+									{{ data.Medicinename }}
+								</label>
+							{% endfor %}
+						</div>						
+						
+
 					</div>
 					<div class="container">
 						<h3>Upload Prescription</h3>
-						<input class="upload" type="file">
-						<input type="submit" value="Upload">
+						<input class="upload" type="file" name="file">
 					</div>
-					<a href="/patientdeliverytracking" class="custom-btn">Submit</a>
+					<input type="submit" value="Submit" class="custom-btn" />
 				</div>
-			</div>
+				</form>
 			</div>
 		</main>
 	</section>

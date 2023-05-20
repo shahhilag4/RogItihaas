@@ -1,4 +1,4 @@
-<!-- Patient Healthcard -->
+<!-- Doctor Settings -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,19 +11,18 @@
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
-	<link rel="stylesheet" href="../../static/css/card-flip.css">
+	<link rel="stylesheet" href="../../static/css/settings.css">
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
-	<title>रोगइतिहास - Patient Healthcard</title>
+	<title>रोगइतिहास - Doctor Settings</title>
 </head>
 
 <body>
 
-
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="/doctorsignin" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -32,55 +31,31 @@
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="/patientdashboard">
+				<a href="/doctordashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="/patientdocuments">
+				<a href="/documents">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Medical Records</span>
 				</a>
 			</li>
+			<li>
+				<a href="/consentlist1">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Consents</span>
+				</a>
+			</li>
+			<li>
+				<a href="/prescriptiondecision">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Prescription Requests</span>
+				</a>
+			</li>
 			<li class="active">
-				<a href="/patienthealthcard">
-					<i class="fa-solid fa-address-card"></i>
-					<span class="text">Health Card</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientdiagnosis">
-					<i class="fa-solid fa-message"></i>
-					<span class="text">Diagonsis</span>
-				</a>
-			</li>
-			<li>
-				<a href="/prescriptionstatus">
-					<i class="fa-solid fa-clock"></i>
-					<span class="text">Prescription Status</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientoredermed">
-					<i class="fa-solid fa-tablets"></i>
-					<span class="text">Order Medicine</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientdeliverytracking">
-					<i class="fa-solid fa-truck"></i>
-					<span class="text">Delivery Tracking</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientconsent">
-					<i class="fa-solid fa-file"></i>
-					<span class="text">Consent</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientsettings">
+				<a href="/drsettings">
 					<i class="fa-solid fa-gear"></i>
 					<span class="text">Settings</span>
 				</a>
@@ -99,7 +74,12 @@
 		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
-			<form action="#"></form>
+			<form action="doctorpatientdashboard" method="POST">
+				<div class="form-input">
+					<input type="search" placeholder="Search Patient" name="aadhar" required>
+					<button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+				</div>
+			</form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
@@ -111,32 +91,37 @@
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Health Card</h1>
+					<h1>Settings</h1>
 				</div>
 			</div>
-
-			<div class="table-data">
-				<div class="order">
-					<div class="flip-card">
-						<div class="flip-card-inner">
-							<div class="flip-card-front">
-								<img src="../../static/img/Group_1.png" alt="Avatar" class="front-img">
+			<form action="/drsettings" method="POST">
+				<div class="table-data">
+					<div class="order">
+						<h3>Old Password</h3>
+						<div class="table-data">
+							<input type="text" class="order" id="order" name="old_pass" placeholder="Old Password">
+							</input>
+						</div>
+						<div class="order">
+							<h3>New Password</h3>
+							<div class="table-data">
+								<input type="text" class="order" id="order" name="new_pass" placeholder="New Password">
+								</input>
 							</div>
-							<div class="flip-card-back">
-								<img src="../../static/img/qrcode/{{aadhar}}.png" alt="qrcode" class="back-img"
-									id="back-img">
-								<h2 id="name">{{aadhar}}</h2>
+						</div>
+						<div class="order">
+							<div class="table-data">
+								<button type="submit" class="update-button">Update</button>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</main>
 	</section>
 
 	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
-	<!-- <script src="../../static/js/healthcard.js"></script> -->
 </body>
 
 </html>
