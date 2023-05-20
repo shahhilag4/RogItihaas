@@ -122,9 +122,9 @@
 						<h3>Enter Medicine Name: </h3>
 						<input id="myInput" type="text" class="search-bar" placeholder="Search Medicine" onkeyup="myFunction()">
 
-						 <select class="options-container" id="options" name="medicine"multiple>
+						 <select class="options-container" id="options" name="medicine[]" multiple="multiple">
     					{% for data in files %}
-      					<option class="option" value="{{ data.Medicinename }}_{{data.Regnumber }}">{{ data.Medicinename }}</option>
+      					<option class="option" value="{{ data.Medicinename }}_{{data.Regnumber }}">{{data.Medicinename}}</option>
     					{% endfor %}
   						</select>
 

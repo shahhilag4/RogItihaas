@@ -805,7 +805,7 @@ def patientoredermed():
     if "patient" in session:
         if request.method == "POST":
             # prescriptionfile = request.form.file('file')
-            multiselect = request.form.getlist('medicines')
+            multiselect = request.form.getlist('medicine[]')
             print(multiselect)
             return render_template("patient/deliverytrack.html")
         data = medicinedetail.find()
