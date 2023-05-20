@@ -1,0 +1,180 @@
+<!-- Patient Diagnosis -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="../../static/css/diagnose.css">
+	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+
+	<title>रोगइतिहास - Patient Diagnosis</title>
+</head>
+
+<body>
+
+
+	<!-- Sidebar -->
+	<section id="sidebar">
+		<a href="/patientdashboard" class="brand">
+			<i class="fa-solid">
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+			</i>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="/patientdashboard">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientdocuments">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Medical Records</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patienthealthcard">
+					<i class="fa-solid fa-address-card"></i>
+					<span class="text">Health Card</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="/patientdiagnosis">
+					<i class="fa-solid fa-message"></i>
+					<span class="text">Diagonsis</span>
+				</a>
+			</li>
+			<li>
+				<a href="/prescriptionstatus">
+					<i class="fa-solid fa-file"></i>
+					<span class="text">Prescription Status</span>
+				</a>
+			</li>
+			<li>
+				<a href="./prescription_repository.html">
+					<i class="fa-solid fa-message"></i>
+					<span class="text">Prescription Repository</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientoredermed">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Order Medicine</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientdeliverytracking">
+					<i class="fa-solid fa-truck"></i>
+					<span class="text">Delivery Tracking</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientconsent">
+					<i class="fa-solid fa-file"></i>
+					<span class="text">Consent</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientsettings">
+					<i class="fa-solid fa-gear"></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+			<li>
+				<a href="/logout" class="logout">
+					<i class="fa-solid fa-right-from-bracket"></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+		</ul>
+	</section>
+
+	<!-- Content -->
+	<section id="content">
+		<!-- Navbar -->
+		<nav>
+			<i class="fa-solid fa-bars"></i>
+			<form action="#">
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="profile">
+				<img src="../../static/img/rishi.jpg">
+			</a>
+		</nav>
+
+		<!-- Main -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Diagnosis</h1>
+				</div>
+			</div>
+			<div class="table-data">
+				<div class="order">
+					<form action="#">
+						<h3>Enter the name of Doctor</h3>
+						<div class="input-field">
+							<input type="text" list="dr" class="text-container" placeholder="Enter Doctor Name" />
+							<datalist id="dr">
+								<option value="Objective C">Objective C</option>
+								<option value="C++">C++</option>
+								<option value="C#">C#</option>
+								<option value="Cobol">Cobol</option>
+								<option value="Go">Go</option>
+								<option value="Java">Java</option>
+								<option value="JavaScript">JavaScript</option>
+								<option value="Python">Python</option>
+								<option value="PHP">PHP</option>
+								<option value="Pascal">Pascal</option>
+								<option value="Perl">Perl</option>
+								<option value="R">R</option>
+								<option value="Swift">Swift</option>
+							</datalist>
+						</div>
+						<div class="container">
+							<h3>Please mention your age</h3>
+							<input type="text" class="text-container" placeholder="Age">
+						</div>
+						<div class="container">
+							<h3>Choose the symptoms you have</h3>
+							<input id="myInput" type="number" class="search-bar" placeholder="Search Symptoms"
+								onkeyup="myFunction()">
+							<div class="options-container" id="options">
+								<div class="option">Option 1</div>
+								<div class="option">Option 2</div>
+								<div class="option">Option 3</div>
+								<div class="option">Option 4</div>
+								<div class="option">Option 5</div>
+							</div>
+						</div>
+						<a href="/prescription_repository" class="custom-btn">Submit</a>
+					</form>
+				</div>
+			</div>
+
+		</main>
+	</section>
+
+	<!-- JS files -->
+	<script src="../../static/js/main.js"></script>
+	<script src="../../static/js/dashboard.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</body>
+
+</html>

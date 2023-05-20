@@ -1,0 +1,180 @@
+<!-- Patient Prescription Repository -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- CSS -->
+	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<link rel="stylesheet" href="../../static/css/prescription-repo.css">
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+
+	<title>रोगइतिहास - Patient Prescription Repository</title>
+</head>
+
+<body>
+
+
+	<!-- Sidebar -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class="fa-solid">
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+			</i>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
+		</a>
+		<ul class="side-menu top">
+			<ul class="side-menu top">
+				<li>
+					<a href="/patientdashboard">
+						<i class="fa-solid fa-table-columns"></i>
+						<span class="text">Dashboard</span>
+					</a>
+				</li>
+				<li>
+					<a href="/patientdocuments">
+						<i class="fa-solid fa-folder-open"></i>
+						<span class="text">Medical Records</span>
+					</a>
+				</li>
+				<li>
+					<a href="/patienthealthcard">
+						<i class="fa-solid fa-address-card"></i>
+						<span class="text">Health Card</span>
+					</a>
+				</li>
+				<li class="active">
+					<a href="/patientdiagnosis">
+						<i class="fa-solid fa-message"></i>
+						<span class="text">Diagonsis</span>
+					</a>
+				</li>
+				<li class="active">
+					<a href="/prescriptionstatus">
+						<i class="fa-solid fa-file"></i>
+						<span class="text">Prescription Status</span>
+					</a>
+				</li>
+				<li>
+					<a href="/patientoredermed">
+						<i class="fa-solid fa-tablets"></i>
+						<span class="text">Order Medicine</span>
+					</a>
+				</li>
+				<li>
+					<a href="/patientdeliverytracking">
+						<i class="fa-solid fa-truck"></i>
+						<span class="text">Delivery Tracking</span>
+					</a>
+				</li>
+				<li>
+					<a href="/patientconsent">
+						<i class="fa-solid fa-file"></i>
+						<span class="text">Consent</span>
+					</a>
+				</li>
+				<li>
+					<a href="/patientsettings">
+						<i class="fa-solid fa-gear"></i>
+						<span class="text">Settings</span>
+					</a>
+				</li>
+				<li>
+					<a href="/logout" class="logout">
+						<i class="fa-solid fa-right-from-bracket"></i>
+						<span class="text">Logout</span>
+					</a>
+				</li>
+			</ul>
+	</section>
+
+	<!-- Content -->
+	<section id="content">
+		<!-- Navbar -->
+		<nav>
+			<i class="fa-solid fa-bars"></i>
+			<form action="#">
+
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="profile">
+				<img src="../../static/img/rishi.jpg">
+			</a>
+		</nav>
+
+		<!-- Main -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Prescription Repository</h1>
+				</div>
+			</div>
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3></h3>
+						<input id="myInput" type="search" class="search-1" placeholder="Search Document Name"
+							onkeyup="myFunction()">
+						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"
+								onclick="myFunction()"></i></button>
+					</div>
+					<div class="container1" id="mainContainer">
+						<!-- Card 01 -->
+						<div class="card">
+							<div class="box">
+								<div class="content">
+									<h2>01</h2>
+									<h3>Prescription 1</h3>
+									<p>Symptoms - <span id="symptoms">Fever</span></p>
+									<p>Doctor Name- ABC</p>
+									<a href="/prescriptionstatus" class="custom-btn">Request</a>
+								</div>
+							</div>
+						</div>
+						<!-- Card 02 -->
+						<div class="card">
+							<div class="box">
+								<div class="content">
+									<h2>02</h2>
+									<h3>Prescription 2</h3>
+									<p>Symptoms - <span id="symptoms">Fever</span></p>
+									<p>Doctor Name- ABC</p>
+									<a href="/prescriptionstatus" class="custom-btn">Request</a>
+								</div>
+							</div>
+						</div>
+						<!-- Card 03 -->
+						<div class="card">
+							<div class="box">
+								<div class="content">
+									<h2>03</h2>
+									<h3>Prescription 3</h3>
+									<p>Symptoms - <span id="symptoms">Fever</span></p>
+									<p>Doctor Name- ABC</p>
+									<a href="/prescriptionstatus" class="custom-btn">Request</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</section>
+
+	<!-- JS files -->
+	<script src="../../static/js/searchprescription.js"></script>
+	<script src="../../static/js/dashboard.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</body>
+
+</html>

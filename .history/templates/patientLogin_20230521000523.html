@@ -1,0 +1,128 @@
+<!-- Patient Login -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Fontawesome Link -->
+  <script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+  <!-- Stylesheet linking -->
+  <link rel="stylesheet" href="../static/css/login.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+  <title>रोगइतिहास - Patient Login</title>
+</head>
+
+<body>
+  <!-- Sign in and Sign Up Containers -->
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+        <form action="/patientsignin" class="sign-in-form" method="POST">
+          <h2 class="title">Patient Sign In</h2>
+          {% if err is defined %}
+          <h5 style="color: rgb(226, 26, 26);">{{err}}</h5>
+          {% endif %}
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Aadhar Card Number" name="patientaadhar" required />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" name="patientpassword" required />
+          </div>
+          <input type="submit" value="Login" class="btn solid" />
+        </form>
+        <form action="/patientsignup" class="sign-up-form" method="POST">
+          <div id="aadhaar-dialog" class="modal" style="display: none;">
+            <div class="modal-content">
+              <button type="button" class="close" onclick="hideAlert()">X</button>
+              <strong>Instructions</strong>
+              <hr />
+              <ul>
+                <li>
+                  If you are an infant and are undergoing a medical emergency we
+                  provide a temporary health card with a validity of 3 months.
+                </li>
+                <li> We recommend to Sign Up using the aadhaar card.</li>
+                <li>You can find information about applying for aadhaar card using the link: https://uidai.gov.in/</li>
+              </ul>
+            </div>
+          </div>
+          <button id="alert-button" onclick="showAlert()">Instructions</button>
+          <h2 class="title">Patient Sign Up</h2>
+          <div style="display: flex; flex-direction: row;">
+            <label style="margin-right: 10px;">
+              <input type="radio" name="patienttype" value="no_aadhaar_card" style="margin-right: 5px;" />
+              Infant
+            </label>
+            <label>
+              <input type="radio" name="patienttype" value="aadhaar_card" checked style="margin-right: 5px;" />
+              Have aadhaar card
+            </label>
+          </div>
+          <div class="input-field">
+            <i class="fas fa-briefcase-medical"></i>
+            <input type="email" placeholder="Patient Email" name="patientemail" required />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="year" placeholder="Aadhar Card Number" name="patientaadhar1" required />
+          </div>
+          <div id="example" style="display: none;">
+            <span>Example:</span>
+            <code>1022 1022 1022</code> (Aadhaar Card Number Of Father) + <code>09/02/2001</code> (DOB) =>
+            <code>10221022102209022001</code>
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="tel" placeholder="Emergency Contact" name="emergency" required />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" name="patientpassword" required />
+          </div>
+          <input type="submit" class="btn" value="Sign up" />
+        </form>
+      </div>
+    </div>
+
+    <!-- Navigation styles for signin and signup page -->
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3><span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+                class="india-green">हास</span></span></h3>
+          <p>
+            Welcome to India's centralized Health Card System
+          </p>
+          <button class="btn transparent" id="sign-up-btn">
+            Sign Up
+          </button>
+        </div>
+        <img src="../static/img/patientlogin.svg" class="image" alt="" />
+      </div>
+      <div class="panel right-panel">
+        <div class="content">
+          <h3>Welcome to <span class="text"><span class="india-orange">रोग</span><span
+                class="india-blue">इति</span><span class="india-green">हास</span></span></h3>
+          <p>
+            Let us make India रोग free together
+          </p>
+          <button class="btn transparent" id="sign-in-btn">
+            Sign in
+          </button>
+        </div>
+        <img src="../static/img/patientsignup.svg" class="image" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <!-- JS files -->
+  <script src="../static/js/login.js"></script>
+</body>
+
+</html>

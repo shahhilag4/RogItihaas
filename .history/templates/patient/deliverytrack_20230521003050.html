@@ -1,0 +1,159 @@
+<!-- Patient Track Delivery -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
+
+	<title>रोगइतिहास - Patient Delivery Tracking</title>
+</head>
+
+<body>
+
+
+	<!-- Sidebar -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class="fa-solid">
+				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
+			</i>
+			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
+					class="india-green">हास</span></span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="/patientdashboard">
+					<i class="fa-solid fa-table-columns"></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientdocuments">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">Medical Records</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patienthealthcard">
+					<i class="fa-solid fa-address-card"></i>
+					<span class="text">Health Card</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientdiagnosis">
+					<i class="fa-solid fa-message"></i>
+					<span class="text">Diagonsis</span>
+				</a>
+			</li>
+			<li>
+				<a href="/prescriptionstatus">
+					<i class="fa-solid fa-file"></i>
+					<span class="text">Prescription Status</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientoredermed">
+					<i class="fa-solid fa-tablets"></i>
+					<span class="text">Order Medicine</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="/patientdeliverytracking">
+					<i class="fa-solid fa-truck"></i>
+					<span class="text">Delivery Tracking</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientconsent">
+					<i class="fa-solid fa-file"></i>
+					<span class="text">Consent</span>
+				</a>
+			</li>
+			<li>
+				<a href="/patientsettings">
+					<i class="fa-solid fa-gear"></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+			<li>
+				<a href="/logout" class="logout">
+					<i class="fa-solid fa-right-from-bracket"></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+	<!-- Content -->
+	<section id="content">
+		<!-- Navbar -->
+		<nav>
+			<i class="fa-solid fa-bars"></i>
+			<form action="#">
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="profile">
+				<img src="../../static/img/rishi.jpg">
+			</a>
+		</nav>
+
+		<!-- Main -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Delivery Tracking</h1>
+				</div>
+			</div>
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3></h3>
+						<input type="search" class="search-1" placeholder="Search Medicine Name">
+						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th class="th-gap">S.No</th>
+								<th class="th-gap">Doctor Name</th>
+								<th class="th-gap">Prescription</th>
+								<th class="th-gap">Bill</th>
+								<th class="th-gap">Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="td-gap">
+									<p>1</p>
+								</td>
+								<td class="td-gap">
+									<p>Hrithik</p>
+								</td>
+								<td class="td-gap"><a href="/patientviewprescription"><button class="status success">View</button></td>
+								<td class="td-gap"><a href="/patientviewprescription"><button class="status success">View</button></td>
+								<td class="td-gap">
+									<p>Packing</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+	</section>
+
+	<!-- JS files -->
+	<script src="../../static/js/dashboard.js"></script>
+</body>
+
+</html>
