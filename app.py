@@ -49,7 +49,7 @@ def doctorsignin():
                     'aadhar': aadhar,
                     'var':1
                 }
-                return redirect(url_for('twoFacAuthDoc',token=token))
+                return redirect(url_for('twoFacAuthDoc', token=token))
         message = "Invalid Credentials"
         return render_template('login.html', message=message)
     return render_template("login.html")
@@ -871,10 +871,10 @@ def patientsignin():
                 token=generate_unique_token()
                 session['patient'] = {
                     'aadhar': aadhar,
-                    'var':1
+                    'var': 1
                 }
-                return redirect(url_for('twoFacAuth',token=token))
-        message = "Invalid Credentials"
+                return redirect(url_for('twoFacAuth', token=token))
+        message = "Entered Invalid Credentials"
         return render_template('patientLogin.html', message=message)
     return render_template("patientLogin.html")
 
