@@ -431,6 +431,7 @@ input[type="search"]::-webkit-search-results-decoration {
   background: var(--light);
   padding: 24px;
   overflow-x: auto;
+  margin-top: 1rem;
 }
 #content main .table-data .head {
   display: flex;
