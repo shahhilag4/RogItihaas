@@ -8,14 +8,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Fontawesome -->
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
-	<!-- pdf.js library imported -->
-	<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
-	<title>रोगइतिहास - Patient Consent View</title>
+	<title>रोगइतिहास - Doctor Consents</title>
 </head>
 
 <body>
@@ -43,7 +41,7 @@
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="/documents/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Previous Prescriptions</span>
@@ -56,7 +54,7 @@
 					<span class="text">Previous Reports</span>
 				</a>
 			</li>
-			<li>
+			<li class="active">
 				<a href="/consentlist/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Consent List</span>

@@ -233,13 +233,13 @@ def documents(name, aadhar):
     return render_template("login.html")
 
 
-@app.route('/consentview/<string:drname>/<string:aadhar>/<string:econtact>')
-def consentview(drname, aadhar, econtact):
+@app.route('/consentview/<string:aadhar>/<string:econtact>')
+def consentview(aadhar, econtact):
     if "doctor" in session:
-        data1 = patientdetail.find_one({"mobile":econtact})
-        data = consentlist.find_one({"drname": drname, "aadhar": aadhar, "econtact": econtact})
+        data1 = patientdetail.find_one({"mobile": econtact})
+        data = consentlist.find_one({"aadhar": aadhar, "econtact": econtact})
         return render_template("patient-doctor/consentview.html", name=data["name"], drname=data["drname"], draadhar=data["draadhar"], relname=data1["name"],
-                           econtact=econtact, status=data["status"], cost=data["cost"], severity=data["severity"], date=data["date"])
+                           econtact=econtact, status=data["status"], cost=data["cost"], severity=data["severity"], date=data["date"], aadhar=aadhar)
     return render_template("login.html")
 # Open write prescription page from doctors side
 
@@ -766,7 +766,8 @@ def patienthome(aadhar):
                     "todaydate": row['todaydate'],
                 })
             return render_template("patient-doctor/dashboard.html", aadhar=aadhar, name=exist['name'],
-                                   drname=drexist["name"], draadhar=session["doctor"])
+                                   drname=drexist["name"], draadhar=session["doctor"], address=exist["address"], gender=exist["gender"],
+                                   age=exist["age"], mobile=exist["mobile"])
     return render_template("patientLogin.html")
 
 
