@@ -1,4 +1,4 @@
-<!-- Patient Track Delivery -->
+<!-- Patient-Doctor Dashboard -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,13 +13,13 @@
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
-	<title>रोगइतिहास - Doctor Consents</title>
+	<title>रोगइतिहास - Patient Dashboard</title>
 </head>
 
 <body>
 
 
-	<!-- Sidebar -->
+	<!-- Sidevar -->
 	<section id="sidebar">
 		<a href="#" class="brand">
 			<i class="fa-solid">
@@ -35,7 +35,7 @@
 					<span class="text">Dr. {{drname}} Dashboard</span>
 				</a>
 			</li>
-			<li>
+			<li class="active">
 				<a href="/patienthome/{{aadhar}}">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
@@ -54,7 +54,7 @@
 					<span class="text">Previous Reports</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="/consentlist/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Consent List</span>
@@ -73,6 +73,8 @@
 				</a>
 			</li>
 		</ul>
+		<ul class="side-menu">
+		</ul>
 	</section>
 
 	<!-- Content -->
@@ -87,59 +89,57 @@
 				<img src="../../static/img/rishi.jpg">
 			</a>
 		</nav>
+
 		<!-- Main -->
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Consents</h1>
+					<h1>Patient Dashboard</h1>
 				</div>
 			</div>
 
-			<div class="table-data">
-				<div class="order">
-					<div class="head">
-						<h3></h3>
-						<input type="search" class="search-1" placeholder="Search consent letter">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
-					</div>
-					<table>
-						<thead>
-							<tr>
-								<th class="th-gap">S.No</th>
-								<th class="th-gap">Doctor Name</th>
-								<th class="th-gap">Consent</th>
-								<th class="th-gap">Status</th>
-							</tr>
-						</thead>
-						<tbody>
-						{% for data in files %}
-							<tr class="td-gap">
-								{% if contain=='Yes' %}
-								<td class="td-gap">
-									<p>{{loop.index}}</p>
-								</td>
-								{% endif %}
-								<td class="td-gap">
-									<p>{{data.drname}}</p>
-								</td>
-								{% if contain=='Yes' %}
-								<!-- <td class="td-gap"><a href="/consent/{{drname}}/{{aadhar}}"><button class="status success">View</button></a></td> -->
-								<td class="td-gap"><a href="/consentview/{{data.aadhar}}/{{data.econtact}}"><button class="status success">View</button></a></td>
-								{% endif %}
-								<td class="td-gap">
-									<p>{{data.status}}</p>
-								</td>
-							</tr>
-						{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			</div>
+			<ul class="box-info">
+				<li>
+					<i class="fa-solid fa-square-virus"></i>
+					<span class="text">
+						<h3>Fever</h3>
+						<p>Most common disease</p>
+					</span>
+				</li>
+			</ul>
+
+			<ul class="box-info">
+				<li class="block-list">
+					<span class="text-flex">
+						<h4>Name :</h4>
+						<span class="margining">{{name}}</span>
+					</span>
+					<span class="text-flex">
+						<h4>Address :</h4>
+						<span class="margining">{{address}}</span>
+					</span>
+					<span class="text-flex">
+						<h4>Gender :</h4>
+						<span class="margining">{{gender}}</span>
+					</span>
+					<span class="text-flex">
+						<h4>Age :</h4>
+						<span class="margining">{{age}}</span>
+					</span>
+					<span class="text-flex">
+						<h4>Mobile :</h4>
+						<span class="margining">{{mobile}}</span>
+					</span>
+				</li>
+			</ul>
+
+
 		</main>
 	</section>
 
 	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
+	<script src="../../static/js/searchdoc.js"></script>
 </body>
 
 </html>

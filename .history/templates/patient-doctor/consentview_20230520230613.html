@@ -1,4 +1,4 @@
-<!-- Patient Track Delivery -->
+<!-- Patient-Doctor Consentview -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,6 +66,8 @@
 					<span class="text">Consent</span>
 				</a>
 			</li>
+		</ul>
+		<ul class="side-menu">
 			<li>
 				<a href="/writeprescription/{{name}}/{{aadhar}}">
 					<i class="fa-solid fa-tablets"></i>
@@ -91,48 +93,37 @@
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Consents</h1>
+					<h1>Consent Form</h1>
 				</div>
 			</div>
-
 			<div class="table-data">
 				<div class="order">
-					<div class="head">
-						<h3></h3>
-						<input type="search" class="search-1" placeholder="Search consent letter">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
-					</div>
-					<table>
-						<thead>
-							<tr>
-								<th class="th-gap">S.No</th>
-								<th class="th-gap">Doctor Name</th>
-								<th class="th-gap">Consent</th>
-								<th class="th-gap">Status</th>
-							</tr>
-						</thead>
-						<tbody>
-						{% for data in files %}
-							<tr class="td-gap">
-								{% if contain=='Yes' %}
-								<td class="td-gap">
-									<p>{{loop.index}}</p>
-								</td>
-								{% endif %}
-								<td class="td-gap">
-									<p>{{data.drname}}</p>
-								</td>
-								{% if contain=='Yes' %}
-								<!-- <td class="td-gap"><a href="/consent/{{drname}}/{{aadhar}}"><button class="status success">View</button></a></td> -->
-								<td class="td-gap"><a href="/consentview/{{data.aadhar}}/{{data.econtact}}"><button class="status success">View</button></a></td>
-								{% endif %}
-								<td class="td-gap">
-									<p>{{data.status}}</p>
-								</td>
-							</tr>
-						{% endfor %}
-						</tbody>
-					</table>
+					<form>
+						<label class="drname" for="doctor_name">Doctor Name:</label>
+						<span id="drname" class="formInput">Dr. {{drname}}</span><br /><br />
+						<label class="drname" for="doctor_name">Relative Name:</label>
+						<span id="drname" class="formInput">{{relname}}</span><br /><br />
+						<label class="drname" for="severity">Severity Score:</label>
+						<span id="drname" type="number" min="0" max="100" class="severity">{{severity}}%</span><br /><br />
+						<label class="drname" for="doctor_name">Estimated Operation Cost:</label>
+						<span type="number" id="drname" class="formInput"></span>{{cost}}<br /><br />
+						<label class="date" for="date">Date:</label>
+						<span id="date" class="formInput"> {{date}}</span><br /><br />
+						<label for="consent-decision">To Whomsoever It May Concern:</label>
+						<label for="consent-decision"><u>{{name}}</u> is the patient under my care. She is under a critical condition and in a condition of medical emergency. I request your permission to make decisions for and/or provide care for the patient.<br /><br />During a medical emergency there may not be time to contact a guardian prior to action being taken and I assure you that the actions taken will  be in the best interest of the patient. We will notify you incase of any emergency as soon as possible. These decisions may include:</label>
+						<br/><br/>
+						<ul class="un-list">
+							<li class="list"><label for="emergency-transportation">Emergency transportation (i.e. ambulance)</label></li>
+							<li class="list"><label for="emergency-treatment">Permission for emergency personnel to provide treatment (i.e. EMT/Emergency Room staff)</label></li>
+							<li class="list"><label for="first-aid">Permission for staff trained in First Aid to provide treatment until other emergency personnel arrive.</label></li>
+							<li class="list"><label for="directing-transportation">Directing emergency transportation to the closest hospital (the parents’ choice of hospital will always tried to be honored unless the situation dictates otherwise, i.e. field trip out of area).</label></li>
+						</ul>
+						<br />
+						<label for="signature">Doctor Signature:</label>
+						<span>{{drname}}</span><br />
+						<label for="signature">Guardian Signature:</label>
+						<span>{{relname}}</span>
+					</form>
 				</div>
 			</div>
 		</main>
@@ -140,6 +131,8 @@
 
 	<!-- JS files -->
 	<script src="../../static/js/dashboard.js"></script>
+	<script src="../../static/js/date.js"></script>
+	<script src="../../static/js/consent.js"></script>
 </body>
 
 </html>

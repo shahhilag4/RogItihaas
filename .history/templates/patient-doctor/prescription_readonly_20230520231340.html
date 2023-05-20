@@ -21,7 +21,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
     
-    <title>रोगइतिहास - Patient Prescription</title>
+    <title>रोगइतिहास - Patient View Prescription</title>
 </head>
 
 <body>
@@ -55,7 +55,12 @@
 					<span class="text">Previous Prescriptions</span>
 				</a>
 			</li>
-
+			<li class="active">
+				<a href="/viewprescription/{{drname}}/{{aadhar}}">
+					<i class="fa-solid fa-folder-open"></i>
+					<span class="text">View prescription</span>
+				</a>
+			</li>
 			<li>
 				<a href="/reports/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
@@ -74,13 +79,15 @@
 					<span class="text">Consent</span>
 				</a>
 			</li>
-            <li class="active">
+            <li>
                 <a href="/writeprescription/{{name}}/{{aadhar}}">
                     <i class="fa-solid fa-tablets"></i>
                     <span class="text">Write Prescription</span>
                 </a>
             </li>
 		</ul>
+        <ul class="side-menu">
+        </ul>
     </section>
 
     <!-- Content -->
@@ -100,7 +107,7 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Prescription</h1>
+                    <h1>View Prescription</h1>
                 </div>
             </div>
 
@@ -119,27 +126,16 @@
                         </header>
                         <main>
                             <h2>Patient Information</h2>
-                            <form id="myForm" action="/uploadpresciption/{{aadhar}}/{{drname}}" method="POST">
+                            <form id="myForm" action="#" method="GET">
                                 <ul>
-                                    <li><strong>Name:</strong> <input type="text" value="{{name}}" name="name"
-                                            class="formInput inputValue"></li>
-                                    <li><strong>Age:</strong> <input type="number" name="age" value="33"
-                                            class="formInput inputValue"></li>
-                                    <li><strong>Gender:</strong>
-                                        <label>
-                                            <input type="radio" name="gender" value="male" checked> Male
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="gender" value="female"> Female
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="gender" value="other"> Other
-                                        </label>
-                                    </li>
-                                    <li><strong>Weight:</strong> <input type="number" name="weight" placeholder="80"
-                                            class="formInput inputValue"> kg</li>
+                                    <li><strong>Name:</strong>{{name}}</li>
+                                    <li><strong>Age:</strong>{{age}}</li>
+                                    <li><strong>Gender:</strong>{{gender}}</li>
+                                    <li><strong>Weight:</strong>{{weight}}kg</li>
                                     <li><strong>Disease:</strong><input type="text" name="disease"
                                             value="fever,malaria,dengue" name="tags3a" />
+                                    <!-- <li><strong>Disease:</strong><input type="text" name="disease"
+                                            value="{{list of diseases}}" name="tags3a" /> -->
                                         <script src="../../static/js/tagger.js"></script>
                                         <script>
                                             var t3 = tagger(document.querySelectorAll('[name^="disease"]'), {
@@ -164,65 +160,38 @@
                                         <th>Instructions</th>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" list="dr" name="medicine1"
-                                                placeholder="Enter Medicine" />
-                                            <datalist id="dr">
-                                                <option value="Paracetamol">Paracetamol</option>
-                                                <option value="Citrazine">Citrazine</option>
-                                            </datalist>
+                                        <td>{{medicine1}}
                                         </td>
-                                        <td><input type="number" name="mg1" value="10" class="formInput inputValue"> mg
+                                        <td>{{medicine1qty}} mg
                                         </td>
-                                        <td><input type="number" name="dose1" value="1" class="formInput inputValue">
-                                            daily
+                                        <td>{{medicine1freq}} daily</td>
+                                        <td>{{medicine1time}} days
                                         </td>
-                                        <td><input type="number" name="days1" value="3" class="formInput inputValue">
-                                            days
-                                        </td>
-                                        <td><input type="text" name="food1" placeholder="Take with food"
-                                                class="formInput inputValue"></td>
+                                        <td>{{medicine1instructions}}</td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" list="dr" name="medicine2"
-                                                placeholder="Enter Medicine" />
-                                            <datalist id="dr">
-                                                <option value="Paracetamol">Paracetamol</option>
-                                                <option value="Citrazine">Citrazine</option>
-                                            </datalist>
+                                        <td>{{medicine2}}
                                         </td>
-                                        <td><input type="number" name="mg2" value="1" class="formInput inputValue"> mg
+                                        <td>{{medicine2qty}} mg
                                         </td>
-                                        <td><input type="number" name="dose2" value="1" class="formInput inputValue">
-                                            daily
+                                        <td>{{medicine2freq}} daily</td>
+                                        <td>{{medicine2time}} days
                                         </td>
-                                        <td><input type="number" name="days2" value="7" class="formInput inputValue">
-                                            days
-                                        </td>
-                                        <td><input type="text" name="food2" value="Take with food"
-                                                class="formInput inputValue"></td>
+                                        <td>{{medicine2nstructions}}</td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" list="dr" name="medicine3"
-                                                placeholder="Enter Medicine" />
-                                            <datalist id="dr">
-                                                <option value="Paracetamol">Paracetamol</option>
-                                                <option value="Citrazine">Citrazine</option>
-                                            </datalist>
+                                        <td>{{medicine3}}
                                         </td>
-                                        <td><input type="number" name="mg3" placeholder="1"
-                                                class="formInput inputValue"> mg
+                                        <td>{{medicine3qty}} mg
                                         </td>
-                                        <td><input type="number" name="dose3" placeholder="1"
-                                                class="formInput inputValue"> daily
+                                        <td>{{medicine3freq}} daily</td>
+                                        <td>{{medicine3time}} days
                                         </td>
-                                        <td><input type="number" name="days3" placeholder="7"
-                                                class="formInput inputValue"> days
-                                        </td>
-                                        <td><input type="text" name="food3" placeholder="Take with food"
-                                                class="formInput inputValue"></td>
+                                        <td>{{medicine3nstructions}}</td>
                                     </tr>
+                                  
+                                    
                                 </table>
-                                <input type="button" value="Add Bottom" onclick="addRow()">
                                 
                                 <p><strong>Prescribed by:</strong> {{drname}}</p>
                                 <p><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span>
@@ -230,10 +199,9 @@
                         </main>
                         <footer>
                             <h3>Instructions :</h3>
-                            <textarea placeholder="Enter text here" class="txtarea" style="height:30px;" rows="3"
-                            name="Text" id="text"></textarea>
+                           {{instructions}}
                         </footer>
-                        <input type="submit" class="btn" value="Submit" />
+                        <input type="submit" class="btn" value="Download" onclick="saveDivAsPdf()" />
                     </div>
                 </div>
             </div>
@@ -243,6 +211,7 @@
     </section>
 
     <!-- JS files -->
+    <script src="../../static/js/prescriptionsave.js"></script>
     <script src="../../static/js/dashboard.js"></script>
     <script src="../../static/js/date.js"></script>
     <script src="../../static/js/main.js"></script>

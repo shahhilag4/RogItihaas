@@ -1,4 +1,4 @@
-<!-- Patient-Doctor Consentview -->
+<!-- Patient-Doctor Dashboard -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,16 +10,17 @@
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/consent.css">
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
-	<title>रोगइतिहास - Doctor Consents</title>
+	<title>रोगइतिहास - Patient Dashboard</title>
 </head>
 
 <body>
 
 
-	<!-- Sidebar -->
+	<!-- Sidevar -->
 	<section id="sidebar">
 		<a href="#" class="brand">
 			<i class="fa-solid">
@@ -54,18 +55,20 @@
 					<span class="text">Previous Reports</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="/consentlist/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Consent List</span>
 				</a>
 			</li>
-			<li>
+			<li class="active">
 				<a href="/consent/{{drname}}/{{aadhar}}">
 					<i class="fa-solid fa-folder-open"></i>
 					<span class="text">Consent</span>
 				</a>
 			</li>
+		</ul>
+		<ul class="side-menu">
 			<li>
 				<a href="/writeprescription/{{name}}/{{aadhar}}">
 					<i class="fa-solid fa-tablets"></i>
@@ -87,29 +90,30 @@
 				<img src="../../static/img/rishi.jpg">
 			</a>
 		</nav>
+
 		<!-- Main -->
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Consent Form</h1>
+					<h1>Medical Consent Form</h1>
 				</div>
 			</div>
+			
 			<div class="table-data">
+				
 				<div class="order">
-					<form>
+					<form action="/consent/{{drname}}/{{aadhar}}" method="POST" enctype="multipart/form-data">
 						<label class="drname" for="doctor_name">Doctor Name:</label>
-						<span id="drname" class="formInput">Dr. {{drname}}</span><br /><br />
-						<label class="drname" for="doctor_name">Relative Name:</label>
-						<span id="drname" class="formInput">{{relname}}</span><br /><br />
+						<span id="drname" class="formInput" >{{drname}}</span><br /><br />
 						<label class="drname" for="severity">Severity Score:</label>
-						<span id="drname" type="number" min="0" max="100" class="severity">{{severity}}%</span><br /><br />
+						<input id="drname" type="number" min="0" max="100" class="severity" placeholder="20" name="severity" required>%</input><br /><br />
 						<label class="drname" for="doctor_name">Estimated Operation Cost:</label>
-						<span type="number" id="drname" class="formInput"></span>{{cost}}<br /><br />
+						<input type="number" id="drname" placeholder="1200000" class="formInput" name="cost" required></input>₹<br /><br />
 						<label class="date" for="date">Date:</label>
-						<span id="date" class="formInput"> {{date}}</span><br /><br />
+						<span id="date" class="formInput"> March 9, 2023</span><br /><br />
 						<label for="consent-decision">To Whomsoever It May Concern:</label>
-						<label for="consent-decision"><u>{{name}}</u> is the patient under my care. She is under a critical condition and in a condition of medical emergency. I request your permission to make decisions for and/or provide care for the patient.<br /><br />During a medical emergency there may not be time to contact a guardian prior to action being taken and I assure you that the actions taken will  be in the best interest of the patient. We will notify you incase of any emergency as soon as possible. These decisions may include:</label>
-						<br/><br/>
+						<label for="consent-decision">{{name}} is the patient under my care.He is under a critical condition and in a condition of medical emergency. I request your permission to make decisions for and/or provide care for the patient.<br /><br />During a medical emergency there may not be time to contact a guardian prior to action being taken and I assure you that the actions taken will  be in the best interest of the patient. We will notify you incase of any emergency as soon as possible. These decisions may include:</label>
+						<br /><br />
 						<ul class="un-list">
 							<li class="list"><label for="emergency-transportation">Emergency transportation (i.e. ambulance)</label></li>
 							<li class="list"><label for="emergency-treatment">Permission for emergency personnel to provide treatment (i.e. EMT/Emergency Room staff)</label></li>
@@ -118,12 +122,13 @@
 						</ul>
 						<br />
 						<label for="signature">Doctor Signature:</label>
-						<span>{{drname}}</span><br />
-						<label for="signature">Guardian Signature:</label>
-						<span>{{relname}}</span>
+						<input type="text" id="signature" name="signature" required>
+						<button class="button-style" type="submit">Send</button>
 					</form>
 				</div>
 			</div>
+
+
 		</main>
 	</section>
 
