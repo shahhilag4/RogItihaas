@@ -804,10 +804,10 @@ def prescriptionstatus():
 def patientoredermed():
     if "patient" in session:
         if request.method == "POST":
-            # prescriptionfile = request.form.file('file')
             multiselect = request.form.getlist('medicines')
             print(multiselect)
             return render_template("patient/deliverytrack.html")
+
         data = medicinedetail.find()
         files = []
         if data is not None:
@@ -819,8 +819,11 @@ def patientoredermed():
                     "Expiry": rec["Expiry"],
                     "Quantity": int(rec["Quantity"]),
                 })
+
         return render_template('patient/oredermed.html', files=files)
+
     return render_template("patientLogin.html")
+
 
 @app.route('/patientdeliverytracking', methods=['GET', 'POST'])
 def patientdeliverytracking():
