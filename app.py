@@ -1155,9 +1155,5 @@ def uploadmedicine(regnumber):
 def emergencydashboard():
     return render_template("scanqr/dashboard.html")
 
-@app.route('/emergencydoctorsignin', methods=['GET', 'POST'])
-def emergencydoctorsignin():
-        return render_template("scanqrLogin.html")
-
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
