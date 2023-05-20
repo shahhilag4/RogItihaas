@@ -1017,7 +1017,7 @@ def pharmacysignin():
                     'licence': licensenumber,
                     'var':1
                 }
-                return redirect(url_for('twoFacAuthPharmacy',token=token))
+                return redirect(url_for('twoFacAuthPharmacy', token=token))
 
         message = "Invalid Credentials"
         return render_template('pharmacyLogin.html', message=message)
@@ -1042,7 +1042,7 @@ def medicines():
                     "Expiry": rec["Expiry"],
                     "Quantity": int(rec["Quantity"]),
                    })
-            return render_template("pharmacy/medicines.html", regnumber=session["pharmacy"], files=files)
+        return render_template("pharmacy/medicines.html", regnumber=session["pharmacy"], files=files)
     return render_template('pharmacyLogin.html')
 
 
@@ -1094,7 +1094,17 @@ def uploadmedicine(regnumber):
             for ind in df.index:
                 medicinedetail.insert_one({"Regnumber": regnumber, "Medicinename": df["Medicine Name"][ind], "Companyname": df["Company Name"][ind],
                                           "Expiry": df["Expiry Date"][ind], "Quantity": int(df["Quantity"][ind])})
-        return render_template("pharmacy/medicines.html")
+        data = medicinedetail.find({"Regnumber": session["pharmacy"]})
+        files = []
+        if data is not None:
+            for rec in data:
+                files.append({
+                    "Medicinename": rec["Medicinename"],
+                    "Companyname": rec["Companyname"],
+                    "Expiry": rec["Expiry"],
+                    "Quantity": int(rec["Quantity"]),
+                })
+        return render_template("pharmacy/medicines.html", regnumber=session["pharmacy"], files=files)
     return render_template('pharmacyLogin.html')
 
 # Scan QR Section
@@ -1107,4 +1117,4 @@ def emergencydoctorsignin():
         return render_template("scanqrLogin.html")
 
 if __name__ == '__main__':
-    app.run(port=4000, debug=True)
+    app.run(port=5000, debug=True)
