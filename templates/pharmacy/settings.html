@@ -22,7 +22,7 @@
 
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="/doctorsignin" class="brand">
+		<a href="#" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -31,41 +31,47 @@
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="/doctordashboard">
+				<a href="/pharmacydashboard">
 					<i class="fa-solid fa-table-columns"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="/documents">
+				<a href="/medicines">
 					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Medical Records</span>
+					<span class="text">Medicines</span>
 				</a>
 			</li>
 			<li>
-				<a href="/consentlist1">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Consents</span>
+				<a href="/deliverytrack">
+					<i class="fa-solid fa-truck"></i>
+					<span class="text">Delivery Track</span>
 				</a>
 			</li>
 			<li>
-				<a href="/prescriptiondecision">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Prescription Requests</span>
+				<a href="/onlineorder">
+					<i class="fa-solid fa-message"></i>
+					<span class="text">Online Order</span>
 				</a>
 			</li>
-			<li class="active">
-				<a href="/drsettings">
-					<i class="fa-solid fa-gear"></i>
+			<li>
+				<a href="/offlineBilling">
+					<i class="fa-solid fa-address-card"></i>
+					<span class="text">Offline Billing</span>
+				</a>
+			</li>
+			<li>
+				<a href="/pharmacysettings">
+					<i class="fa-solid fa-address-card"></i>
 					<span class="text">Settings</span>
 				</a>
 			</li>
-			<li>
-				<a href="/logout" class="logout">
-					<i class="fa-solid fa-right-from-bracket"></i>
-					<span class="text">Logout</span>
-				</a>
-			</li>
+            <li>
+                <a href="/logout" class="logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
 		</ul>
 	</section>
 
@@ -94,7 +100,7 @@
 					<h1>Settings</h1>
 				</div>
 			</div>
-			<form action="/drsettings" method="POST">
+			<form action="/pharmacysettings" method="POST">
 				<div class="table-data">
 					<div class="order">
 						<h3>Old Password</h3>

@@ -1071,6 +1071,12 @@ def pharmacydashboard():
         return render_template('pharmacy/dashboard.html')
     return render_template("pharmacyLogin.html")
 
+@app.route('/pharmacysettings', methods=['POST', 'GET'])
+def pharmacysettings():
+    if "pharmacy" in session:
+        return render_template('pharmacy/settings.html')
+    return render_template("pharmacyLogin.html")
+
 @app.route('/medicines', methods=['GET', 'POST'])
 def medicines():
     if "pharmacy" in session:
