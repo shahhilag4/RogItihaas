@@ -1,4 +1,4 @@
-<!-- Pharmacy Online Orders -->
+<!-- Pharmacy Online Billing -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,16 +8,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Fontawesome -->
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<!-- JQuery -->
+	<script src="../../static/js/jquery-latest.min.js"></script>
+	<!-- JS files -->
+	<script src="../../static/js/bill.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+	<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
 	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<link rel="stylesheet" href="../../static/css/bill.css">
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
-	<title>रोगइतिहास - Pharmacy Online Orders</title>
+	<title>रोगइतिहास - Pharmacy Billing</title>
 </head>
 
 <body>
-
 
 
 	<!-- Sidebar -->
@@ -49,6 +56,12 @@
 				</a>
 			</li>
 			<li class="active">
+				<a href="/pharmacyviewbill">
+					<i class="fa-solid fa-truck"></i>
+					<span class="text">View Bill</span>
+				</a>
+			</li>
+			<li>
 				<a href="/onlineorder">
 					<i class="fa-solid fa-message"></i>
 					<span class="text">Online Order</span>
@@ -70,7 +83,7 @@
 			</li>
 		</ul>
 	</section>
-
+	
 	<!-- Content -->
 	<section id="content">
 		<!-- Navbar -->
@@ -88,52 +101,81 @@
 				<img src="../../static/img/rishi.jpg">
 			</a>
 		</nav>
-
+		
 		<!-- Main -->
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Online Order</h1>
+					<h1>Online Bill</h1>
 				</div>
 			</div>
-
+			<button class="centering" onclick="saveDivAsPdf()">Print Bill</button>
 			<div class="table-data">
-				<div class="order">
-					<div class="head">
-						<h3></h3>
-						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name"
-							onkeyup="searchDoc()">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
-					</div>
-					<table>
-						<thead>
+				<div class="order" id="orderbill">
+					<header>
+						<h1>INVOICE</h1>
+						<address>
+							<p>Pharmacy Name</p>
+							<p>{{address}}</p>
+							<p>{{number}}</p>
+						</address>
+					</header>
+					<article>
+						<address>
+							<p>Pharmacy Name</p>
+						</address>
+						<table class="meta">
 							<tr>
-								<th class="th-gap">S.No</th>
-								<th class="th-gap">Patient Name</th>
-								<th class="th-gap">Accept</th>
-								<th class="th-gap">Reject</th>
-								<th class="th-gap">Prescription</th>
+								<th><span>Invoice #</span></th>
+								<td><span>101138</span></td>
 							</tr>
-						</thead>
-						<tbody id="tableBody1">
 							<tr>
-								<td class="td-gap">
-									<p>1</p>
-								</td>
-								<td class="td-gap">Hrithik</td>
-								<td class="td-gap"><a href="/onlinebill"><i class="fa-sharp fa-solid fa-check success"></i></a></td>
-								<td class="td-gap"><i class="fa-sharp fa-solid fa-xmark"></i></td>
-								<td class="td-gap"><a href="/pharmacyviewprescription"><button class="status success">View</button></td>
+								<th><span>Date</span></th>
+								<td><span>January 1, 2023</span></td>
 							</tr>
-						</tbody>
-					</table>
+							<tr>
+								<th><span>Amount Paid</span></th>
+								<td><span id="prefix">₹</span><span>{{total}}</span></td>
+							</tr>
+						</table>
+						<table class="inventory">
+							<thead>
+								<tr>
+									<th><span>Item</span></th>
+									<th><span>Rate</span></th>
+									<th><span>Quantity</span></th>
+									<th><span>Price</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span>Crocin</span></td>
+									<td><span data-prefix>₹</span><span>{{cost}}</span></td>
+									<td><span>{{qty}}</span></td>
+									<td><span data-prefix>₹</span><span>{{costintoqty}}</span></td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="balance">
+							<tr>
+								<th><span>Total</span></th>
+								<td><span data-prefix>₹</span><span>{{total}}</span></td>
+							</tr>
+						</table>
+					</article>
+					<aside>
+						<h1><span>Additional Notes</span></h1>
+						<div>
+							<p>{{instructions}}</p>
+						</div>
+					</aside>
 				</div>
 			</div>
 		</main>
 	</section>
-
+	
 	<!-- JS files -->
-	<script src="../../static/js/click.js"></script>
+	<script src="../../static/js/reportsave.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 </body>
 

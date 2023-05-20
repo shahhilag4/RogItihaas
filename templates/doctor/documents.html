@@ -117,7 +117,6 @@
 								<th class="th-gap">Date</th>
 								<th class="th-gap">View</th>
 								<th class="th-gap">Delete</th>
-								<th class="th-gap">Download</th>
 							</tr>
 						</thead>
 						<tbody id="tableBody1">
@@ -133,17 +132,18 @@
 								<td class="td-gap">Prescription</td>
 								<td class="td-gap">{{data.aadhar}}</td>
 								<td class="td-gap">{{data.todaydate}}</td>
-								<td class="td-gap"><button class="status success"
-										onclick="viewPDF('../../static/reports/{{data.aadhar}}/{{data.aadhar}}.pdf')">View</button></td>
+								<td class="td-gap">
+									<a href="/drviewprescription"><button class="status success">View</button>
+									<!-- <button class="status success"
+										onclick="viewPDF('../../static/reports/{{data.aadhar}}/{{data.aadhar}}.pdf')">View</button> -->
+								</td>
 								<div id="pdf-modal" class="modal">
 									<div class="modal-content">
 										<span class="close" onclick="closePDF()">&times;</span>
 										<canvas id="pdf-canvas"></canvas>
 									</div>
 								</div>
-
 								<td class="td-gap"><button class="status danger">Delete</button></td>
-								<td class="td-gap"><i class="fa-sharp fa-solid fa-arrow-down"></i></td>
 								{% endif %}
 							</tr>
 							{% endfor %}
