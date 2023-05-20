@@ -79,8 +79,7 @@ def doctorsignup():
                 }
             token = generate_unique_token()
             return redirect(url_for('twoFacAuthDoc', token=token))
-
-        message = "User Already Exist"
+        message = "Invalid Details"
         return render_template("login.html", message=message)
     return render_template("login.html")
 

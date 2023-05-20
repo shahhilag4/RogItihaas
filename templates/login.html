@@ -23,6 +23,9 @@
       <div class="signin-signup">
         <form action="/doctorsignin" class="sign-in-form" method="POST">
           <h2 class="title">Doctor Sign In</h2>
+          {% if message is defined %}
+          <h5 style="color: rgb(226, 26, 26);">{{message}}</h5>
+          {% endif %}
           <div class="input-field">
             <i class="fas fa-user"></i>
             <input type="text" placeholder="Aadhar Card" name="doctoraadhar" required />
@@ -35,6 +38,9 @@
         </form>
         <form action="/doctorsignup" class="sign-up-form" method="POST">
           <h2 class="title">Doctor Sign Up</h2>
+          {% if message is defined %}
+          <h5 style="color: rgb(226, 26, 26);">{{message}}</h5>
+          {% endif %}
           <div class="input-field">
             <i class="fas fa-address-card"></i>
             <input type="email" placeholder="Doctor Email" name="doctoremail" required />

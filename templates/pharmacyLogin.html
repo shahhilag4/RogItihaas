@@ -23,6 +23,9 @@
       <div class="signin-signup">
         <form action="/pharmacysignin" method="POST" class="sign-in-form">
           <h2 class="title">Pharmacy Sign In</h2>
+          {% if message is defined %}
+            <h5 style="color: rgb(226, 26, 26);">{{message}}</h5>
+          {% endif %}
           <div class="input-field">
             <i class="fas fa-user"></i>
             <input type="text" name="licensenumber" placeholder="License Number" />
@@ -35,6 +38,9 @@
         </form>
         <form action="/pharmacysignup" method="POST" class="sign-up-form">
           <h2 class="title">Pharmacy Sign Up</h2>
+          {% if message is defined %}
+            <h5 style="color: rgb(226, 26, 26);">{{message}}</h5>
+          {% endif %}
           <div class="input-field">
             <i class="fas fa-address-card"></i>
             <input type="text" name="licensenum" placeholder="Drug License Number" />
