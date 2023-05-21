@@ -613,11 +613,17 @@ def uploadreport(name, aadhar):
 
             todaydate = day + "/" + month + "/" + year
             print(path)
-            print(final_path)
+            newpath=""
+            # newpathh = path.replace(" ", "")
+            for i in path:
+                if i=="\\":
+                    newpath = newpath + "/"
+                else:
+                    newpath = newpath + i
             drexist = doctordetail.find_one({"aadhar": session["doctor"]})
             patientreportdetail.insert_one(
                 {'name': name, "aadhar": aadhar, 'drname': "Dr. "+drexist["name"],
-                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": docname, "url": path})
+                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": docname, "url": newpath})
         files = []
 
         data = patientreportdetail.find({"aadhar": aadhar})

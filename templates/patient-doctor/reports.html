@@ -139,11 +139,11 @@
 								<td class="td-gap">{{data.todaydate}}</td>
 								{% if contain == "Yes" %}
 								<td class="td-gap drname">{{data.doctor}}</td>
-								<td class="td-gap"><button class="status success" onclick="viewPDF('{{ data.url }}')">View</button></td>
+								<td class="td-gap"><button class="status success" onclick="viewPDF('../../{{data.url}}')">View</button></td>
 								<div id="pdf-modal" class="modal">
 									<div class="modal-content">
 										<span class="close" onclick="closePDF()">&times;</span>
-										<button id="downloadButton" onclick="downloadPDF('{{data.url}}')">Download PDF</button>
+										<button id="downloadButton" onclick="downloadPDF('../../{{data.url}}')">Download PDF</button>
 										<canvas id="pdf-canvas"></canvas>
 									</div>
 								</div>
@@ -161,7 +161,7 @@
 	</section>
 
 	<!-- JS files -->
-	<script src="../../static/js/reportsave.js"></script>
+	<script src="../../static/js/reportdownload.js"></script>
 	<script src="../../static/js/click.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 </body>
