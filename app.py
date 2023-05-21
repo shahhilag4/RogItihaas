@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from pymongo import MongoClient
 from datetime import datetime
+from bson.objectid import ObjectId
 import bcrypt
 import os
 import pyqrcode
@@ -191,7 +192,7 @@ def doctorpatientdashboard():
 
     return render_template("login.html")
 
-# End point for seeing medical records
+# End point for seeing medical p
 
 
 @app.route("/documents/<string:name>/<string:aadhar>")
@@ -209,6 +210,7 @@ def documents(name, aadhar):
                         "doctor": row['drname'],
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
+                        "_id" :row['_id']
                     })
         data = patientreportdetail.find({"aadhar": aadhar})
         if data is not None:
@@ -220,6 +222,7 @@ def documents(name, aadhar):
                         "doctor": row['drname'],
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
+                        "_id" :row['_id']
                     })
         contain = "Yes"
         if len(files) == 0:
@@ -232,6 +235,15 @@ def documents(name, aadhar):
         return render_template("patient-doctor/documents.html", files=files, aadhar=aadhar, name=data["name"], drname=drexist["name"], contain=contain)
     return render_template("login.html")
 
+
+@app.route('/document-delete/<string:id>',methods=['GET','POST'])
+def documentDelete(id):
+    if 'doctor' in session:
+        data=patientmedicaldetail.find_one({'draadhar':session['doctor']})
+        patientmedicaldetail.delete_one({'_id': ObjectId(id)})
+        return redirect(url_for('documents',name=data['drname'],aadhar=data['aadhar']))
+    else:
+        return redirect(url_for('doctorsignin'))
 
 @app.route('/consentview/<string:aadhar>/<string:econtact>')
 def consentview(aadhar, econtact):
@@ -263,7 +275,7 @@ def viewprescription(name, aadhar):
 def uploadpresciption(aadhar, drname):
     if 'doctor' in session:
         if request.method == 'POST':
-
+            print(row_count)
             a = 0
             b = 0
             c = 0
@@ -346,9 +358,10 @@ def uploadpresciption(aadhar, drname):
                     "doctor": row['drname'],
                     "todaydate": row['todaydate'],
                     "presname": row["presname"],
+                    "_id" :row['_id']
                 })
-
-            return render_template("patient-doctor/documents.html", files=files)
+            data2=doctordetail.find_one({'aadhar':session['doctor']})
+            return render_template("patient-doctor/documents.html", files=files, aadhar=aadhar, name=data2["name"], drname=data2["name"])
 
     return render_template("login.html")
 
@@ -367,7 +380,8 @@ def drdocuments():
                     "aadhar": row["aadhar"],
                     "drname": row["drname"],
                     "todaydate": row["todaydate"],
-                    "presname": row["presname"]
+                    "presname": row["presname"],
+                    "_id" :row['_id']
                 })
 
         if len(files) == 0:
@@ -561,6 +575,7 @@ def uploadprescription(name, aadhar):
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
                         "url": row["url"],
+                        "_id" :row['_id']
                     })
         contain = "Yes"
         if len(files) == 0:
@@ -616,6 +631,7 @@ def uploadreport(name, aadhar):
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
                         "url": row["url"],
+                        "_id" :row['_id']
                     })
         contain = "Yes"
         if len(files) == 0:
@@ -628,6 +644,14 @@ def uploadreport(name, aadhar):
         return render_template("patient-doctor/reports.html", files=files, aadhar=aadhar, name=data["name"], drname=drexist["name"], contain=contain)
     return render_template("login.html")
 
+@app.route('/report-delete/<string:id>',methods=['GET','POST'])
+def reportDelete(id):
+    if 'doctor' in session:
+        data=patientreportdetail.find_one({'draadhar':session['doctor']})
+        patientreportdetail.delete_one({'_id': ObjectId(id)})
+        return redirect(url_for('uploadreport',name=data['drname'],aadhar=data['aadhar']))
+    else:
+        return redirect(url_for('doctorsignin'))
 # Patient Section
 
 # Ending point for patient signup
@@ -737,6 +761,7 @@ def patientdashboard():
                 "todaydate": row['todaydate'],
                 "presname": row["presname"],
                 "draadhar": row["draadhar"],
+                "_id" :row['_id']
             })
     
         contain = "True"
