@@ -275,7 +275,8 @@ def viewprescription(name, aadhar):
 def uploadpresciption(aadhar, drname):
     if 'doctor' in session:
         if request.method == 'POST':
-            print(row_count)
+            count = int(request.form['count'])
+            print(count)
             a = 0
             b = 0
             c = 0
@@ -293,62 +294,31 @@ def uploadpresciption(aadhar, drname):
             gender = request.form['gender']
             disease = request.form['disease']
 
-            medicine1 = request.form['medicine1']
-            if len(medicine1) > 1:
-                a = 1
-                mg1 = request.form['mg1']
-                dose1 = request.form['dose1']
-                days1 = request.form['days1']
-                food1 = request.form['food1']
+            medications = []
+            for i in range(1, 5):
+                medicine = request.form.get('medicine{}'.format(i))
+                dosage = request.form.get('mg{}'.format(i))
+                frequency = request.form.get('dose{}'.format(i))
+                duration = request.form.get('days{}'.format(i))
+                instructions = request.form.get('food{}'.format(i))
 
-            medicine2 = request.form['medicine2']
-            if len(medicine2) > 1:
-                b = 1
-                mg2 = request.form['mg2']
-                dose2 = request.form['dose2']
-                days2 = request.form['days2']
-                food2 = request.form['food2']
+                # Create a dictionary for each medication
+                medication = {
+                    'medicine': medicine,
+                    'dosage': dosage,
+                    'frequency': frequency,
+                    'duration': duration,
+                    'instructions': instructions
+                }
 
-            medicine3 = request.form['medicine3']
-            if len(medicine3) > 1:
-                c = 1
-                mg3 = request.form['mg3']
-                dose3 = request.form['dose3']
-                days3 = request.form['days3']
-                food3 = request.form['food3']
+                # Append the medication dictionary to the list
+                medications.append(medication)
 
-            if a == 1 and b == 1 and c == 1:
-                available = patientmedicaldetail.find_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                                           'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
-                                                           "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2,
-                                                           "medicine3": medicine3, "mg3": mg3, "dose3": dose3, "days3": days3, "food3": food3})
-
-                if available == None:
-                    patientmedicaldetail.insert_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
-                                                     "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2,
-                                                     "medicine3": medicine3, "mg3": mg3, "dose3": dose3, "days3": days3, "food3": food3,
-                                                     "draadhar": session["doctor"], "presname": "Prescription"})
-
-            if a == 1 and b == 1 and c == 0:
-                available = patientmedicaldetail.find_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                                           'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
-                                                           "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2, "presname": "Prescription"})
-
-                if available == None:
-                    patientmedicaldetail.insert_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
-                                                     "medicine2": medicine2, "mg2": mg2, "dose2": dose2, "days2": days2, "food2": food2,
-                                                     "draadhar": session["doctor"], "presname": "Prescription"})
-
-            if a == 1 and b == 0 and c == 0:
-                available = patientmedicaldetail.find_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                                           'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1})
-
-                if available == None:
-                    patientmedicaldetail.insert_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                                                     'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
-                                                     "draadhar": session["doctor"], "presname": "Prescription"})
+            print(medications)
+                # if available == None:
+                #     patientmedicaldetail.insert_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
+                #                                      'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
+                #                                      "draadhar": session["doctor"], "presname": "Prescription"})
 
             files = []
 

@@ -91,7 +91,7 @@ function addRow() {
   var countCell=document.getElementById("count");
   var count=parseInt(countCell.value);
   count=count+1;
-  // console.log(count);
+  console.log(count);
   countCell.value=count;
 }
 
@@ -107,7 +107,7 @@ function deleteRow(){
   var countCell=document.getElementById("count");
   var count=parseInt(countCell.value);
   count=count-1;
-  // console.log(count);
+  console.log(count);
   countCell.value=count;
 }
 
