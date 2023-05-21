@@ -89,10 +89,13 @@ function addRow() {
 
   //(4) Update Count
   var countCell=document.getElementById("count");
-  var count=parseInt(countCell.value);
-  count=count+1;
-  // console.log(count);
-  countCell.value=count;
+  var count=parseInt(countCell.innerText);
+  if(count>=1)
+  {
+    count=count+1;
+    console.log(count);
+    countCell.innerText=count;
+  }
 }
 
 function deleteRow(){
@@ -100,14 +103,17 @@ function deleteRow(){
   var table = document.getElementById("demoA");
   var rowCount = table.rows.length-1; //Remove header
   // (B2) DELETE ROW
-  if (rowCount > 2) { 
+  if (rowCount > 1) { 
     table.deleteRow(rowCount - 1);
   }
-  // (3) Update Count
   var countCell=document.getElementById("count");
-  var count=parseInt(countCell.value);
-  count=count-1;
-  // console.log(count);
-  countCell.value=count;
+  var count=parseInt(countCell.innerText);
+  if(count>1)
+  {
+    count=count-1;
+    console.log(count);
+    countCell.innerText=count;
+  }
+  // (3) Update Count
 }
 
