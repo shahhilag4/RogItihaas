@@ -36,13 +36,13 @@ options.forEach((option) => {
 function myFunction() {
   var input, tablebody, patientrow, patientuid, i, txtValue;
   input = document.getElementById("myInput");
-  filter = input.value;
+  filter = input.value.toLowerCase();
   tablebody = document.getElementById("options");
-  patientrow = tablebody.getElementsByTagName("div");
-
+  patientrow = tablebody.getElementsByClassName("med");
   for (i = 0; i < patientrow.length; i++) {
     patientuid = patientrow[i];
-    txtValue = patientuid.textContent || patientuid.innerText;
+    txtValue = patientuid.innerText.trim(); // Remove leading and trailing spaces
+    txtValue=txtValue.toLowerCase();
     if (txtValue.indexOf(filter) > -1) {
       patientrow[i].style.display = "";
     } else {

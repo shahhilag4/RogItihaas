@@ -21,7 +21,7 @@
 
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="/pharmacydashboard" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -83,8 +83,8 @@
 			</form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
-			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+			<a href="/pharmacysettings" class="profile">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 
@@ -100,8 +100,8 @@
 				<div class="order">
 					<div class="head">
 						<h3></h3>
-						<input type="search" class="search-1" placeholder="Search Medicine Name">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;"></i></button>
+						<input type="search" id="docname" class="search-1" placeholder="Search Medicine Name" onkeyup="searchDoc()">
+						<button type="submit" class="search-btn-1" onclick="searchDoc()"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;"></i></button>
 					</div>
 					<table>
 						<thead>
@@ -114,12 +114,12 @@
 								<th class="th-gap">Update Status</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="tableBody1">
 							<tr>
 								<td class="td-gap">
 									<p>1</p>
 								</td>
-								<td class="td-gap">
+								<td class="td-gap drname">
 									<p>Hrithik</p>
 								</td>
 								<td class="td-gap"><a href="/pharmacyviewprescription"><button class="status success">View</button></td>
@@ -142,6 +142,7 @@
 	</section>
 
 	<!-- JS files -->
+	<script src="../../static/js/click.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 	<script src="../../static/js/updateState.js"></script>
 </body>

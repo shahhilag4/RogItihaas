@@ -23,7 +23,7 @@
 
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="/doctorsignin" class="brand">
+		<a href="/doctordashboard" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -83,8 +83,8 @@
 			</form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
-			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+			<a href="/drsettings" class="profile">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 
@@ -100,7 +100,7 @@
 				<div class="order">
 					<div class="head">
 						<h3></h3>
-						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name"
+						<input id="docname" type="search" class="search-1" placeholder="Search by Patinent Name"
 							onkeyup="searchDoc()">
 						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"
 								onclick="searchDoc()" style="margin: auto -1rem;"></i></button>
@@ -125,13 +125,13 @@
 									<p>{{loop.index}}</p>
 								</td>
 								{% endif %}
-								<td class="td-gap">{{data.name}}</td>
+								<td class="td-gap drname">{{data.name}}</td>
 								{% if found == "Yes" %}
 								<td class="td-gap">Prescription</td>
 								<td class="td-gap">{{data.aadhar}}</td>
 								<td class="td-gap">{{data.todaydate}}</td>
 								<td class="td-gap">
-									<a href="/drviewprescription"><button class="status success">View</button>
+									<a href="/drviewprescription"><button class="status success">View</button></a>
 									<!-- <button class="status success"
 										onclick="viewPDF('../../static/reports/{{data.aadhar}}/{{data.aadhar}}.pdf')">View</button> -->
 								</td>

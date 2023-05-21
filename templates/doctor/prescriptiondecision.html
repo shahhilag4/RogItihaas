@@ -32,7 +32,7 @@
 
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="/doctordashboard" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -92,8 +92,8 @@
 			</form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
-			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+			<a href="/drsettings" class="profile">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 
@@ -111,10 +111,10 @@
 						<h3></h3>
 							<strong>Prescription Cost</strong>
 							<input class="upload" type="number" name="file">
-							<input type="submit" value="Update" onclick="updatecost()">
-						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name"
+							<input type="submit" class="upload-button" value="Update" onclick="updatecost()">
+						<input id="docname" type="search" class="search-1" placeholder="Search by Patient Name"
 							onkeyup="searchDoc()">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
+						<button type="submit" class="search-btn-1" onclick="searchDoc()"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;"></i></button>
 					</div>
 					<table>
 						<thead>
@@ -132,15 +132,13 @@
 						<tbody id="tableBody1">
 							<tr>
 								<td class="td-gap">1</td>
-								<td class="td-gap">Hrithik</td>
+								<td class="td-gap drname">Hrithik</td>
 								<td class="td-gap"><i class="fa-sharp fa-solid fa-check success"></i></td>
 								<td class="td-gap"><i class="fa-sharp fa-solid fa-xmark"></i></td>
-								<td class="td-gap"><button class="status success"
-									onclick="viewPDF('../../static/reports/{{data.aadhar}}/{{data.aadhar}}.pdf')">View</button></td>
+								<td class="td-gap"><a href="/drviewprescription"><button class="status success">View</button></a></td>
 								<td class="td-gap" id="cost">100₹</td>
 								<td class="td-gap"><p id="instructions-cell">Recommend tests</p><button class="status success"  data-target="#myModal" onclick="editInstructions()">Edit</button></td>
 								<td class="td-gap">Fever,cough</td>
-								
 							</tr>
 
 						</tbody>

@@ -102,8 +102,8 @@
 			<form action="#"></form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
-			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+			<a href="/patientsettings" class="profile">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 
@@ -124,7 +124,8 @@
 						<input type="submit" class="upload-button" value="Upload">
 						<input id="docname" type="search" class="search-1" placeholder="Search by Document Name"
 							onkeyup="searchDoc()">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;"></i></button>
+						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"
+								style="margin: auto -1rem;" onclick="searchDoc()"></i></button>
 					</div>
 					<table>
 						<thead>
@@ -156,9 +157,9 @@
 								<td class="td-gap">
 									{% if data.type == 'Prescription' %}
 									<a href="/patientviewprescription"><button class="status success">View</button>
-									{% elif data.type == 'Report' %}	
-									<button class="status success"
-										onclick="viewPDF('../../static/reports/{{data.aadhar}}/{{data.aadhar}}.pdf')">View</button>
+										{% elif data.type == 'Report' %}
+										<button class="status success"
+											onclick="viewPDF('../../static/reports/{{data.aadhar}}/{{data.aadhar}}.pdf')">View</button>
 								</td>
 								{% endif %}
 								<div id="pdf-modal" class="modal">

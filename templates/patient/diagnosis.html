@@ -104,8 +104,8 @@
 			</form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
-			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+			<a href="/patientsettings" class="profile">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 
@@ -146,31 +146,31 @@
 							<h3>Choose the symptoms you have</h3>
 							<input id="myInput" type="text" class="search-bar" placeholder="Search Symptoms"
 								onkeyup="myFunction()">
-								<div id="options-container">
-									<label>
-										<input type="checkbox" name="medicines" value="Option1">
-										Option 1
-									</label>
-									<label>
-										<input type="checkbox" name="medicines" value="Option1">
-										Option 2
-									</label>
-									<label>
-										<input type="checkbox" name="medicines" value="Option1">
-										Option 3
-									</label>
-									<label>
-										<input type="checkbox" name="medicines" value="Option1">
-										Option 4
-									</label>
-			
-									<!-- {% for data in files %}
-										<label>
+							<div id="options">
+								<label class="med">
+									<input type="checkbox"  name="medicines" value="Option1">
+									Option 1
+								</label>
+								<label class="med">
+									<input type="checkbox" name="medicines" value="Option1">
+									Option 2
+								</label>
+								<label class="med">
+									<input type="checkbox" name="medicines" value="Option1">
+									Option 3
+								</label>
+								<label class="med">
+									<input type="checkbox" name="medicines" value="Option1">
+									Option 4
+								</label>
+
+								<!-- {% for data in files %}
+										<label class="med">
 											<input type="checkbox" name="medicines" value="{{ data.Medicinename }}_{{ data.Regnumber }}">
 											{{ data.Medicinename }}
 										</label>
 									{% endfor %} -->
-								</div>				
+							</div>
 						</div>
 						<a href="/prescription_repository" class="custom-btn">Submit</a>
 					</form>

@@ -11,7 +11,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
     <!-- CSS -->
@@ -20,7 +22,7 @@
     <link rel="stylesheet" href="../../static/css/tagger.css">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
-    
+
     <title>रोगइतिहास - Doctor View Prescription</title>
 </head>
 
@@ -37,30 +39,30 @@
                     class="india-green">हास</span></span>
         </a>
         <ul class="side-menu top">
-			<li>
-				<a href="/doctordashboard">
-					<i class="fa-solid fa-table-columns"></i>
-					<span class="text">Dashboard</span>
-				</a>
-			</li>
-			<li>
-				<a href="/documents">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Medical Records</span>
-				</a>
-			</li>
-			<li>
-				<a href="/consentlist1">
-					<i class="fa-solid fa-notes-medical"></i>
-					<span class="text">Consents</span>
-				</a>
-			</li>
-			<li>
-				<a href="/prescriptiondecision">
-					<i class="fa-solid fa-kit-medical"></i>
-					<span class="text">Prescription Requests</span>
-				</a>
-			</li>
+            <li>
+                <a href="/doctordashboard">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/documents">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span class="text">Medical Records</span>
+                </a>
+            </li>
+            <li>
+                <a href="/consentlist1">
+                    <i class="fa-solid fa-notes-medical"></i>
+                    <span class="text">Consents</span>
+                </a>
+            </li>
+            <li>
+                <a href="/prescriptiondecision">
+                    <i class="fa-solid fa-kit-medical"></i>
+                    <span class="text">Prescription Requests</span>
+                </a>
+            </li>
             <li>
                 <a href="/drsettings">
                     <i class="fa-solid fa-gear"></i>
@@ -73,7 +75,7 @@
                     <span class="text">Logout</span>
                 </a>
             </li>
-		</ul>
+        </ul>
     </section>
 
     <!-- Content -->
@@ -81,11 +83,16 @@
         <!-- Navbar -->
         <nav>
             <i class="fa-solid fa-bars"></i>
-            <form action="#"></form>
+            <form action="doctorpatientdashboard" method="POST">
+                <div class="form-input">
+                    <input type="search" placeholder="Search Patient" name="aadhar" required>
+                    <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
             <input type="checkbox" id="switch-mode" hidden>
             <label for="switch-mode" class="switch-mode"></label>
             <a href="#" class="profile">
-                <img src="../../static/img/rishi.jpg">
+                <img src="../../static/img/avatar.jpg">
             </a>
         </nav>
 
@@ -160,17 +167,17 @@
                                         </td>
                                         <td>{{medicine3nstructions}}</td>
                                     </tr>
-                                  
-                                    
+
+
                                 </table>
-                                
+
                                 <p><strong>Prescribed by:</strong> {{drname}}</p>
                                 <p><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span>
-                            </p>
+                                </p>
                         </main>
                         <footer>
                             <h3>Instructions :</h3>
-                           {{instructions}}
+                            {{instructions}}
                         </footer>
                         <input type="submit" class="centering" value="Download" onclick="saveDivAsPdf()" />
                     </div>
@@ -189,7 +196,7 @@
     <script src="../../static/js/dashboard.js"></script>
     <script src="../../static/js/date.js"></script>
     <script src="../../static/js/main.js"></script>
-      
+
 </body>
 
 </html>

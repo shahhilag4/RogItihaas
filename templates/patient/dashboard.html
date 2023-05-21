@@ -20,12 +20,12 @@
 <body>
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="/patientdashboard/{{econtact}}" class="brand">
+		<a href="/patientdashboard" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
 			<span class="text"><span class="india-orange">रोग</span><span class="india-blue">इति</span><span
-			class="india-green">हास</span></span>
+					class="india-green">हास</span></span>
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
@@ -99,8 +99,8 @@
 			<form action="#"></form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
-			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+			<a href="/patientsettings" class="profile">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 		<!-- Main -->
@@ -115,14 +115,14 @@
 				<li class="block-list">
 					<span class="text-flex">
 						{% if aadhar|length == 12 %}
-							<h4>Name :</h4>
-							<span class="margining">{{name}}</span>
+						<h4>Name :</h4>
+						<span class="margining">{{name}}</span>
 						{% else %}
-							<h4>Parent's Name :</h4>
-							<span class="margining">{{name}}</span>
+						<h4>Parent's Name :</h4>
+						<span class="margining">{{name}}</span>
 						{% endif %}
-						
-						
+
+
 					</span>
 					<span class="text-flex">
 						<h4>Address :</h4>
@@ -136,7 +136,7 @@
 						<h4>Emergency Contact :</h4>
 						<span class="margining">{{econtact}}</span>
 					</span>
-					
+
 				</li>
 			</ul>
 			<!-- Table to display recent history -->
@@ -146,7 +146,8 @@
 						<h3>Recent History</h3>
 						<input type="search" class="search-1" id="myInput" onkeyup="myFunction()"
 							placeholder="Search Doctor By Id">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;"></i></button>
+						<button type="submit" class="search-btn-1" onclick="myFunction()"><i
+								class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;"></i></button>
 					</div>
 					<table>
 						<thead>
@@ -160,9 +161,9 @@
 							{% for data in files %}
 							<tr>
 								<td>
-                                    {% if contain == 'True' %}
-                                        <img src="../../static/img/hilag.jpg">
-                                    {% endif %}
+									{% if contain == 'True' %}
+									<img src="../../static/img/avatar.jpg">
+									{% endif %}
 									<p>{{data.doctor}}</p>
 								</td>
 								<td class="patientuid">{{data.draadhar}}</td>

@@ -23,7 +23,7 @@
 
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="/patienthome/{{aadhar}}" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -86,7 +86,7 @@
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 
@@ -102,16 +102,15 @@
 				<div class="order">
 					<div class="head">
 
-						<strong>Upload Report : </strong>
+						<strong>Upload Report: </strong>
 						<form action="/reports/{{name}}/{{aadhar}}" method="POST" enctype="multipart/form-data">
-							<input type="text" name="docname" placeholder="Enter Document Name" required>
+							<input type="text" name="docname" placeholder="Enter Document Name" required style="padding: 6px">
 							<input class="upload" type="file" name="file" required>
-							<input type="submit" value="Upload">
+							<input type="submit" class="upload-button" style="padding: 6px 6px;" value="Upload">
 						</form>
 
-						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name"
-							onkeyup="searchDoc()">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
+						<input id="docname" type="search" class="search-1" placeholder="Search by Document Name" onkeyup="searchDoc()">
+						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;"></i></button>
 					</div>
 					<table>
 						<thead>
@@ -139,7 +138,7 @@
 								{% endif %}
 								<td class="td-gap">{{data.todaydate}}</td>
 								{% if contain == "Yes" %}
-								<td class="td-gap" class="drname">{{data.doctor}}</td>
+								<td class="td-gap drname">{{data.doctor}}</td>
 								<td class="td-gap"><button class="status success"
 									onclick="viewPDF('../../static/Hilag.pdf')">View</button></td>
 								<div id="pdf-modal" class="modal">
