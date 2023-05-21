@@ -110,30 +110,38 @@
 								<th class="th-gap">Patient Name</th>
 								<th class="th-gap">Prescription</th>
 								<th class="th-gap">Bill</th>
+								<th class="th-gap">Current Status</th>
+								<th class="th-gap">Ordered Date</th>
 								<th class="th-gap">Status</th>
 								<th class="th-gap">Update Status</th>
 							</tr>
 						</thead>
 						<tbody>
+						{% for data in files %}
 							<tr>
 								<td class="td-gap">
-									<p>1</p>
+									<p>{{loop.index}}</p>
 								</td>
 								<td class="td-gap">
-									<p>Hrithik</p>
+									<p>{{data.patientname}}</p>
 								</td>
 								<td class="td-gap"><a href="/pharmacyviewprescription"><button class="status success">View</button></td>
 								<td class="td-gap"><a href="/pharmacyviewbill"><button class="status success">View</button></td>
-								<td class="td-gap" data-label="Status">
-									<select name="status">
-										<option value="accepted">Accepted</option>
-										<option value="packing">Packing</option>
-										<option value="on the way">On the Way</option>
-										<option value="delivered">Delivered</option>
-									</select>
-								</td>								
-								<td class="td-gap"><button id="update-btn" class="status danger">Update</button></td>
+								<td class="td-gap">{{data.status}}</td>
+								<td class="td-gap">{{data.todaydate}}</td>
+								<form action="pharmacydeliverytrack/{{data.patientname}}/{{data.patientaadhar}}" method="POST">
+									<td class="td-gap" data-label="Status">
+										<select name="statusvalue" required>
+											<option value="Accepted">Accepted</option>
+											<option value="Packing">Packing</option>
+											<option value="On the way">On the Way</option>
+											<option value="Delivered">Delivered</option>
+										</select>
+									</td>
+									<td class="td-gap"><input type="submit" id="update-btn" class="status danger" value="Update"></input></td>
+								</form>
 							</tr>
+						{% endfor %}
 						</tbody>
 					</table>
 				</div>

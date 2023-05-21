@@ -819,8 +819,16 @@ def patientoredermed():
 
             path = os.path.join(final_path, file.filename)
             file.save(path)
+            data1 = patientdetail.find_one({"aadhar":session["patient"]})
+            now = datetime.now()  # current date and time
 
-            orderedmedicinedetail.insert_one({"uploadedby": "Self", "medicinename": mediname, "regnum": regnum, "patientaadhar": session["patient"], "url": path, "status": "Ordered"})
+            year = now.strftime("%Y")
+            month = now.strftime("%m")
+            day = now.strftime("%d")
+
+            todaydate = day + "/" + month + "/" + year
+
+            orderedmedicinedetail.insert_one({"patientname": data1["name"], "uploadedby": "Self", "medicinename": mediname, "regnum": regnum, "patientaadhar": session["patient"], "url": path, "status": "Ordered", "todaydate": todaydate})
 
             return redirect(url_for("patientdeliverytracking"))
 
@@ -855,8 +863,9 @@ def patientdeliverytracking():
                 "Url": row["url"],
                 "Status": row["status"],
                 "Uploadedby": row["uploadedby"],
+                "patientname": row["patientname"],
+                "todaydate": row["todaydate"],
             })
-            print(files)
         return render_template("patient/deliverytrack.html", files=files)
     return render_template('patientLogin.html')
 
@@ -1194,14 +1203,99 @@ def medicines():
 @app.route('/deliverytrack', methods=['GET', 'POST'])
 def deliverytrack():
     if "pharmacy" in session:
-        return render_template("pharmacy/deliverytrack.html")
+        data = orderedmedicinedetail.find({"regnum": session["pharmacy"]})
+        files = []
+        if data is not None:
+            for row in data:
+                files.append({
+                    "regnum": row["regnum"],
+                    "uploadedby": row["uploadedby"],
+                    "patientaadhar": row["patientaadhar"],
+                    "url": row["url"],
+                    "status": row["status"],
+                    "patientname": row["patientname"],
+                    "todaydate": row["todaydate"],
+                })
+        return render_template("pharmacy/deliverytrack.html", files=files)
+    return render_template('pharmacyLogin.html')
+
+
+@app.route('/pharmacydeliverytrack/<string:patientname>/<string:patientaadhar>', methods=['GET', 'POST'])
+def pharmacydeliverytrack(patientname, patientaadhar):
+    if "pharmacy" in session:
+        if request.method == "POST":
+            value = request.form.get("statusvalue")
+            orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname, 'patientaadhar': patientaadhar},
+                                             {"$set": {'status': value}})
+        data = orderedmedicinedetail.find({"regnum": session["pharmacy"]})
+        files = []
+        if data is not None:
+            for row in data:
+                if row["status"] != "Ordered":
+                    files.append({
+                        "regnum": row["regnum"],
+                        "uploadedby": row["uploadedby"],
+                        "patientaadhar": row["patientaadhar"],
+                        "url": row["url"],
+                        "status": row["status"],
+                        "patientname": row["patientname"],
+                        "todaydate": row["todaydate"],
+                    })
+        return render_template("pharmacy/deliverytrack.html", files=files)
+    return render_template('pharmacyLogin.html')
+
+
+
+@app.route('/onlineorderpatient/<string:patientname>', methods=['GET', 'POST'])
+def onlineorderpatient(patientname):
+    if "pharmacy" in session:
+        if request.method == "POST":
+            accept = request.form.get("accept")
+            if accept == "accept":
+                orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname}, {"$set": {'status': "Accepted"}})
+            else:
+                orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname}, {"$set": {'status': "Medicine Not Available"}})
+            data = orderedmedicinedetail.find({"regnum": session["pharmacy"]})
+            files = []
+            if data is not None:
+                for row in data:
+                    if row["status"] == "Accepted":
+                        files.append({
+                            "regnum": row["regnum"],
+                            "uploadedby": row["uploadedby"],
+                            "patientaadhar": row["patientaadhar"],
+                            "url": row["url"],
+                            "status": row["status"],
+                            "patientname": row["patientname"],
+                            "todaydate": row["todaydate"],
+                        })
+            return render_template("pharmacy/deliverytrack.html", files=files)
     return render_template('pharmacyLogin.html')
 
 
 @app.route('/onlineorder', methods=['GET', 'POST'])
 def onlineorder():
     if "pharmacy" in session:
-        return render_template("pharmacy/onlineorder.html")
+        data = orderedmedicinedetail.find({"status": "Ordered", "regnum": session["pharmacy"]})
+        files = []
+        if data is not None:
+            for row in data:
+                files.append({
+                    "regnum": row["regnum"],
+                    "uploadedby": row["uploadedby"],
+                    "patientaadhar": row["patientaadhar"],
+                    "url": row["url"],
+                    "status": row["status"],
+                    "patientname": row["patientname"],
+                    "todaydate": row["todaydate"],
+                })
+            contain="Yes"
+            if len(files) == 0:
+                contain = "No"
+                files.append({
+                    "patientname": "No record found",
+                })
+        return render_template("pharmacy/onlineorder.html", files=files, contain=contain)
     return render_template('pharmacyLogin.html')
 
 
@@ -1227,7 +1321,8 @@ def pharmacyviewprescription():
 @app.route('/pharmacyviewbill', methods=['GET', 'POST'])
 def pharmacyviewbill():
     if "pharmacy" in session:
-        return render_template("pharmacy/bill_readonly.html")
+        invoicenum = str(random.randint(10000, 99999))
+        return render_template("pharmacy/bill_readonly.html",invoicenum = invoicenum)
     return render_template('pharmacyLogin.html')
 
 @app.route('/uploadmedicine/<string:regnumber>', methods=['GET', 'POST'])

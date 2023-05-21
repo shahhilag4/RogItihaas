@@ -101,7 +101,7 @@
 				<div class="order">
 					<div class="head">
 						<h3></h3>
-						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name"
+						<input id="docname" type="search" class="search-1" placeholder="Search by Patient Name"
 							onkeyup="searchDoc()">
 						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</div>
@@ -110,22 +110,32 @@
 							<tr>
 								<th class="th-gap">S.No</th>
 								<th class="th-gap">Patient Name</th>
+								<th class="th-gap">Ordered Date</th>
 								<th class="th-gap">Accept</th>
 								<th class="th-gap">Reject</th>
 								<th class="th-gap">Prescription</th>
 							</tr>
 						</thead>
 						<tbody id="tableBody1">
+						{% for data in files %}
 							<tr>
+								{% if contain == "Yes" %}
 								<td class="td-gap">
-									<p>1</p>
+									<p>{{loop.index}}</p>
 								</td>
-								<td class="td-gap">Hrithik</td>
-								<td class="td-gap"><a href="/onlinebill"><i class="fa-sharp fa-solid fa-check success"></i></a></td>
-								<td class="td-gap"><i class="fa-sharp fa-solid fa-xmark"></i></td>
+								{% endif %}
+								<td class="td-gap">{{data.patientname}}</td>
+								{% if contain == "Yes" %}
+								<td class="td-gap">{{data.todaydate}}</td>
+								<form action="onlineorderpatient/{{data.patientname}}" method="POST">
+									<td class="td-gap"><button class="button-style" type="submit" name="accept" value="accept">Accept</button></td>
+									<td class="td-gap"><button class="button-style" type="submit" name="reject" value="reject">Reject</button></td>
+								</form>
 								<td class="td-gap"><a href="/pharmacyviewprescription"><button class="status success">View</button></td>
+								{% endif %}
 							</tr>
 						</tbody>
+						{% endfor %}
 					</table>
 				</div>
 			</div>
