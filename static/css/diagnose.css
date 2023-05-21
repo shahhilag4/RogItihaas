@@ -12,12 +12,39 @@
 }
 
 #options-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
 }
 
 #options-container label {
-  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  justify-content: center;
+  text-align: center;
+}
+
+#options-container label:last-child {
+  border-bottom: none;
+}
+
+#options-container input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  #options-container {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #options-container {
+      grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .custom-btn {
