@@ -86,4 +86,28 @@ function addRow() {
   cell = row.insertCell();
   cell.innerHTML = `<input type="text" name="" placeholder="Take with food"
   class="formInput inputValue">`;
+
+  //(4) Update Count
+  var countCell=document.getElementById("count");
+  var count=parseInt(countCell.value);
+  count=count+1;
+  // console.log(count);
+  countCell.value=count;
 }
+
+function deleteRow(){
+  // (B1) GET TABLE
+  var table = document.getElementById("demoA");
+  var rowCount = table.rows.length-1; //Remove header
+  // (B2) DELETE ROW
+  if (rowCount > 2) { 
+    table.deleteRow(rowCount - 1);
+  }
+  // (3) Update Count
+  var countCell=document.getElementById("count");
+  var count=parseInt(countCell.value);
+  count=count-1;
+  // console.log(count);
+  countCell.value=count;
+}
+
