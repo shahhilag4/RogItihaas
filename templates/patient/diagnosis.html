@@ -140,19 +140,37 @@
 						</div>
 						<div class="container">
 							<h3>Please mention your age</h3>
-							<input type="text" class="text-container" placeholder="Age">
+							<input type="number" class="text-container" placeholder="Age">
 						</div>
 						<div class="container">
 							<h3>Choose the symptoms you have</h3>
-							<input id="myInput" type="number" class="search-bar" placeholder="Search Symptoms"
+							<input id="myInput" type="text" class="search-bar" placeholder="Search Symptoms"
 								onkeyup="myFunction()">
-							<div class="options-container" id="options">
-								<div class="option">Option 1</div>
-								<div class="option">Option 2</div>
-								<div class="option">Option 3</div>
-								<div class="option">Option 4</div>
-								<div class="option">Option 5</div>
-							</div>
+								<div id="options-container">
+									<label>
+										<input type="checkbox" name="medicines" value="Option1">
+										Option 1
+									</label>
+									<label>
+										<input type="checkbox" name="medicines" value="Option1">
+										Option 2
+									</label>
+									<label>
+										<input type="checkbox" name="medicines" value="Option1">
+										Option 3
+									</label>
+									<label>
+										<input type="checkbox" name="medicines" value="Option1">
+										Option 4
+									</label>
+			
+									<!-- {% for data in files %}
+										<label>
+											<input type="checkbox" name="medicines" value="{{ data.Medicinename }}_{{ data.Regnumber }}">
+											{{ data.Medicinename }}
+										</label>
+									{% endfor %} -->
+								</div>				
 						</div>
 						<a href="/prescription_repository" class="custom-btn">Submit</a>
 					</form>

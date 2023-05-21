@@ -107,7 +107,7 @@ def twoFacAuthDoc(token):
                     if mobile == mobile_num:
                         if exist is None:
                             doctordetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'councilnum' : councilnum,  'email': email, 'password': hashpass})
-                            s = "http://34.28.38.229/doctorsignup"
+                            s = "http://34.28.38.229/emergencydashboard"
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
