@@ -13,6 +13,10 @@ function editInstructions() {
     instructionsCell.style.width="100%"
     $('#myModal').modal('hide');
   }
+  
+  function closeInstructions() {
+    $('#myModal').modal('hide');
+  }
 
   function updatecost() {
     var uploadText = document.querySelector(".upload");

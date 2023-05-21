@@ -431,6 +431,7 @@ input[type="search"]::-webkit-search-results-decoration {
   background: var(--light);
   padding: 24px;
   overflow-x: auto;
+  margin-top: 1rem;
 }
 #content main .table-data .head {
   display: flex;
@@ -482,6 +483,7 @@ input[type="search"]::-webkit-search-results-decoration {
 #content main .table-data .order table tr td .status {
   font-size: 10px;
   padding: 6px 16px;
+  margin: 0 1rem;
   color: var(--light);
   border-radius: 20px;
   font-weight: 700;
@@ -499,10 +501,24 @@ button {
 }
 .footer_buttons:hover,
 button:hover {
-  background-color: var(--light);
-  border: 2px solid var(--dark);
-  color: var(--dark);
+  background-color: var(--grey);
+  color: var(--light);
 }
+
+.upload-button {
+        display: inline-block;
+        padding: 10px 20px;
+        border:1px solid var(--dark);
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+.upload-button:hover {
+        background-color: var(--dark-grey);
+    }
 
 #content main .table-data .order table tr td .status.success {
   background: var(--success);
@@ -522,6 +538,8 @@ button:hover {
 
 .search-btn-1 {
   background: var(--light);
+  width:1.5rem;
+  padding: 0 1rem;
   border: none;
   color: var(--dark) !important;
 }
@@ -537,7 +555,8 @@ button:hover {
 
 .search-1 {
   border: 0.1px solid var(--dark-grey);
-  border-radius: 7.5px;
+  border-radius: 20.5px;
+  height: 2.5rem;
 }
 
 .modal {

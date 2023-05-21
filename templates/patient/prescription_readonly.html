@@ -1,4 +1,4 @@
-<!-- Patient-Doctor Prescription -->
+<!-- Patient Prescription -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
     <!-- CSS -->
@@ -20,7 +22,7 @@
     <link rel="stylesheet" href="../../static/css/tagger.css">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
-    
+
     <title>रोगइतिहास - Patient View Prescription</title>
 </head>
 
@@ -29,7 +31,7 @@
 
     <!-- Sidebar -->
     <section id="sidebar">
-        <a href="#" class="brand">
+        <a href="/patientdashboard" class="brand">
             <i class="fa-solid">
                 <img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
             </i>
@@ -37,54 +39,54 @@
                     class="india-green">हास</span></span>
         </a>
         <ul class="side-menu top">
-			<li>
-				<a href="/patientdashboard">
-					<i class="fa-solid fa-table-columns"></i>
-					<span class="text">Dashboard</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientdocuments">
-					<i class="fa-solid fa-folder-open"></i>
-					<span class="text">Medical Records</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patienthealthcard">
-					<i class="fa-solid fa-address-card"></i>
-					<span class="text">Health Card</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientdiagnosis">
-					<i class="fa-solid fa-message"></i>
-					<span class="text">Diagonsis</span>
-				</a>
-			</li>
+            <li>
+                <a href="/patientdashboard">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/patientdocuments">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span class="text">Medical Records</span>
+                </a>
+            </li>
+            <li>
+                <a href="/patienthealthcard">
+                    <i class="fa-solid fa-address-card"></i>
+                    <span class="text">Health Card</span>
+                </a>
+            </li>
+            <li>
+                <a href="/patientdiagnosis">
+                    <i class="fa-solid fa-message"></i>
+                    <span class="text">Diagonsis</span>
+                </a>
+            </li>
             <li>
                 <a href="/prescriptionstatus">
                     <i class="fa-solid fa-clock"></i>
                     <span class="text">Prescription Status</span>
                 </a>
             </li>
-			<li>
-				<a href="/patientoredermed">
-					<i class="fa-solid fa-tablets"></i>
-					<span class="text">Order Medicine</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientdeliverytracking">
-					<i class="fa-solid fa-truck"></i>
-					<span class="text">Delivery Tracking</span>
-				</a>
-			</li>
-			<li>
-				<a href="/patientconsent">
-					<i class="fa-solid fa-file"></i>
-					<span class="text">Consent</span>
-				</a>
-			</li>
+            <li>
+                <a href="/patientoredermed">
+                    <i class="fa-solid fa-tablets"></i>
+                    <span class="text">Order Medicine</span>
+                </a>
+            </li>
+            <li>
+                <a href="/patientdeliverytracking">
+                    <i class="fa-solid fa-truck"></i>
+                    <span class="text">Delivery Tracking</span>
+                </a>
+            </li>
+            <li>
+                <a href="/patientconsent">
+                    <i class="fa-solid fa-file"></i>
+                    <span class="text">Consent</span>
+                </a>
+            </li>
             <li>
                 <a href="/patientsettings">
                     <i class="fa-solid fa-gear"></i>
@@ -97,7 +99,7 @@
                     <span class="text">Logout</span>
                 </a>
             </li>
-		</ul>
+        </ul>
     </section>
 
     <!-- Content -->
@@ -108,8 +110,8 @@
             <form action="#"></form>
             <input type="checkbox" id="switch-mode" hidden>
             <label for="switch-mode" class="switch-mode"></label>
-            <a href="#" class="profile">
-                <img src="../../static/img/rishi.jpg">
+            <a href="/patientsettings" class="profile">
+                <img src="../../static/img/avatar.jpg">
             </a>
         </nav>
 
@@ -132,7 +134,6 @@
                                 <p>{{statecountry}}</p>
                                 <p>Phone: {{phone}}</p>
                             </div>
-                            <!-- <img class="head_img" src="../../static/img/rishi.jpg" alt=""> -->
                         </header>
                         <main>
                             <h2>Patient Information</h2>
@@ -186,19 +187,19 @@
                                         </td>
                                         <td>{{medicine3nstructions}}</td>
                                     </tr>
-                                  
-                                    
+
+
                                 </table>
-                                
+
                                 <p><strong>Prescribed by:</strong> {{drname}}</p>
                                 <p><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span>
-                            </p>
+                                </p>
                         </main>
                         <footer>
                             <h3>Instructions :</h3>
-                           {{instructions}}
+                            {{instructions}}
                         </footer>
-                        <input type="submit" class="btn" value="Download" onclick="saveDivAsPdf()" />
+                        <input type="submit" class="centering" value="Download" onclick="saveDivAsPdf()" />
                     </div>
                 </div>
             </div>
@@ -215,7 +216,7 @@
     <script src="../../static/js/dashboard.js"></script>
     <script src="../../static/js/date.js"></script>
     <script src="../../static/js/main.js"></script>
-      
+
 </body>
 
 </html>

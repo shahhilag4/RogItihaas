@@ -7,6 +7,7 @@ import os
 import pyqrcode
 from aadhaar import get_details, generate_unique_token, get_licence_detail
 import pandas as pd
+import random
 
 app = Flask(__name__)
 app.secret_key = "@13@6$$#ddfccv"
@@ -108,7 +109,7 @@ def twoFacAuthDoc(token):
                     if mobile == mobile_num:
                         if exist is None:
                             doctordetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'councilnum' : councilnum,  'email': email, 'password': hashpass})
-                            s = "http://34.28.38.229/doctorsignup"
+                            s = "http://34.28.38.229/emergencydashboard"
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
@@ -542,7 +543,7 @@ def uploadprescription(name, aadhar):
             path = "static/prescription/"
             parent = str(aadhar)
             final_path = os.path.join(path, parent)
-            if os.path.isdir(final_path) == "False":
+            if os.path.isdir(final_path) == False:
                 os.mkdir(final_path)
 
             path = os.path.join(final_path, file.filename)
@@ -598,7 +599,7 @@ def uploadreport(name, aadhar):
             path = "static/reports/"
             parent = str(aadhar)
             final_path = os.path.join(path, parent)
-            if os.path.isdir(final_path) == "False":
+            if os.path.isdir(final_path) == False:
                 os.mkdir(final_path)
 
             path = os.path.join(final_path, file.filename)
@@ -732,7 +733,7 @@ def twoFacAuth(token):
                     if mobile == mobile_num:
                         if exist is None:
                             patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
-                            s = "http://34.28.38.229/patientsignup"
+                            s = "http://34.28.38.229/emergencydashboard"
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
@@ -825,10 +826,28 @@ def prescriptionstatus():
 
 @app.route('/patientoredermed', methods=['POST', 'GET'])
 def patientoredermed():
+    global regnum
     if "patient" in session:
         if request.method == "POST":
+            file = request.files['file']
             multiselect = request.form.getlist('medicines')
-            return render_template("patient/deliverytrack.html")
+
+            mediname=[]
+            for row in multiselect:
+                medname, regnum = row.split('_')
+                mediname.append(medname)
+            path = "static/pharmacyprescription/"
+            parent = str(regnum)+str(random.randint(1, 9999999))
+            final_path = os.path.join(path, parent)
+            if os.path.isdir(final_path)==False:
+                os.mkdir(final_path)
+
+            path = os.path.join(final_path, file.filename)
+            file.save(path)
+
+            orderedmedicinedetail.insert_one({"uploadedby": "Self", "medicinename": mediname, "regnum": regnum, "patientaadhar": session["patient"], "url": path, "status": "Ordered"})
+
+            return redirect(url_for("patientdeliverytracking"))
 
         data = medicinedetail.find()
         files = []
@@ -850,7 +869,20 @@ def patientoredermed():
 @app.route('/patientdeliverytracking', methods=['GET', 'POST'])
 def patientdeliverytracking():
     if "patient" in session:
-        return render_template("patient/deliverytrack.html")
+        data = orderedmedicinedetail.find({"patientaadhar": session["patient"]})
+
+        files = []
+        for row in data:
+            files.append({
+                "Medicinename": row["medicinename"],
+                "Regnum": row["regnum"],
+                "Patientaadhar": row["patientaadhar"],
+                "Url": row["url"],
+                "Status": row["status"],
+                "Uploadedby": row["uploadedby"],
+            })
+            print(files)
+        return render_template("patient/deliverytrack.html", files=files)
     return render_template('patientLogin.html')
 
 @app.route('/patientconsent', methods=['GET', 'POST'])
@@ -958,7 +990,7 @@ def aadharsettings():
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
-                s = "http://34.28.38.229/patientsignup"
+                s = "http://34.28.38.229/emergencydashboard"
                 url = pyqrcode.create(s)
                 path = "static/img/qrcode/"+new_aadhar+".png"
                 url.png(path, scale=6)

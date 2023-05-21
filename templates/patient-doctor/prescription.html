@@ -92,7 +92,7 @@
             <input type="checkbox" id="switch-mode" hidden>
             <label for="switch-mode" class="switch-mode"></label>
             <a href="#" class="profile">
-                <img src="../../static/img/rishi.jpg">
+                <img src="../../static/img/avatar.jpg">
             </a>
         </nav>
 
@@ -124,6 +124,7 @@
                                             class="formInput inputValue"></li>
                                     <li><strong>Age:</strong> <input type="number" name="age" value="33"
                                             class="formInput inputValue"></li>
+                                    <input id="count" name="count" value="3"/>
                                     <li><strong>Gender:</strong>
                                         <label>
                                             <input type="radio" name="gender" value="male" checked> Male
@@ -221,7 +222,10 @@
                                                 class="formInput inputValue"></td>
                                     </tr>
                                 </table>
-                                <input type="button" value="Add Bottom" onclick="addRow()">
+
+                                <input type="button" value="Add Bottom" style="padding: 6px 10px;margin:0.5rem 0" onclick="addRow()">
+                                <input type="button" value="Delete Bottom" style="padding: 6px 10px;margin:0.5rem 0" onclick="deleteRow()">
+                                
                                 <p><strong>Prescribed by:</strong> {{drname}}</p>
                                 <p><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span></p>
                                 <footer>
@@ -229,7 +233,7 @@
                                     <textarea placeholder="Enter text here" class="txtarea" style="height:30px;" rows="3"
                                     name="Text" id="text"></textarea>
                                 </footer>
-                                <input type="submit" class="btn" value="Submit" />
+                                <input type="submit" class="centering" value="Submit" />
                             </form>
                         </main>
                     </div>

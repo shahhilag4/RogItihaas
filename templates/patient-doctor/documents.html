@@ -23,7 +23,7 @@
 
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="/patienthome/{{aadhar}}" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -86,7 +86,7 @@
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 
@@ -105,12 +105,11 @@
 							enctype="multipart/form-data">
 							<strong>Upload Prescription : </strong>
 							<input class="upload" type="file" name="file">
-							<input type="submit" value="Upload">
+							<input type="submit" class="upload-button" value="Upload">
 						</form>
 
-						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name"
-							onkeyup="searchDoc()">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
+						<input id="docname" type="search" class="search-1" placeholder="Search by Doctor Name" onkeyup="searchDoc()">
+						<button type="submit" class="search-btn-1" onclick="searchDoc()"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;"></i></button>
 					</div>
 					<table>
 						<thead>
@@ -133,7 +132,7 @@
 									<p>{{data.presname}}</p>
 								</td>
 								<td class="td-gap">{{data.todaydate}}</td>
-								<td class="td-gap" class="drname">{{data.doctor}}</td>
+								<td class="td-gap drname" class="drname">{{data.doctor}}</td>
 								<td class="td-gap"><a href="/viewprescription/{{drname}}/{{aadhar}}"><button class="status success">View</button></td>
 								</div>
 								<td class="td-gap"><button class="status danger"><a style="text-decoration: none; color: aliceblue;" href="/document-delete/{{data._id}}">Delete</a></button></td>
