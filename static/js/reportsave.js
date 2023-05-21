@@ -1,13 +1,20 @@
-function downloadPDF(pdfURL) {
-    var link = document.createElement('a');
-    link.href = pdfURL;
-    link.target = '_blank'; // Open the PDF in a new tab/window
-  
-    // Set a default filename for the saved PDF
-    var fileName = 'document.pdf';
-    link.download = fileName;
-  
-    // Simulate a click on the link to trigger the download
-    link.click();
-  }
-  
+function saveDivAsPdf() {
+  event.preventDefault();
+  const element = document.getElementById('orderbill');
+  const width = element.scrollWidth;
+  const height = element.scrollHeight;
+
+  html2canvas(element, { scale: 2 })
+    .then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'pt', [width, height]);
+      pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+
+      // Save the PDF
+      pdf.save('bill.pdf');
+      document.getElementById('myForm').submit();
+    })
+    .catch((error) => {
+      console.error('Error rendering HTML to canvas:', error);
+    });
+}

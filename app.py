@@ -275,7 +275,7 @@ def viewprescription(name, aadhar):
 def uploadpresciption(aadhar, drname):
     if 'doctor' in session:
         if request.method == 'POST':
-            print(row_count)
+            # print(row_count)
             a = 0
             b = 0
             c = 0
@@ -612,7 +612,8 @@ def uploadreport(name, aadhar):
             day = now.strftime("%d")
 
             todaydate = day + "/" + month + "/" + year
-
+            print(path)
+            print(final_path)
             drexist = doctordetail.find_one({"aadhar": session["doctor"]})
             patientreportdetail.insert_one(
                 {'name': name, "aadhar": aadhar, 'drname': "Dr. "+drexist["name"],

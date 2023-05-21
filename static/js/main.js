@@ -54,39 +54,8 @@ function myFunction() {
 function addRow() {
   // (B1) GET TABLE
   var table = document.getElementById("demoA");
-
   // (B2) INSERT ROW
   var row = table.insertRow();
-
-  // (B3) INSERT CELLS
-  var cell = row.insertCell();
-  cell.innerHTML = `<td><input type="text" list="dr" placeholder="Enter Medicine" />
-  <datalist id="dr">
-      <option value="Objective C">Objective C</option>
-      <option value="C++">C++</option>
-      <option value="C#">C#</option>
-      <option value="Cobol">Cobol</option>
-      <option value="Go">Go</option>
-      <option value="Java">Java</option>
-      <option value="JavaScript">JavaScript</option>
-      <option value="Python">Python</option>
-      <option value="PHP">PHP</option>
-      <option value="Pascal">Pascal</option>
-      <option value="Perl">Perl</option>
-      <option value="R">R</option>
-      <option value="Swift">Swift</option>
-  </datalist>
-</td>`;
-  cell = row.insertCell();
-  cell.innerHTML = `<input type="number" name="" placeholder="1" class="formInput inputValue"> mg`;
-  cell = row.insertCell();
-  cell.innerHTML = `<input type="number" name="" placeholder="1" class="formInput inputValue"> daily`;
-  cell = row.insertCell();
-  cell.innerHTML = `<input type="number" name="" placeholder="7" class="formInput inputValue"> days`;
-  cell = row.insertCell();
-  cell.innerHTML = `<input type="text" name="" placeholder="Take with food"
-  class="formInput inputValue">`;
-
   //(4) Update Count
   var countCell=document.getElementById("count");
   var count=parseInt(countCell.value);
@@ -96,6 +65,32 @@ function addRow() {
     console.log(count);
     countCell.value=count;
   }
+  // (B3) INSERT CELLS
+  console.log(count);
+  var cell = row.insertCell();
+  cell.innerHTML = `<td><input type="text" list="dr" name="medicine${count}"
+  placeholder="Enter Medicine" />
+  <datalist id="dr">
+  <option value="Paracetamol">Paracetamol</option>
+  <option value="Citrazine">Citrazine</option>
+  </datalist>
+  </td>`;
+  
+  cell = row.insertCell();
+  cell.innerHTML = `<td><input type="number" name="mg${count}" value="10" class="formInput inputValue"> mg
+  </td>`;
+  cell = row.insertCell();
+  cell.innerHTML = `<td><input type="number" name="dose${count}" value="1" class="formInput inputValue">
+  daily
+  </td>`;
+  cell = row.insertCell();
+  cell.innerHTML = ` <td><input type="number" name="days${count}" value="3" class="formInput inputValue">
+  days
+  </td>`;
+  cell = row.insertCell();
+  cell.innerHTML = `<td><input type="text" name="food${count}" placeholder="Take with food"
+  class="formInput inputValue"></td>`;
+  
 }
 
 function deleteRow(){
@@ -104,7 +99,7 @@ function deleteRow(){
   var rowCount = table.rows.length-1; //Remove header
   // (B2) DELETE ROW
   if (rowCount > 1) { 
-    table.deleteRow(rowCount - 1);
+    table.deleteRow(rowCount);
   }
   var countCell=document.getElementById("count");
   var count=parseInt(countCell.value);
