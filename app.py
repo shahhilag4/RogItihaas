@@ -6,6 +6,7 @@ import os
 import pyqrcode
 from aadhaar import get_details, generate_unique_token, get_licence_detail
 import pandas as pd
+import random
 
 app = Flask(__name__)
 app.secret_key = "@13@6$$#ddfccv"
@@ -529,7 +530,7 @@ def uploadprescription(name, aadhar):
             path = "static/prescription/"
             parent = str(aadhar)
             final_path = os.path.join(path, parent)
-            if os.path.isdir(final_path) == "False":
+            if os.path.isdir(final_path) == False:
                 os.mkdir(final_path)
 
             path = os.path.join(final_path, file.filename)
@@ -584,7 +585,7 @@ def uploadreport(name, aadhar):
             path = "static/reports/"
             parent = str(aadhar)
             final_path = os.path.join(path, parent)
-            if os.path.isdir(final_path) == "False":
+            if os.path.isdir(final_path) == False:
                 os.mkdir(final_path)
 
             path = os.path.join(final_path, file.filename)
@@ -802,12 +803,28 @@ def prescriptionstatus():
 
 @app.route('/patientoredermed', methods=['POST', 'GET'])
 def patientoredermed():
+    global regnum
     if "patient" in session:
         if request.method == "POST":
-            # prescriptionfile = request.form.file('file')
-            multiselect = request.form.getlist('medicine[]')
-            print(multiselect)
-            return render_template("patient/deliverytrack.html")
+            file = request.files['file']
+            multiselect = request.form.getlist('medicines')
+            mediname=[]
+            for row in multiselect:
+                medname, regnum = row.split('_')
+                mediname.append(medname)
+            path = "static/pharmacyprescription/"
+            parent = str(regnum)+str(random.randint(1, 9999999))
+            final_path = os.path.join(path, parent)
+            if os.path.isdir(final_path)==False:
+                os.mkdir(final_path)
+
+            path = os.path.join(final_path, file.filename)
+            file.save(path)
+
+            orderedmedicinedetail.insert_one({"uploadedby": "Self", "medicinename": mediname, "regnum": regnum, "patientaadhar": session["patient"], "url": path, "status": "Ordered"})
+
+            return redirect(url_for("patientdeliverytracking"))
+
         data = medicinedetail.find()
         files = []
         if data is not None:
@@ -819,13 +836,29 @@ def patientoredermed():
                     "Expiry": rec["Expiry"],
                     "Quantity": int(rec["Quantity"]),
                 })
+
         return render_template('patient/oredermed.html', files=files)
+
     return render_template("patientLogin.html")
+
 
 @app.route('/patientdeliverytracking', methods=['GET', 'POST'])
 def patientdeliverytracking():
     if "patient" in session:
-        return render_template("patient/deliverytrack.html")
+        data = orderedmedicinedetail.find({"patientaadhar": session["patient"]})
+
+        files = []
+        for row in data:
+            files.append({
+                "Medicinename": row["medicinename"],
+                "Regnum": row["regnum"],
+                "Patientaadhar": row["patientaadhar"],
+                "Url": row["url"],
+                "Status": row["status"],
+                "Uploadedby": row["uploadedby"],
+            })
+            print(files)
+        return render_template("patient/deliverytrack.html", files=files)
     return render_template('patientLogin.html')
 
 @app.route('/patientconsent', methods=['GET', 'POST'])

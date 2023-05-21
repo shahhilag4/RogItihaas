@@ -11,10 +11,13 @@
   display: block;
 }
 
-.options-container {
+#options-container {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 10px;
+}
+
+#options-container label {
+  margin-right: 10px;
 }
 
 .custom-btn {
