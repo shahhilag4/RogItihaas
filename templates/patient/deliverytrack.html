@@ -125,26 +125,30 @@
 						<thead>
 							<tr>
 								<th class="th-gap">S.No</th>
-								<th class="th-gap">Doctor Name</th>
+								<th class="th-gap">Ordered By</th>
 								<th class="th-gap">Prescription</th>
 								<th class="th-gap">Bill</th>
 								<th class="th-gap">Status</th>
 							</tr>
 						</thead>
 						<tbody>
+						{% for data in files %}
 							<tr>
+
 								<td class="td-gap">
-									<p>1</p>
+									<p>{{loop.index}}</p>
 								</td>
 								<td class="td-gap">
-									<p>Hrithik</p>
+									<p>{{data.Uploadedby}}</p>
 								</td>
 								<td class="td-gap"><a href="/patientviewprescription"><button class="status success">View</button></td>
 								<td class="td-gap"><a href="/patientviewbill"><button class="status success">View</button></td>
 								<td class="td-gap">
-									<p>Packing</p>
+									<p>{{data.Status}}</p>
 								</td>
+
 							</tr>
+						{% endfor %}
 						</tbody>
 					</table>
 				</div>
