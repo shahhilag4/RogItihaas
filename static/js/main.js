@@ -36,13 +36,13 @@ options.forEach((option) => {
 function myFunction() {
   var input, tablebody, patientrow, patientuid, i, txtValue;
   input = document.getElementById("myInput");
-  filter = input.value;
+  filter = input.value.toLowerCase();
   tablebody = document.getElementById("options");
-  patientrow = tablebody.getElementsByTagName("div");
-
+  patientrow = tablebody.getElementsByClassName("med");
   for (i = 0; i < patientrow.length; i++) {
     patientuid = patientrow[i];
-    txtValue = patientuid.textContent || patientuid.innerText;
+    txtValue = patientuid.innerText.trim(); // Remove leading and trailing spaces
+    txtValue=txtValue.toLowerCase();
     if (txtValue.indexOf(filter) > -1) {
       patientrow[i].style.display = "";
     } else {
@@ -86,4 +86,34 @@ function addRow() {
   cell = row.insertCell();
   cell.innerHTML = `<input type="text" name="" placeholder="Take with food"
   class="formInput inputValue">`;
+
+  //(4) Update Count
+  var countCell=document.getElementById("count");
+  var count=parseInt(countCell.value);
+  if(count>=1)
+  {
+    count=count+1;
+    console.log(count);
+    countCell.value=count;
+  }
 }
+
+function deleteRow(){
+  // (B1) GET TABLE
+  var table = document.getElementById("demoA");
+  var rowCount = table.rows.length-1; //Remove header
+  // (B2) DELETE ROW
+  if (rowCount > 1) { 
+    table.deleteRow(rowCount - 1);
+  }
+  var countCell=document.getElementById("count");
+  var count=parseInt(countCell.value);
+  if(count>1)
+  {
+    count=count-1;
+    console.log(count);
+    countCell.value=count;
+  }
+  // (3) Update Count
+}
+

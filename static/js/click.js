@@ -3,12 +3,13 @@
 function searchDoc() {
   var input, tablebody, patientrow, patientuid, i, txtValue;
   input = document.getElementById("docname");
-  filter = input.value;
+  filter = input.value.toLowerCase();
   tablebody = document.getElementById("tableBody1");
   patientrow = tablebody.getElementsByTagName("tr");
   for (i = 0; i < patientrow.length; i++) {
     patientuid = patientrow[i].getElementsByClassName("drname")[0];
     txtValue = patientuid.textContent || patientuid.innerText;
+    txtValue =  txtValue.toLowerCase();
     if (txtValue.indexOf(filter) > -1) {
       patientrow[i].style.display = "";
     } else {

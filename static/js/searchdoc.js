@@ -1,4 +1,4 @@
-/* Socument search functionality */
+/* Document search functionality */
 
 function myFunction() {
   var input, tablebody, patientrow, patientuid, i, txtValue;

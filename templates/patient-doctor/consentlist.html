@@ -21,7 +21,7 @@
 
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="/patienthome/{{aadhar}}" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -84,7 +84,7 @@
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 		<!-- Main -->
@@ -99,8 +99,8 @@
 				<div class="order">
 					<div class="head">
 						<h3></h3>
-						<input type="search" class="search-1" placeholder="Search consent letter">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
+						<input type="search" id="docname" class="search-1" placeholder="Search by Doctor Name" onkeyup="searchDoc()">
+						<button type="submit" class="search-btn-1" onclick="searchDoc()"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;"></i></button>
 					</div>
 					<table>
 						<thead>
@@ -111,7 +111,7 @@
 								<th class="th-gap">Status</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="tableBody1">
 						{% for data in files %}
 							<tr class="td-gap">
 								{% if contain=='Yes' %}
@@ -119,7 +119,7 @@
 									<p>{{loop.index}}</p>
 								</td>
 								{% endif %}
-								<td class="td-gap">
+								<td class="td-gap drname">
 									<p>{{data.drname}}</p>
 								</td>
 								{% if contain=='Yes' %}
@@ -139,6 +139,7 @@
 	</section>
 
 	<!-- JS files -->
+	<script src="../../static/js/click.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 </body>
 

@@ -1,6 +1,6 @@
 1. Patient1 (Shalini Sharma)-: Accident
    678901234567
-   1
+   2
    4321098765
 
    Patient2 (Pooja Mehta)-: Relative
@@ -15,7 +15,7 @@
 
 3. Pharmacy -
    PN8735
-   1
+   2
    7390897125
 
 4. Patient-Doctor -

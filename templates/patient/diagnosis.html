@@ -104,8 +104,8 @@
 			</form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
-			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+			<a href="/patientsettings" class="profile">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 
@@ -121,17 +121,16 @@
 					<form action="/prescription_repository" method="POST">
 						<div class="container">
 							<h3>Choose the symptoms you have</h3>
-							<input id="myInput" type="number" class="search-bar" placeholder="Search Symptoms"
+							<input id="myInput" type="text" class="search-bar" placeholder="Search Symptoms"
 								onkeyup="myFunction()">
-
-							<div id="options-container">
+							<div id="options">
 							{% for data in files %}
-								<label>
-									<input type="checkbox" name="symptoms" value="{{data.disease}}_{{data.draadhar}}">
+								<label class="med">
+									<input type="checkbox" name="medicines" value="{{data.disease}}_{{data.draadhar}}">
 									{{ data.disease }}
 								</label>
 							{% endfor %}
-						</div>
+							</div>
 						</div>
 						<input type="submit" class="custom-btn" value="Submit" />
 					</form>

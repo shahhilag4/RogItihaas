@@ -22,7 +22,7 @@
 
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="/pharmacydashboard" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -80,12 +80,11 @@
 		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
-			<form action="#">
-			</form>
+			<form action="#"></form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
-			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+			<a href="/pharmacysettings" class="profile">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 
@@ -101,9 +100,9 @@
 				<div class="order">
 					<div class="head">
 						<h3></h3>
-						<input id="docname" type="search" class="search-1" placeholder="Search by Patient Name"
-							onkeyup="searchDoc()">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
+						<input id="docname" type="search" class="search-1" placeholder="Search by Patient Name" onkeyup="searchDoc()">
+						<button type="submit" class="search-btn-1" onclick="searchDoc()"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;"></i></button>
+
 					</div>
 					<table>
 						<thead>
@@ -127,8 +126,8 @@
 								<td class="td-gap">{{data.patientname}}</td>
 								{% if contain == "Yes" %}
 								<td class="td-gap">{{data.todaydate}}</td>
-								<form action="onlineorderpatient/{{data.patientname}}" method="POST">
-									<td class="td-gap"><button class="button-style" type="submit" name="accept" value="accept">Accept</button></td>
+								<form action="onlineorderpatient/{{data.patientname}}/{{data.randomnum}}" method="POST">
+									<td class="td-gap"> <button class="button-style" type="submit" name="accept" value="accept">Accept</button></td>
 									<td class="td-gap"><button class="button-style" type="submit" name="reject" value="reject">Reject</button></td>
 								</form>
 								<td class="td-gap"><a href="/pharmacyviewprescription"><button class="status success">View</button></td>

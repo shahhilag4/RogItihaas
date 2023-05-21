@@ -1,0 +1,24 @@
+Title:Green corridor for ambulance.
+
+Problem Statement: In India 30% of the deaths occures due to Ambulance not reaching hospital on time because of heavy traffic.
+With increasing in population of India it's an urgent need to develop a green corridor for ambulance and it's impossible to built another special road for ambulance or other emergency vehicle in India.
+So, there should be a way to make a path or clear the traffic in advance for ambulance so that it can reach hospital or accident spot soon.
+
+Solution: My idea is to develop an mobile application/ web application for ambulance driver and traffic police.
+
+Step 1: Ambulance driver need to select a drop location from that app.
+Step 2: When an ambulace will come in the radius of 3-4 km of traffic signal then traffic police will get notified, so that path can be cleared for ambulance in advance.
+Step 3: Ambulance will able to reach hospital in time. 
+
+Features:
+1. Ambulance can reach hospital or accident spot quickly.
+2. It act as a life saving mobile application for all Indian people.
+3. Real time tracking of an ambulance.
+4. In future this can be extended for all emergency vehicle.  
+
+Comparison with other apps: For now there is no application in India which helps to create a green corridor for ambulance.
+
+There is an application named Medulance and StanPlus but they are only providing ambulance services.
+
+
+

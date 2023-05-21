@@ -21,7 +21,7 @@
 
 	<!-- Sidebar -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="/pharmacydashboard" class="brand">
 			<i class="fa-solid">
 				<img src="https://img.icons8.com/color/48/null/india-national-emblem.png" />
 			</i>
@@ -79,12 +79,11 @@
 		<!-- Navbar -->
 		<nav>
 			<i class="fa-solid fa-bars"></i>
-			<form action="#">
-			</form>
+			<form action="#"></form>
 			<input type="checkbox" id="switch-mode" hidden>
 			<label for="switch-mode" class="switch-mode"></label>
-			<a href="#" class="profile">
-				<img src="../../static/img/rishi.jpg">
+			<a href="/pharmacysettings" class="profile">
+				<img src="../../static/img/avatar.jpg">
 			</a>
 		</nav>
 
@@ -103,10 +102,10 @@
 							enctype="multipart/form-data">
 							<strong>Upload Medicines(CSV file)</strong>
 							<input class="upload" type="file" name="file">
-							<input type="submit" value="Upload">
+							<input type="submit" class="upload-button" value="Upload">
 						</form>
-						<input type="search" class="search-1" placeholder="Search Medicine Name">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"></i></button>
+						<input type="search" id="docname" class="search-1" placeholder="Search Medicine Name" onkeyup="searchDoc()">
+						<button type="submit" class="search-btn-1" onclick="searchDoc()"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;"></i></button>
 					</div>
 					<table>
 						<thead>
@@ -120,13 +119,13 @@
 								<th class="th-gap">Delete Medicine</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="tableBody1">
 							{% for data in files %}
 							  <tr>
 								<td class="td-gap">
 								  <p>{{loop.index}}</p>
 								</td>
-								<td class="td-gap">
+								<td class="td-gap drname">
 								  <p>{{data.Medicinename}}</p>
 								</td>
 								<td class="td-gap">
@@ -154,6 +153,7 @@
 	</section>
 
 	<!-- JS files -->
+	<script src="../../static/js/click.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 	<script src="../../static/js/updateQty.js"></script>
 </body>

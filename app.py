@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from pymongo import MongoClient
 from datetime import datetime
+from bson.objectid import ObjectId
 import bcrypt
 import os
 import pyqrcode
@@ -108,7 +109,7 @@ def twoFacAuthDoc(token):
                     if mobile == mobile_num:
                         if exist is None:
                             doctordetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'councilnum' : councilnum,  'email': email, 'password': hashpass})
-                            s = "http://34.28.38.229/doctorsignup"
+                            s = "http://34.28.38.229/emergencydashboard"
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
@@ -191,7 +192,7 @@ def doctorpatientdashboard():
 
     return render_template("login.html")
 
-# End point for seeing medical records
+# End point for seeing medical p
 
 
 @app.route("/documents/<string:name>/<string:aadhar>")
@@ -209,6 +210,7 @@ def documents(name, aadhar):
                         "doctor": row['drname'],
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
+                        "_id" :row['_id']
                     })
         data = patientreportdetail.find({"aadhar": aadhar})
         if data is not None:
@@ -220,6 +222,7 @@ def documents(name, aadhar):
                         "doctor": row['drname'],
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
+                        "_id" :row['_id']
                     })
         contain = "Yes"
         if len(files) == 0:
@@ -232,6 +235,15 @@ def documents(name, aadhar):
         return render_template("patient-doctor/documents.html", files=files, aadhar=aadhar, name=data["name"], drname=drexist["name"], contain=contain)
     return render_template("login.html")
 
+
+@app.route('/document-delete/<string:id>',methods=['GET','POST'])
+def documentDelete(id):
+    if 'doctor' in session:
+        data=patientmedicaldetail.find_one({'draadhar':session['doctor']})
+        patientmedicaldetail.delete_one({'_id': ObjectId(id)})
+        return redirect(url_for('documents',name=data['drname'],aadhar=data['aadhar']))
+    else:
+        return redirect(url_for('doctorsignin'))
 
 @app.route('/consentview/<string:aadhar>/<string:econtact>')
 def consentview(aadhar, econtact):
@@ -263,7 +275,7 @@ def viewprescription(name, aadhar):
 def uploadpresciption(aadhar, drname):
     if 'doctor' in session:
         if request.method == 'POST':
-
+            print(row_count)
             a = 0
             b = 0
             c = 0
@@ -346,9 +358,10 @@ def uploadpresciption(aadhar, drname):
                     "doctor": row['drname'],
                     "todaydate": row['todaydate'],
                     "presname": row["presname"],
+                    "_id" :row['_id']
                 })
-
-            return render_template("patient-doctor/documents.html", files=files)
+            data2=doctordetail.find_one({'aadhar':session['doctor']})
+            return render_template("patient-doctor/documents.html", files=files, aadhar=aadhar, name=data2["name"], drname=data2["name"])
 
     return render_template("login.html")
 
@@ -367,7 +380,8 @@ def drdocuments():
                     "aadhar": row["aadhar"],
                     "drname": row["drname"],
                     "todaydate": row["todaydate"],
-                    "presname": row["presname"]
+                    "presname": row["presname"],
+                    "_id" :row['_id']
                 })
 
         if len(files) == 0:
@@ -561,6 +575,7 @@ def uploadprescription(name, aadhar):
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
                         "url": row["url"],
+                        "_id" :row['_id']
                     })
         contain = "Yes"
         if len(files) == 0:
@@ -616,6 +631,7 @@ def uploadreport(name, aadhar):
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
                         "url": row["url"],
+                        "_id" :row['_id']
                     })
         contain = "Yes"
         if len(files) == 0:
@@ -628,6 +644,14 @@ def uploadreport(name, aadhar):
         return render_template("patient-doctor/reports.html", files=files, aadhar=aadhar, name=data["name"], drname=drexist["name"], contain=contain)
     return render_template("login.html")
 
+@app.route('/report-delete/<string:id>',methods=['GET','POST'])
+def reportDelete(id):
+    if 'doctor' in session:
+        data=patientreportdetail.find_one({'draadhar':session['doctor']})
+        patientreportdetail.delete_one({'_id': ObjectId(id)})
+        return redirect(url_for('uploadreport',name=data['drname'],aadhar=data['aadhar']))
+    else:
+        return redirect(url_for('doctorsignin'))
 # Patient Section
 
 # Ending point for patient signup
@@ -709,7 +733,7 @@ def twoFacAuth(token):
                     if mobile == mobile_num:
                         if exist is None:
                             patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
-                            s = "http://34.28.38.229/patientsignup"
+                            s = "http://34.28.38.229/emergencydashboard"
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
@@ -737,6 +761,7 @@ def patientdashboard():
                 "todaydate": row['todaydate'],
                 "presname": row["presname"],
                 "draadhar": row["draadhar"],
+                "_id" :row['_id']
             })
     
         contain = "True"
@@ -827,8 +852,9 @@ def patientoredermed():
             day = now.strftime("%d")
 
             todaydate = day + "/" + month + "/" + year
+            randomnum = str(random.randint(10000, 99999))
 
-            orderedmedicinedetail.insert_one({"patientname": data1["name"], "uploadedby": "Self", "medicinename": mediname, "regnum": regnum, "patientaadhar": session["patient"], "url": path, "status": "Ordered", "todaydate": todaydate})
+            orderedmedicinedetail.insert_one({"patientname": data1["name"], "uploadedby": "Self", "medicinename": mediname, "regnum": regnum, "patientaadhar": session["patient"], "url": path, "status": "Ordered", "todaydate": todaydate, "randomnum": randomnum})
 
             return redirect(url_for("patientdeliverytracking"))
 
@@ -865,6 +891,7 @@ def patientdeliverytracking():
                 "Uploadedby": row["uploadedby"],
                 "patientname": row["patientname"],
                 "todaydate": row["todaydate"],
+                "randomnum": row["randomnum"],
             })
         return render_template("patient/deliverytrack.html", files=files)
     return render_template('patientLogin.html')
@@ -974,7 +1001,7 @@ def aadharsettings():
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
-                s = "http://34.28.38.229/patientsignup"
+                s = "http://34.28.38.229/emergencydashboard"
                 url = pyqrcode.create(s)
                 path = "static/img/qrcode/"+new_aadhar+".png"
                 url.png(path, scale=6)
@@ -1207,25 +1234,28 @@ def deliverytrack():
         files = []
         if data is not None:
             for row in data:
-                files.append({
-                    "regnum": row["regnum"],
-                    "uploadedby": row["uploadedby"],
-                    "patientaadhar": row["patientaadhar"],
-                    "url": row["url"],
-                    "status": row["status"],
-                    "patientname": row["patientname"],
-                    "todaydate": row["todaydate"],
-                })
+                if row["status"] != "Ordered" and row["status"] != "Medicine Not Available":
+                    files.append({
+                        "Medicinename": row["medicinename"],
+                        "Regnum": row["regnum"],
+                        "Patientaadhar": row["patientaadhar"],
+                        "Url": row["url"],
+                        "Status": row["status"],
+                        "Uploadedby": row["uploadedby"],
+                        "patientname": row["patientname"],
+                        "todaydate": row["todaydate"],
+                        "randomnum": row["randomnum"],
+                    })
         return render_template("pharmacy/deliverytrack.html", files=files)
     return render_template('pharmacyLogin.html')
 
 
-@app.route('/pharmacydeliverytrack/<string:patientname>/<string:patientaadhar>', methods=['GET', 'POST'])
-def pharmacydeliverytrack(patientname, patientaadhar):
+@app.route('/pharmacydeliverytrack/<string:randomnum>/<string:patientaadhar>', methods=['GET', 'POST'])
+def pharmacydeliverytrack(randomnum, patientaadhar):
     if "pharmacy" in session:
         if request.method == "POST":
             value = request.form.get("statusvalue")
-            orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname, 'patientaadhar': patientaadhar},
+            orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'randomnum': randomnum, 'patientaadhar': patientaadhar},
                                              {"$set": {'status': value}})
         data = orderedmedicinedetail.find({"regnum": session["pharmacy"]})
         files = []
@@ -1233,41 +1263,46 @@ def pharmacydeliverytrack(patientname, patientaadhar):
             for row in data:
                 if row["status"] != "Ordered":
                     files.append({
-                        "regnum": row["regnum"],
-                        "uploadedby": row["uploadedby"],
-                        "patientaadhar": row["patientaadhar"],
-                        "url": row["url"],
-                        "status": row["status"],
+                        "Medicinename": row["medicinename"],
+                        "Regnum": row["regnum"],
+                        "Patientaadhar": row["patientaadhar"],
+                        "Url": row["url"],
+                        "Status": row["status"],
+                        "Uploadedby": row["uploadedby"],
                         "patientname": row["patientname"],
                         "todaydate": row["todaydate"],
+                        "randomnum": row["randomnum"],
                     })
         return render_template("pharmacy/deliverytrack.html", files=files)
     return render_template('pharmacyLogin.html')
 
 
 
-@app.route('/onlineorderpatient/<string:patientname>', methods=['GET', 'POST'])
-def onlineorderpatient(patientname):
+@app.route('/onlineorderpatient/<string:patientname>/<string:randomnum>', methods=['GET', 'POST'])
+def onlineorderpatient(patientname, randomnum):
     if "pharmacy" in session:
         if request.method == "POST":
             accept = request.form.get("accept")
             if accept == "accept":
-                orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname}, {"$set": {'status': "Accepted"}})
+                orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname, 'randomnum': randomnum}, {"$set": {'status': "Accepted"}})
+                return render_template("pharmacy/onlinebill.html")
             else:
-                orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname}, {"$set": {'status': "Medicine Not Available"}})
+                orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname, 'randomnum': randomnum}, {"$set": {'status': "Medicine Not Available"}})
             data = orderedmedicinedetail.find({"regnum": session["pharmacy"]})
             files = []
             if data is not None:
                 for row in data:
                     if row["status"] == "Accepted":
                         files.append({
-                            "regnum": row["regnum"],
-                            "uploadedby": row["uploadedby"],
-                            "patientaadhar": row["patientaadhar"],
-                            "url": row["url"],
-                            "status": row["status"],
+                            "Medicinename": row["medicinename"],
+                            "Regnum": row["regnum"],
+                            "Patientaadhar": row["patientaadhar"],
+                            "Url": row["url"],
+                            "Status": row["status"],
+                            "Uploadedby": row["uploadedby"],
                             "patientname": row["patientname"],
                             "todaydate": row["todaydate"],
+                            "randomnum": row["randomnum"],
                         })
             return render_template("pharmacy/deliverytrack.html", files=files)
     return render_template('pharmacyLogin.html')
@@ -1281,15 +1316,17 @@ def onlineorder():
         if data is not None:
             for row in data:
                 files.append({
-                    "regnum": row["regnum"],
-                    "uploadedby": row["uploadedby"],
-                    "patientaadhar": row["patientaadhar"],
-                    "url": row["url"],
-                    "status": row["status"],
+                    "Medicinename": row["medicinename"],
+                    "Regnum": row["regnum"],
+                    "Patientaadhar": row["patientaadhar"],
+                    "Url": row["url"],
+                    "Status": row["status"],
+                    "Uploadedby": row["uploadedby"],
                     "patientname": row["patientname"],
                     "todaydate": row["todaydate"],
+                    "randomnum": row["randomnum"],
                 })
-            contain="Yes"
+            contain = "Yes"
             if len(files) == 0:
                 contain = "No"
                 files.append({
