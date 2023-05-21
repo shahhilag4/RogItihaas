@@ -239,9 +239,10 @@ def documents(name, aadhar):
 @app.route('/document-delete/<string:id>',methods=['GET','POST'])
 def documentDelete(id):
     if 'doctor' in session:
-        data=patientmedicaldetail.find_one({'draadhar':session['doctor']})
+        data=doctordetail.find_one({'aadhar':session['doctor']})
+        data2=patientmedicaldetail.find_one({'draadhar':session['doctor']})
         patientmedicaldetail.delete_one({'_id': ObjectId(id)})
-        return redirect(url_for('documents',name=data['drname'],aadhar=data['aadhar']))
+        return redirect(url_for('documents',name=data['name'],aadhar=data2['aadhar']))
     else:
         return redirect(url_for('doctorsignin'))
 
@@ -275,11 +276,8 @@ def viewprescription(name, aadhar):
 def uploadpresciption(aadhar, drname):
     if 'doctor' in session:
         if request.method == 'POST':
-            count = int(request.form['count'])
+            count = request.form['count']
             print(count)
-            a = 0
-            b = 0
-            c = 0
 
             now = datetime.now()  # current date and time
 
@@ -292,34 +290,42 @@ def uploadpresciption(aadhar, drname):
             name = request.form['name']
             age = request.form['age']
             gender = request.form['gender']
+            weight = request.form['weight']
             disease = request.form['disease']
+            medications=[]
 
-            medications = []
-            for i in range(1, 5):
-                medicine = request.form.get('medicine{}'.format(i))
-                dosage = request.form.get('mg{}'.format(i))
-                frequency = request.form.get('dose{}'.format(i))
-                duration = request.form.get('days{}'.format(i))
-                instructions = request.form.get('food{}'.format(i))
-
-                # Create a dictionary for each medication
+            for i in range(1, 3):
+                medicine = request.form.get(f'medicine{i}')
+                mg = request.form.get(f'mg{i}')
+                dose = request.form.get(f'dose{i}')
+                days = request.form.get(f'days{i}')
+                food = request.form.get(f'food{i}')
+                
                 medication = {
                     'medicine': medicine,
-                    'dosage': dosage,
-                    'frequency': frequency,
-                    'duration': duration,
-                    'instructions': instructions
+                    'mg': mg,
+                    'dose': dose,
+                    'days': days,
+                    'food': food
                 }
-
-                # Append the medication dictionary to the list
                 medications.append(medication)
-
             print(medications)
-                # if available == None:
-                #     patientmedicaldetail.insert_one({'name': name, "aadhar": aadhar, 'age': age, 'gender': gender, 'disease': disease, 'drname': drname, "todaydate": todaydate,
-                #                                      'medicine1': medicine1, "mg1": mg1, "dose1": dose1, "days1": days1, "food1": food1,
-                #                                      "draadhar": session["doctor"], "presname": "Prescription"})
 
+            prescription = {
+                'aadhar': aadhar,
+                'drname': drname,
+                "draadhar": session["doctor"],
+                "todaydate": todaydate,
+                'name': name,
+                'age': age,
+                'gender': gender,
+                'weight': weight,
+                'disease': disease,
+                'medications': medications,
+                "presname": "Prescription"
+            }
+            if patientmedicaldetail.find_one(prescription) is None:
+                patientmedicaldetail.insert_one(prescription)
             files = []
 
             data = patientmedicaldetail.find({"aadhar": aadhar})
@@ -332,7 +338,6 @@ def uploadpresciption(aadhar, drname):
                 })
             data2=doctordetail.find_one({'aadhar':session['doctor']})
             return render_template("patient-doctor/documents.html", files=files, aadhar=aadhar, name=data2["name"], drname=data2["name"])
-
     return render_template("login.html")
 
 
@@ -564,27 +569,32 @@ def uploadprescription(name, aadhar):
 def uploadreport(name, aadhar):
     if "doctor" in session:
         if request.method == "POST":
-            docname = request.form["docname"]
-            file = request.files['file']
-            path = "static/reports/"
-            parent = str(aadhar)
-            final_path = os.path.join(path, parent)
-            if os.path.isdir(final_path) == False:
-                os.mkdir(final_path)
-
-            path = os.path.join(final_path, file.filename)
-            file.save(path)
-
             now = datetime.now()  # current date and time
-
             year = now.strftime("%Y")
             month = now.strftime("%m")
             day = now.strftime("%d")
 
+            docname = request.form["docname"]
+            file = request.files['file']
+            path = "static/reports/"
+            parent = str(aadhar)
+
+            final_path = os.path.join(path, parent)
+            if os.path.isdir(final_path) == False:
+                os.mkdir(final_path)
+            # file.filename=str(aadhar)+str(day)+str(month)
+
+            path = os.path.join(final_path, file.filename)
+            file.save(path)
+
+
+
             todaydate = day + "/" + month + "/" + year
 
             drexist = doctordetail.find_one({"aadhar": session["doctor"]})
-            patientreportdetail.insert_one(
+            if patientreportdetail.find_one({'name': name, "aadhar": aadhar, 'drname': "Dr. "+drexist["name"],
+                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": docname, "url": path}) is None:
+                patientreportdetail.insert_one(
                 {'name': name, "aadhar": aadhar, 'drname': "Dr. "+drexist["name"],
                  "todaydate": todaydate, "draadhar": session["doctor"], "presname": docname, "url": path})
         files = []
@@ -617,8 +627,17 @@ def uploadreport(name, aadhar):
 @app.route('/report-delete/<string:id>',methods=['GET','POST'])
 def reportDelete(id):
     if 'doctor' in session:
-        data=patientreportdetail.find_one({'draadhar':session['doctor']})
+        data=patientreportdetail.find_one({'_id': ObjectId(id)})
         patientreportdetail.delete_one({'_id': ObjectId(id)})
+        i=str(data['url'])
+        s=(i.split('/')[3]).split('.')[0]
+        file_to_delete = s+".pdf"
+        report_file_dir = "static/reports/"+data['aadhar']+"/"
+
+        file_path = os.path.join(report_file_dir, file_to_delete)
+        
+        if os.path.exists(file_path):
+            os.remove(file_path)
         return redirect(url_for('uploadreport',name=data['drname'],aadhar=data['aadhar']))
     else:
         return redirect(url_for('doctorsignin'))
