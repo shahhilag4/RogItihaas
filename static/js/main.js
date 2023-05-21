@@ -89,12 +89,12 @@ function addRow() {
 
   //(4) Update Count
   var countCell=document.getElementById("count");
-  var count=parseInt(countCell.innerText);
+  var count=parseInt(countCell.value);
   if(count>=1)
   {
     count=count+1;
     console.log(count);
-    countCell.innerText=count;
+    countCell.value=count;
   }
 }
 
@@ -107,12 +107,12 @@ function deleteRow(){
     table.deleteRow(rowCount - 1);
   }
   var countCell=document.getElementById("count");
-  var count=parseInt(countCell.innerText);
+  var count=parseInt(countCell.value);
   if(count>1)
   {
     count=count-1;
     console.log(count);
-    countCell.innerText=count;
+    countCell.value=count;
   }
   // (3) Update Count
 }
