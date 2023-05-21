@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define f first
+#define s second
+#define pb push_back
+#define mp make_pair
+#define vi vector<int>
+#define ll long long
+#define pii pair<int,int>
+#define si set<int>
+#define qi queue<int>
+#define dsum(num) accumulate(begin(num),end(num), 0) - '0' * 1;
+#define ins insert
+#define mod 1000000007
+#define vsort(v) sort(v.begin(),v.end())
+#define mii map<int,int>
+#define inf 1e18
+#define w(t) long long int t; cin>>t; while(t--)
+#define setbits(x) __builtin_popcountll(x)
+#define rep(n) long long int arr[n]; for(long long int i=0;i<n;i++) cin>>arr[i];
+#define show(arr) for(long long int i=0;i<n;i++) cout<<arr[i]<<" ";
+
+void hrithik()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+}
+
+int main()
+{
+    hrithik();
+    return 0;
+}
