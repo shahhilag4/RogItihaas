@@ -49,7 +49,7 @@ def doctorsignin():
                 token=generate_unique_token()
                 session['doctor'] = {
                     'aadhar': aadhar,
-                    'var':1
+                    'var': 1
                 }
                 return redirect(url_for('twoFacAuthDoc', token=token))
         message = "Invalid Credentials"
@@ -171,14 +171,6 @@ def doctorpatientdashboard():
             drexist = doctordetail.find_one({"aadhar": session['doctor']})
 
             if exist:
-                files = []
-                data = patientmedicaldetail.find(
-                    {"draadhar": session['doctor']})
-                for row in data:
-                    files.append({
-                        "doctor": row['drname'],
-                        "todaydate": row['todaydate'],
-                    })
                 return render_template("patient-doctor/dashboard.html", aadhar=aadhar, name=exist['name'], drname=drexist["name"], draadhar=session["doctor"],gender=exist['gender'],age=exist['age'],address=exist['address'],mobile=exist['mobile'])
         data = patientmedicaldetail.find({"draadhar": session['doctor']})
         files = []
@@ -1403,8 +1395,93 @@ def uploadmedicine(regnumber):
 # Scan QR Section
 @app.route('/emergencydashboard/<string:aadhar>', methods=['GET', 'POST'])
 def emergencydashboard(aadhar):
+    if "doctor" in session:
+        exist = patientdetail.find_one({'aadhar': aadhar})
+        drexist = doctordetail.find_one({"aadhar": session['doctor']})
+        if exist:
+            return render_template("patient-doctor/dashboard.html", aadhar=aadhar, name=exist['name'],
+                                   drname=drexist["name"], draadhar=session["doctor"], gender=exist['gender'],
+                                   age=exist['age'], address=exist['address'], mobile=exist['mobile'])
     data = patientdetail.find_one({"aadhar": aadhar})
-    return render_template("scanqr/dashboard.html", name=data["name"], address=data["address"], mobile=data["mobile"])
+    return render_template("scanqr/dashboard.html", name=data["name"], address=data["address"], mobile=data["econtact"], aadhar=data["aadhar"])
+
+
+@app.route("/doctorpatientdashboardeme/<string:patientaadhar>", methods=['POST', 'GET'])
+def doctorpatientdashboardeme(patientaadhar):
+    if 'doctor' in session:
+        exist = patientdetail.find_one({'aadhar': patientaadhar})
+        drexist = doctordetail.find_one({"aadhar": session['doctor']})
+        if exist:
+            return render_template("patient-doctor/dashboard.html", aadhar=patientaadhar, name=exist['name'], drname=drexist["name"], draadhar=session["doctor"],gender=exist['gender'],age=exist['age'],address=exist['address'],mobile=exist['mobile'])
+        data = patientmedicaldetail.find({"draadhar": session['doctor']})
+        files = []
+        for row in data:
+            files.append({
+                "name": row['name'],
+                "aadhar": row['aadhar'],
+                "todaydate": row["todaydate"],
+            })
+        return render_template('doctor/dashboard.html', files=files, size=len(files))
+
+    return render_template("login.html")
+
+
+@app.route('/twofacauthdocEme/<string:token>/<string:patientaadhar>', methods=['POST', 'GET'])
+def twoFacAuthDocEme(token, patientaadhar):
+    if 'doctor' in session:
+        user_data = session.get('doctor')
+        contains = "No"
+        if user_data:
+            aadhar = user_data['aadhar']
+            if user_data['var'] == 0:
+                contains = "Yes"
+                hashpass = user_data['password']
+                email = user_data['email']
+                councilnum = user_data['councilnum']
+            data = get_details(aadhar)
+            exist = doctordetail.find_one({'aadhar': aadhar})
+            if request.method == 'POST':
+                mobile_num = request.form.get('mob_number')
+                session.pop('doctor')
+                if "doctor" not in session:
+                    mobile = data['mobile']
+                    if mobile == mobile_num:
+                        if exist is None:
+                            doctordetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'councilnum' : councilnum,  'email': email, 'password': hashpass})
+                        session['doctor'] = aadhar
+                        return redirect(url_for('doctorpatientdashboardeme', patientaadhar=patientaadhar))
+                    else:
+                        message = "Incorrect Mobile No. Try again"
+                        return render_template('doctor/modal.html', message=message, name=data['name'], mobile=mobile, aadhar=aadhar,token=token)
+                return redirect(url_for('doctorpatientdashboardeme', patientaadhar=patientaadhar))
+            if contains == "Yes":
+                return render_template('scanqr/modal.html', patientaadhar=patientaadhar, aadhar=aadhar, hashpass=hashpass, email=email, councilnum=councilnum, name=data['name'], mobile=data['mobile'],token=token)
+    return render_template('scanqr/modal.html', patientaadhar=patientaadhar, aadhar=aadhar, name=data['name'], mobile=data['mobile'],token=token)
+
+
+@app.route('/doctoremergencysignin/<string:patientaadhar>', methods=['GET', 'POST'])
+def doctoremergencysignin(patientaadhar):
+    if "doctor" in session:
+        exist = patientdetail.find_one({'aadhar': patientaadhar})
+        drexist = doctordetail.find_one({"aadhar": session['doctor']})
+        if exist:
+            return render_template("patient-doctor/dashboard.html", aadhar=patientaadhar, name=exist['name'],
+                                   drname=drexist["name"], draadhar=session["doctor"], gender=exist['gender'],
+                                   age=exist['age'], address=exist['address'], mobile=exist['mobile'])
+    if request.method == 'POST':
+        aadhar = request.form['doctoraadhar']
+        userLogin = doctordetail.find_one({'aadhar': aadhar})
+        if userLogin:
+            if bcrypt.hashpw(request.form['doctorpassword'].encode('utf-8'), userLogin['password']) == userLogin['password']:
+                token = generate_unique_token()
+                session['doctor'] = {
+                    'aadhar': aadhar,
+                    'var': 1
+                }
+                return redirect(url_for('twoFacAuthDocEme', token=token, patientaadhar=patientaadhar))
+        message = "Invalid Credentials"
+        return render_template('login.html', message=message)
+    return render_template("scanqr/doctorsignin.html", aadhar=patientaadhar)
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
