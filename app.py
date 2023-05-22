@@ -185,11 +185,29 @@ def doctorpatientdashboard():
     return render_template("login.html")
 
 # End point for seeing medical p
-@app.route('/viewprescription/<string:name>/<string:aadhar>')
-def viewprescription(name, aadhar):
+@app.route('/viewprescription/<string:id>', methods=['POST', 'GET'])
+def viewprescription(id):
     if 'doctor' in session:
-        exist = doctordetail.find_one({"aadhar": session["doctor"]})
-        return render_template("patient-doctor/prescription_readonly.html", name=name, drname=exist["name"], address=exist["address"], phone=exist["mobile"], aadhar=aadhar)
+        data1=patientmedicaldetail.find_one({'_id': ObjectId(id)})
+        if data1 is not None:
+            drexist=doctordetail.find_one({'aadhar':data1['draadhar']})
+            files=[]
+            medications = data1['medications']
+            for medication in medications:
+                medicine = medication.get('medicine')
+                mg = medication.get('mg')
+                dose = medication.get('dose')
+                days = medication.get('days')
+                food = medication.get('food')
+                
+                files.append({
+                    'medicine': medicine,
+                    'mg': mg,
+                    'dose': dose,
+                    'days': days,
+                    'food': food
+                })
+            return render_template("patient-doctor/prescription_readonly.html", name=data1['name'], drname=data1["drname"], address=drexist["address"], phone=drexist["mobile"], medications=data1['medications'], age=data1['age'], weight=data1['weight'], disease=data1['disease'], gender=data1['gender'], files=files, aadhar=data1['aadhar'])
     return render_template("login.html")
 
 
@@ -322,7 +340,6 @@ def uploadnewprescription(name, aadhar):
                         "_id" :row['_id'],
                         'uploadedBydr':row['uploadedBydr']
                     })
-        print(files, " hhhhhhhhhhhhhhhh")
         contain = "Yes"
         if len(files) == 0:
             contain = "No"
@@ -339,7 +356,6 @@ def uploadnewprescription(name, aadhar):
 def uploadpresciption(aadhar, drname):
     if 'doctor' in session:
         if request.method == 'POST':
-            # print(row_count)
             now = datetime.now()  # current date and time
 
             year = now.strftime("%Y")
@@ -371,7 +387,6 @@ def uploadpresciption(aadhar, drname):
                     'food': food
                 }
                 medications.append(medication)
-            print(medications)
 
             prescription = {
                 'aadhar': aadhar,
@@ -415,7 +430,6 @@ def uploadpresciption(aadhar, drname):
                         "_id" :row['_id'],
                         'uploadedBydr':row['uploadedBydr']
                     })
-            print(files, "hello rishabh 1102")
 
             data2=doctordetail.find_one({'aadhar':session['doctor']})
             return render_template("patient-doctor/documents.html", files=files, aadhar=aadhar, name=data2["name"], drname=data2["name"],contain="Yes")
@@ -437,9 +451,25 @@ def drdocuments():
                     "drname": row["drname"],
                     "todaydate": row["todaydate"],
                     "presname": row["presname"],
-                    "_id" :row['_id']
+                    "_id" :row['_id'],
+                    'uploadedBydr':row['uploadedBydr']
                 })
 
+        data = patientreportdetail.find({"draadhar": session['doctor']})
+
+        if data is not None:
+            for row in data:
+                if row["presname"] == "Prescription":
+                    files.append({
+                        "name": row["name"],
+                        "aadhar": row["aadhar"],
+                        "drname": row["drname"],
+                        "todaydate": row["todaydate"],
+                        "presname": row["presname"],
+                        "url": row["url"],
+                        "_id" :row['_id'],
+                        'uploadedBydr':row['uploadedBydr']
+                    })
         if len(files) == 0:
             found = "No"
             files.append({
@@ -595,10 +625,29 @@ def drsettings():
         return render_template("doctor/settings.html")
     return render_template("login.html")
 
-@app.route("/drviewprescription", methods=["POST", "GET"])
-def drviewprescription():
+@app.route("/drviewprescription/<string:id>", methods=["POST", "GET"])
+def drviewprescription(id):
     if "doctor" in session:
-        return render_template("doctor/prescription_readonly.html")
+            data1=patientmedicaldetail.find_one({'_id': ObjectId(id)})
+            if data1 is not None:
+                drexist=doctordetail.find_one({'aadhar':data1['draadhar']})
+                files=[]
+                medications = data1['medications']
+                for medication in medications:
+                    medicine = medication.get('medicine')
+                    mg = medication.get('mg')
+                    dose = medication.get('dose')
+                    days = medication.get('days')
+                    food = medication.get('food')
+                    
+                    files.append({
+                        'medicine': medicine,
+                        'mg': mg,
+                        'dose': dose,
+                        'days': days,
+                        'food': food
+                    })
+                return render_template("doctor/prescription_readonly.html", name=data1['name'], drname=data1["drname"], address=drexist["address"], phone=drexist["mobile"], medications=data1['medications'], age=data1['age'], weight=data1['weight'], disease=data1['disease'], gender=data1['gender'], files=files, aadhar=data1['aadhar'])
     return render_template("login.html")
 
 
@@ -627,9 +676,7 @@ def uploadreport(name, aadhar):
 
 
             todaydate = day + "/" + month + "/" + year
-            print(path)
             newpath=""
-            # newpathh = path.replace(" ", "")
             for i in path:
                 if i=="\\":
                     newpath = newpath + "/"
@@ -767,7 +814,6 @@ def twoFacAuth(token):
                         if exist is None:
                             patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
                             s = "http://34.28.38.229/emergencydashboard/"+str(aadhar)
-                            print(s)
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)

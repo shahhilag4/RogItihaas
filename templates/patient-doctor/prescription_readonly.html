@@ -123,7 +123,7 @@
                                     <li><strong>Age:</strong>{{age}}</li>
                                     <li><strong>Gender:</strong>{{gender}}</li>
                                     <li><strong>Weight:</strong>{{weight}}kg</li>
-                                    <li><strong>Disease:</strong><li>fever,cough,cold</li>
+                                    <li><strong>Disease:</strong><li>{{disease}}</li>
                                 </ul>
 
                                 <h2>Medication Information</h2>
@@ -135,38 +135,18 @@
                                         <th>Duration</th>
                                         <th>Instructions</th>
                                     </tr>
+                                    {% for data in files %}
                                     <tr>
-                                        <td>{{medicine1}}
+                                        <td>{{data.medicine}}
                                         </td>
-                                        <td>{{medicine1qty}} mg
+                                        <td>{{data.mg}} mg
                                         </td>
-                                        <td>{{medicine1freq}} daily</td>
-                                        <td>{{medicine1time}} days
+                                        <td>{{data.dose}} daily</td>
+                                        <td>{{data.days}} days
                                         </td>
-                                        <td>{{medicine1instructions}}</td>
+                                        <td>{{data.food}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>{{medicine2}}
-                                        </td>
-                                        <td>{{medicine2qty}} mg
-                                        </td>
-                                        <td>{{medicine2freq}} daily</td>
-                                        <td>{{medicine2time}} days
-                                        </td>
-                                        <td>{{medicine2nstructions}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{medicine3}}
-                                        </td>
-                                        <td>{{medicine3qty}} mg
-                                        </td>
-                                        <td>{{medicine3freq}} daily</td>
-                                        <td>{{medicine3time}} days
-                                        </td>
-                                        <td>{{medicine3nstructions}}</td>
-                                    </tr>
-                                  
-                                    
+                                    {% endfor %}
                                 </table>
                                 
                                 <p><strong>Prescribed by:</strong> {{drname}}</p>
