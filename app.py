@@ -1397,9 +1397,8 @@ def uploadmedicine(regnumber):
 # Scan QR Section
 @app.route('/emergencydashboard/<string:aadhar>', methods=['GET', 'POST'])
 def emergencydashboard(aadhar):
-    if "doctor" in session:
-        patientdetail
-    return render_template("scanqr/dashboard.html")
+    data = patientdetail.find_one({"aadhar": aadhar})
+    return render_template("scanqr/dashboard.html", name=data["name"], address=data["address"], mobile=data["mobile"])
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
