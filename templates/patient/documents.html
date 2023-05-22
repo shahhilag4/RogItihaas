@@ -158,13 +158,13 @@
 									{% if data.type == 'Prescription' %}
 									<a href="/patientviewprescription"><button class="status success">View</button>
 										{% elif data.type == 'Report' %}
-										<button class="status success"
-											onclick="viewPDF('../../static/reports/{{data.aadhar}}/{{data.aadhar}}.pdf')">View</button>
+										<button class="status success" onclick="viewPDF('../../{{data.url}}')">View</button>
 								</td>
 								{% endif %}
 								<div id="pdf-modal" class="modal">
 									<div class="modal-content">
 										<span class="close" onclick="closePDF()">&times;</span>
+										<button id="downloadButton" onclick="downloadPDF('../../{{data.url}}')">Download PDF</button>
 										<canvas id="pdf-canvas"></canvas>
 									</div>
 								</div>
