@@ -94,8 +94,8 @@ def twoFacAuthDoc(token):
         contains="No"
         if user_data:
             aadhar = user_data['aadhar']
-            if user_data['var']==0:
-                contains="Yes"
+            if user_data['var'] == 0:
+                contains = "Yes"
                 hashpass = user_data['password']
                 email = user_data['email']
                 councilnum = user_data['councilnum']
@@ -712,18 +712,18 @@ def patientsignup():
 def twoFacAuth(token):
     if 'patient' in session:
         user_data = session.get('patient')
-        contains="No"
+        contains = "No"
         if user_data:
             aadhar = user_data['aadhar']
-            if user_data['var']==0:
-                contains="Yes"
+            if user_data['var'] == 0:
+                contains = "Yes"
                 hashpass = user_data['password']
                 email = user_data['email']
                 econtact = user_data['econtact']
-            if len(aadhar)!=12:
-                data=get_details(str(aadhar[0:12]))
+            if len(aadhar) != 12:
+                data = get_details(str(aadhar[0:12]))
             else:
-                data=get_details(aadhar)
+                data = get_details(aadhar)
             exist = patientdetail.find_one({'aadhar': aadhar})
             if request.method == 'POST':
                 mobile_num = request.form.get('mob_number')
@@ -733,7 +733,8 @@ def twoFacAuth(token):
                     if mobile == mobile_num:
                         if exist is None:
                             patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
-                            s = "http://34.28.38.229/emergencydashboard"
+                            s = "http://34.28.38.229/emergencydashboard/"+str(aadhar)
+                            print(s)
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
@@ -1187,7 +1188,9 @@ def pharmacysignin():
 @app.route('/pharmacydashboard', methods=['POST', 'GET'])
 def pharmacydashboard():
     if "pharmacy" in session:
-        return render_template('pharmacy/dashboard.html')
+        data = medicinedetail.find({"Regnumber": session["pharmacy"]})
+        noofmedicine = len(list(data))
+        return render_template('pharmacy/dashboard.html', noofmedicine=noofmedicine)
     return render_template("pharmacyLogin.html")
 
 @app.route('/pharmacysettings', methods=['POST', 'GET'])
@@ -1385,8 +1388,10 @@ def uploadmedicine(regnumber):
     return render_template('pharmacyLogin.html')
 
 # Scan QR Section
-@app.route('/emergencydashboard', methods=['GET', 'POST'])
-def emergencydashboard():
+@app.route('/emergencydashboard/<string:aadhar>', methods=['GET', 'POST'])
+def emergencydashboard(aadhar):
+    if "doctor" in session:
+        patientdetail
     return render_template("scanqr/dashboard.html")
 
 if __name__ == '__main__':
