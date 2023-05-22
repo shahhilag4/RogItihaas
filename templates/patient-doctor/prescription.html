@@ -11,8 +11,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <!-- Bootstrap JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="../../static/css/dashboard.css">
@@ -194,16 +198,42 @@
                                     <textarea placeholder="Enter text here" class="txtarea" style="height:30px;" rows="3"
                                     name="Text" id="text"></textarea>
                                 </footer>
-                                <input type="submit" class="centering" value="Submit" />
+                                <input type="submit" name="submit" class="centering" value="Submit" />
                             </form>
+                            <button class="centering"  data-target="#myModal" onclick="showModal();event.preventDefault()">Order Medicine</button>
                         </main>
                     </div>
                 </div>
             </div>
         </main>
     </section>
+    <!-- The Modal -->
+<div class="modal" id="myModal">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+  
+		<!-- Modal Header -->
+		<div class="modal-header">
+		  <h2 class="modal-title">Order Medicine Request</h2>
+		</div>
+  
+		<!-- Modal body -->
+		<div class="modal-body">
+		  <h3 id="instruction-input">Would you like to order medicine on behalf of patient?</h3>
+		</div>
+  
+		<!-- Modal footer -->
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-success">Send Request</button>
+		  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeModal()">Close</button>
+		</div>
+  
+	  </div>
+	</div>
+  </div>
 
     <!-- JS files -->
+    <script src="../../static/js/droredermed.js"></script>
     <script src="../../static/js/dashboard.js"></script>
     <script src="../../static/js/date.js"></script>
     <script src="../../static/js/main.js"></script>
