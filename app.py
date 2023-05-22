@@ -790,6 +790,12 @@ def patientviewbill():
         return render_template("patient/bill_readonly.html")
     return render_template("patientLogin.html")
 
+@app.route("/patientrequestmed", methods=["POST", "GET"])
+def patientrequestmed():
+    if "patient" in session:
+        return render_template("patient/requestmed.html")
+    return render_template("patientLogin.html")
+
 @app.route('/patienthome/<string:aadhar>', methods=['POST', 'GET'])
 def patienthome(aadhar):
     if "doctor" in session:
@@ -1069,7 +1075,7 @@ def patientdocuments():
         contain = "Yes"
         if len(files) == 0:
             contain = "No"
-            name = row["name"]
+            # name = row["name"]
             files.append({
                 "name": "No Record Found",
                 "doctor": "No Record Found",
