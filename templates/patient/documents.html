@@ -155,22 +155,23 @@
 								<td class="drname th-gap">{{data.doctor}}</td>
 								{% if contain == 'Yes' %}
 								<td class="td-gap">
-									{% if data.type == 'Prescription' %}
-									<a href="/patientviewprescription"><button class="status success">View</button>
-										{% elif data.type == 'Report' %}
-										<button class="status success" onclick="viewPDF('../../{{data.url}}')">View</button>
+									{% if data.uploadedBydr == "No" %}
+									<a href="/patientviewprescription/{{data._id}}"><button class="status success">View</button></a>
+										
+									{% else %}
+										<button class="status success"
+											onclick="viewPDF('../../{{data.url}}')">View</button>
+									{% endif %}
 								</td>
-								{% endif %}
 								<div id="pdf-modal" class="modal">
 									<div class="modal-content">
 										<span class="close" onclick="closePDF()">&times;</span>
-										<button id="downloadButton" onclick="downloadPDF('../../{{data.url}}')">Download PDF</button>
 										<canvas id="pdf-canvas"></canvas>
 									</div>
 								</div>
 								{% endif %}
 								{% if contain == 'Yes' %}
-								<td class="td-gap"><button class="status danger">Delete</button></td>
+								<td class="td-gap"><button class="status danger"> <a href="/patient-document-delete/{{data._id}}"> Delete</a></button></td>
 								{% endif %}
 							</tr>
 							{% endfor %}
