@@ -280,10 +280,32 @@ def documentDelete(id):
             if os.path.exists(file_path):
                 os.remove(file_path)
             patientreportdetail.delete_one({'_id': ObjectId(id)})
-            return redirect(url_for('documents',name=data3['name'],aadhar=data3['aadhar']))
+            return redirect(url_for('documents',name=data3['name'], aadhar=data3['aadhar']))
     else:
         return redirect(url_for('doctorsignin'))
 
+@app.route('/patient-document-delete/<string:id>',methods=['GET','POST'])
+def patientdocumentDelete(id):
+    if 'patient' in session:
+        data2=patientmedicaldetail.find_one({'_id': ObjectId(id)})
+        data3=patientreportdetail.find_one({'_id': ObjectId(id)})
+        if data2 is not None:
+            patientmedicaldetail.delete_one({'_id': ObjectId(id)})
+            return redirect(url_for('patientdocuments'))
+        elif data3 is not None:
+            i=str(data3['url'])
+            s=(i.split('/')[3]).split('.')[0]
+            file_to_delete = s+".pdf"
+            report_file_dir = "static/prescription/"+data3['aadhar']+"/"
+
+            file_path = os.path.join(report_file_dir, file_to_delete)
+            
+            if os.path.exists(file_path):
+                os.remove(file_path)
+            patientreportdetail.delete_one({'_id': ObjectId(id)})
+            return redirect(url_for('patientdocuments'))
+    else:
+        return redirect(url_for('patientsignin'))
 
 @app.route("/uploadnewprescription/<string:name>/<string:aadhar>", methods=["POST", "GET"])
 def uploadnewprescription(name, aadhar):
@@ -858,10 +880,29 @@ def patientdashboard():
         return render_template('patient/dashboard.html', files=files, aadhar=session['patient'],name=data2['name'], address=data2['address'], mobile=data2['mobile'], econtact=data2['econtact'], contain=contain)
     return render_template("patientLogin.html")
 
-@app.route("/patientviewprescription", methods=["POST", "GET"])
-def patientviewprescription():
+@app.route("/patientviewprescription/<string:id>", methods=["POST", "GET"])
+def patientviewprescription(id):
     if "patient" in session:
-        return render_template("patient/prescription_readonly.html")
+        data1=patientmedicaldetail.find_one({'_id': ObjectId(id)})
+        if data1 is not None:
+            drexist=doctordetail.find_one({'aadhar':data1['draadhar']})
+            files=[]
+            medications = data1['medications']
+            for medication in medications:
+                medicine = medication.get('medicine')
+                mg = medication.get('mg')
+                dose = medication.get('dose')
+                days = medication.get('days')
+                food = medication.get('food')
+                
+                files.append({
+                    'medicine': medicine,
+                    'mg': mg,
+                    'dose': dose,
+                    'days': days,
+                    'food': food
+                })
+            return render_template("patient/prescription_readonly.html", name=data1['name'], drname=data1["drname"], address=drexist["address"], phone=drexist["mobile"], medications=data1['medications'], age=data1['age'], weight=data1['weight'], disease=data1['disease'], gender=data1['gender'], files=files, aadhar=data1['aadhar'])
     return render_template("patientLogin.html")
 
 @app.route("/patientviewbill", methods=["POST", "GET"])
@@ -1127,7 +1168,6 @@ def patientdocuments():
 
         data = patientmedicaldetail.find({"aadhar": session["patient"]})
         for row in data:
-            name = row["name"]
             files.append({
                 "name": row["name"],
                 "doctor": row['drname'],
@@ -1135,13 +1175,14 @@ def patientdocuments():
                 "presname": row["presname"],
                 "draadhar": row["draadhar"],
                 "aadhar": row["aadhar"],
-                "type": "Prescription",  # Assign type as "Prescription" for documents in the "prescription" folder
+                "_id": row['_id'],
+                "uploadedBydr" : row['uploadedBydr']
             })
 
         data = patientreportdetail.find({"aadhar": session["patient"]})
         for row in data:
-            name = row["name"]
-            files.append({
+            if row['presname']=='Prescription':
+                files.append({
                 "name": row["name"],
                 "doctor": row['drname'],
                 "todaydate": row['todaydate'],
@@ -1149,7 +1190,8 @@ def patientdocuments():
                 "draadhar": row["draadhar"],
                 "aadhar": row["aadhar"],
                 "url": row["url"],
-                "type": "Report",  # Assign type as "Report" for documents in the "reports/{{aadhar}}" folder
+                "_id": row['_id'],
+                 "uploadedBydr" : row['uploadedBydr']
             })
 
         contain = "Yes"
