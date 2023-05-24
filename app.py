@@ -261,17 +261,17 @@ def documents(aadhar,name):
     return render_template("login.html")
 
 
-@app.route('/document-delete/<string:id>',methods=['GET','POST'])
+@app.route('/document-delete/<string:id>', methods=['GET','POST'])
 def documentDelete(id):
     if 'doctor' in session:
         data2=patientmedicaldetail.find_one({'_id': ObjectId(id)})
         data3=patientreportdetail.find_one({'_id': ObjectId(id)})
         if data2 is not None:
             patientmedicaldetail.delete_one({'_id': ObjectId(id)})
-            return redirect(url_for('documents',name=data2['name'],aadhar=data2['aadhar']))
+            return redirect(url_for('documents', name=data2['name'], aadhar=data2['aadhar']))
         elif data3 is not None:
-            i=str(data3['url'])
-            s=(i.split('/')[3]).split('.')[0]
+            i = str(data3['url'])
+            s = (i.split('/')[3]).split('.')[0]
             file_to_delete = s+".pdf"
             report_file_dir = "static/prescription/"+data3['aadhar']+"/"
 
@@ -326,8 +326,8 @@ def uploadnewprescription(name, aadhar):
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
                         "url": row["url"],
-                        "_id" :row['_id'],
-                        'uploadedBydr':row['uploadedBydr']
+                        "_id": row['_id'],
+                        'uploadedBydr': row['uploadedBydr']
                     })
         data2 = patientmedicaldetail.find({"aadhar": aadhar})
         if data2 is not None:
@@ -337,8 +337,8 @@ def uploadnewprescription(name, aadhar):
                         "doctor": row['drname'],
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
-                        "_id" :row['_id'],
-                        'uploadedBydr':row['uploadedBydr']
+                        "_id": row['_id'],
+                        'uploadedBydr': row['uploadedBydr']
                     })
         contain = "Yes"
         if len(files) == 0:
