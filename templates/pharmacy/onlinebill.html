@@ -11,9 +11,9 @@
 	<!-- JQuery -->
 	<script src="../../static/js/jquery-latest.min.js"></script>
 	<!-- JS files -->
-	<script src="../../static/js/bill.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 	<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+	<!-- <script src="https://cdn.tutorialjinni.com/html2pdf.js/0.10.1/html2pdf.bundle.js"></script> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
 	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
@@ -26,7 +26,7 @@
 
 <body>
 
-
+	
 	<!-- Sidebar -->
 	<section id="sidebar">
 		<a href="/pharmacydashboard" class="brand">
@@ -108,76 +108,82 @@
 					<h1>Online Bill</h1>
 				</div>
 			</div>
-			
-			<div class="table-data">
-				<div class="order" id="orderbill">
-					<header>
-						<h1>INVOICE</h1>
-						<address contenteditable>
-							<p>Pharmacy Name</p>
-							<p>Address Line 1<br> Address Line 2</p>
-							<p>+91 12345678</p>
-						</address>
-					</header>
-					<article>
-						<address contenteditable>
-							<p>Pharmacy Name</p>
-						</address>
-						<table class="meta">
-							<tr>
-								<th><span contenteditable>Invoice #</span></th>
-								<td><span contenteditable>101138</span></td>
-							</tr>
-							<tr>
-								<th><span contenteditable>Date</span></th>
-								<td><span contenteditable>January 1, 2023</span></td>
-							</tr>
-							<tr>
-								<th><span contenteditable>Amount Due</span></th>
-								<td><span id="prefix" contenteditable>₹</span><span>600.00</span></td>
-							</tr>
-						</table>
-						<table class="inventory">
-							<thead>
+				<div class="table-data" id="orderbill">
+					<div class="order">
+						<header>
+							<h1>INVOICE</h1>
+							<address>
+								<p>{{name}}</p>
+								<p>{{address}}</p>
+								<p>{{mobile}}</p>
+								<p>Email: {{email}}</p>
+							</address>
+						</header>
+						<article>
+							<address>
+								<p>{{name}}</p>
+							</address>
+							<table class="meta">
 								<tr>
-									<th><span contenteditable>Item</span></th>
-									<th><span contenteditable>Rate</span></th>
-									<th><span contenteditable>Quantity</span></th>
-									<th><span contenteditable>Price</span></th>
+									<th><span>Invoice #</span></th>
+									<td><span contenteditable>101138</span></td>
 								</tr>
-							</thead>
-							<tbody>
 								<tr>
-									<td><a class="cut">-</a><span contenteditable>Crocin</span></td>
-									<td><span data-prefix>₹</span><span contenteditable>150.00</span></td>
-									<td><span contenteditable>4</span></td>
+									<th><span>Date</span></th>
+									<td><span id="date" class="formInput"> March 9, 2023</span></td>
+								</tr>
+								<tr>
+									<th><span>GST No.</span></th>
+									<td><span>{{gst}}</span></td>
+								</tr>
+								<tr>
+									<th><span>Amount Due</span></th>
+									<td><span id="prefix">₹</span><span>0</span></td>
+								</tr>
+							</table>
+							<!-- <input id="count" name="count" value="1"/> -->
+							<table class="inventory">
+								<thead>
+									<tr>
+										<th><span>Item</span></th>
+										<th><span>Rate</span></th>
+										<th><span>Quantity</span></th>
+										<th><span>Price</span></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><a class="cut">-</a><span name="medicine1" contenteditable>Crocin</span></td>
+										<td><span name="rate1" data-prefix>₹</span><span contenteditable>150.00</span></td>
+										<td><span name="qty1" contenteditable>4</span></td>
+										<td><span name="price1" data-prefix>₹</span><span>600.00</span></td>
+									</tr>
+								</tbody>
+							</table>
+							<a class="add">+</a>
+							<table class="balance">
+								<tr>
+									<th><span>Total</span></th>
 									<td><span data-prefix>₹</span><span>600.00</span></td>
 								</tr>
-							</tbody>
-						</table>
-						<a class="add">+</a>
-						<table class="balance">
-							<tr>
-								<th><span contenteditable>Total</span></th>
-								<td><span data-prefix>₹</span><span>600.00</span></td>
-							</tr>
-						</table>
-					</article>
-					<aside>
-						<h1><span contenteditable>Additional Notes</span></h1>
-						<div contenteditable>
-							<p>Consume medicine after eating something.</p>
-						</div>
-					</aside>
+							</table>
+						</article>
+						<aside>
+							<h1><span>Additional Notes</span></h1>
+							<div name="notes" contenteditable>
+								<p>Consume medicine after eating something.</p>
+							</div>
+						</aside>
+					</div>
 				</div>
-			</div>
-			<a href="./deliverytrack.html">
-				<button class="centering">Deliver Medicine</button>
-			</a>
+			<button class="centering" onclick="generatePDF()">Deliver Medicine</button>
 		</main>
 	</section>
 	
 	<!-- JS files -->
+	<script src="../../static/js/billpdf.js"></script>
+	<script src="../../static/js/bill.js"></script>
+	<script src="../../static/js/date.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 </body>
 

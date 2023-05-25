@@ -84,13 +84,13 @@
 /* Helper Functions
 /* ========================================================================== */
 
-function generateTableRow() {
+function generateTableRow(count) {
   var emptyColumn = document.createElement("tr");
 
-  emptyColumn.innerHTML = `<td><a class="cut">-</a><span contenteditable>New</span></td>
-	<td><span data-prefix>₹</span><span contenteditable>0.0</span></td>
-	<td><span contenteditable>0</span></td>
-	<td><span data-prefix>₹</span><span>0.0</span></td>`;
+  emptyColumn.innerHTML = `<td><a class="cut">-</a><span name="medicine${count}" contenteditable>New</span></td>
+	<td><span name="rate${count}" data-prefix>₹</span><span contenteditable>0.0</span></td>
+	<td><span name="qty${count}" contenteditable>0</span></td>
+	<td><span name="price${count}" data-prefix>₹</span><span>0.0</span></td>`;
 
   return emptyColumn;
 }
@@ -202,21 +202,40 @@ function onContentLoad() {
 
   function onClick(e) {
     var element = e.target.querySelector("[contenteditable]"),
-      row;
-
+    row;
+    var countCell=document.getElementById("count");
+    console.log(countCell);
+    var count=parseInt(countCell.value);
+    
     element &&
       e.target != document.documentElement &&
       e.target != document.body &&
       element.focus();
 
-    if (e.target.matchesSelector(".add")) {
-      document
-        .querySelector("table.inventory tbody")
-        .appendChild(generateTableRow());
+      if (e.target.matchesSelector(".add")) {
+      if(count>=1)
+      {
+        count=count+1;
+        console.log(count);
+        countCell.value=count;
+        document
+          .querySelector("table.inventory tbody")
+          .appendChild(generateTableRow(count));
+          console.log("Add Clicked");
+          console.log(count);
+      }
+
     } else if (e.target.className == "cut") {
       row = e.target.ancestorQuerySelector("tr");
-
-      row.parentNode.removeChild(row);
+      if(count>1)
+      {
+        console.log("Remove Clicked");
+        console.log(count);
+        count=count-1;
+        console.log(count);
+        countCell.value=count;
+        row.parentNode.removeChild(row);
+      }
     }
 
     updateInvoice();

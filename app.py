@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from pymongo import MongoClient
 from datetime import datetime
 from bson.objectid import ObjectId
+from flask import send_file
 import bcrypt
 import os
 import pyqrcode
@@ -29,6 +30,7 @@ dbPharmacy = cluster["Pharmacy"]
 pharmacydetail = dbPharmacy["PharmacySignUp"]
 medicinedetail = dbPharmacy["MedicineDetail"]
 orderedmedicinedetail = dbPharmacy["OrderedMedicine"]
+billdetail=dbPharmacy["Bill"]
 
 # Ending point for homepage
 @app.route("/")
@@ -109,7 +111,7 @@ def twoFacAuthDoc(token):
                     if mobile == mobile_num:
                         if exist is None:
                             doctordetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'councilnum' : councilnum,  'email': email, 'password': hashpass})
-                            s = "http://34.28.38.229/emergencydashboard"
+                            s = "http://34.134.66.105/emergencydashboard"
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
@@ -835,7 +837,7 @@ def twoFacAuth(token):
                     if mobile == mobile_num:
                         if exist is None:
                             patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
-                            s = "http://34.28.38.229/emergencydashboard/"+str(aadhar)
+                            s = "http://34.134.66.105/emergencydashboard/"+str(aadhar)
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
@@ -1128,7 +1130,7 @@ def aadharsettings():
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
-                s = "http://34.28.38.229/emergencydashboard"
+                s = "http://34.134.66.105/emergencydashboard"
                 url = pyqrcode.create(s)
                 path = "static/img/qrcode/"+new_aadhar+".png"
                 url.png(path, scale=6)
@@ -1469,14 +1471,35 @@ def onlineorder():
 @app.route('/offlineBilling', methods=['GET', 'POST'])
 def offlineBilling():
     if "pharmacy" in session:
-        return render_template("pharmacy/offlineBilling.html")
+        exist = pharmacydetail.find_one({"licence": session["pharmacy"]})
+        return render_template("pharmacy/offlineBilling.html",name=exist['name'],address=exist['address'],mobile=exist['mobile'],email=exist['email'],gst=exist['gst'])
     return render_template('pharmacyLogin.html')
 
+@app.route('/generate_pdf', methods=['POST'])
+def generate_pdf():
+    # Get the PDF data from the request
+    pdf_data = request.get_data()
+    # Define the directory to save the PDF
+    directory = 'static/bills'
+    # Create the directory if it doesn't exist
+    os.makedirs(directory, exist_ok=True)
+    # Generate a unique file name using the current timestamp
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    file_name = f'bills_{timestamp}.pdf'
+    # Define the file path to save the PDF
+    file_path = os.path.join(directory, file_name)
+
+    # Save the PDF to the specified file path
+    with open(file_path, 'wb') as file:
+        file.write(pdf_data)
+    # Return the saved PDF as a response
+    return send_file(file_path, as_attachment=True)
 
 @app.route('/onlinebill', methods=['GET', 'POST'])
 def onlinebill():
     if "pharmacy" in session:
-        return render_template("pharmacy/onlinebill.html")
+        exist = pharmacydetail.find_one({"licence": session["pharmacy"]})
+        return render_template("pharmacy/onlinebill.html", name=exist['name'], address=exist['address'], mobile=exist['mobile'], email=exist['email'], gst=exist['gst'], medicines=medicines) 
     return render_template('pharmacyLogin.html')
 
 @app.route('/pharmacyviewprescription', methods=['GET', 'POST'])
