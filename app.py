@@ -955,23 +955,25 @@ def prescriptionstatus():
 def patientoredermed():
     global regnum
     if "patient" in session:
+        data1 = patientdetail.find_one({"aadhar": session["patient"]})
+
         if request.method == "POST":
             file = request.files['file']
             multiselect = request.form.getlist('medicines')
-
             mediname=[]
             for row in multiselect:
                 medname, regnum = row.split('_')
                 mediname.append(medname)
+
             path = "static/pharmacyprescription/"
             parent = str(regnum)+str(random.randint(1, 9999999))
             final_path = os.path.join(path, parent)
-            if os.path.isdir(final_path)==False:
+            if os.path.isdir(final_path) == False:
                 os.mkdir(final_path)
 
             path = os.path.join(final_path, file.filename)
             file.save(path)
-            data1 = patientdetail.find_one({"aadhar":session["patient"]})
+
             now = datetime.now()  # current date and time
 
             year = now.strftime("%Y")
@@ -982,20 +984,27 @@ def patientoredermed():
             randomnum = str(random.randint(10000, 99999))
 
             orderedmedicinedetail.insert_one({"patientname": data1["name"], "uploadedby": "Self", "medicinename": mediname, "regnum": regnum, "patientaadhar": session["patient"], "url": path, "status": "Ordered", "todaydate": todaydate, "randomnum": randomnum})
-
             return redirect(url_for("patientdeliverytracking"))
+
+        address = data1["address"]
+        addresslist = address.split(" ")
+        city = addresslist[2]
+        clen = len(city)
+        city = city[0:clen-1]
+        print(city)
 
         data = medicinedetail.find()
         files = []
         if data is not None:
             for rec in data:
-                files.append({
-                    "Regnumber": rec["Regnumber"],
-                    "Medicinename": rec["Medicinename"],
-                    "Companyname": rec["Companyname"],
-                    "Expiry": rec["Expiry"],
-                    "Quantity": int(rec["Quantity"]),
-                })
+                if rec["City"] == city:
+                    files.append({
+                        "Regnumber": rec["Regnumber"],
+                        "Medicinename": rec["Medicinename"],
+                        "Companyname": rec["Companyname"],
+                        "Expiry": rec["Expiry"],
+                        "Quantity": int(rec["Quantity"]),
+                    })
 
         return render_template('patient/oredermed.html', files=files)
 
@@ -1498,10 +1507,14 @@ def uploadmedicine(regnumber):
         if request.method == 'POST':
             f = request.files['file']
             df = pd.read_csv(f)
+            data = medicinedetail.find({"Regnumber": session["pharmacy"]})
+            data1 = pharmacydetail.find({"Regnumber": session["pharmacy"]})
+            address = data1["address"]
+            citylist = address.split(" ")
             for ind in df.index:
                 medicinedetail.insert_one({"Regnumber": regnumber, "Medicinename": df["Medicine Name"][ind], "Companyname": df["Company Name"][ind],
-                                          "Expiry": df["Expiry Date"][ind], "Quantity": int(df["Quantity"][ind])})
-        data = medicinedetail.find({"Regnumber": session["pharmacy"]})
+                                          "Expiry": df["Expiry Date"][ind], "Quantity": int(df["Quantity"][ind]), "City": citylist[1]})
+
         files = []
         if data is not None:
             for rec in data:
