@@ -835,7 +835,7 @@ def twoFacAuth(token):
                     if mobile == mobile_num:
                         if exist is None:
                             patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
-                            s = "http://34.28.38.229/emergencydashboard/"+str(aadhar)
+                            s = "http://34.134.66.105/emergencydashboard/"+str(aadhar)
                             url = pyqrcode.create(s)
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
