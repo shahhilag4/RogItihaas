@@ -847,7 +847,7 @@ def twoFacAuth(token):
                 return redirect(url_for('patientdashboard'))
             if contains=="Yes":
                 return render_template('patient/modal.html', aadhar=aadhar, hashpass=hashpass, email=email, econtact=econtact, name=data['name'], mobile=data['mobile'],token=token)
-    return render_template('patientLogin.html)
+    return render_template('patientLogin.html')
 
 
 
