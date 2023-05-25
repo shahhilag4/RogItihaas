@@ -263,17 +263,17 @@ def documents(aadhar,name):
     return render_template("login.html")
 
 
-@app.route('/document-delete/<string:id>',methods=['GET','POST'])
+@app.route('/document-delete/<string:id>', methods=['GET','POST'])
 def documentDelete(id):
     if 'doctor' in session:
         data2=patientmedicaldetail.find_one({'_id': ObjectId(id)})
         data3=patientreportdetail.find_one({'_id': ObjectId(id)})
         if data2 is not None:
             patientmedicaldetail.delete_one({'_id': ObjectId(id)})
-            return redirect(url_for('documents',name=data2['name'],aadhar=data2['aadhar']))
+            return redirect(url_for('documents', name=data2['name'], aadhar=data2['aadhar']))
         elif data3 is not None:
-            i=str(data3['url'])
-            s=(i.split('/')[3]).split('.')[0]
+            i = str(data3['url'])
+            s = (i.split('/')[3]).split('.')[0]
             file_to_delete = s+".pdf"
             report_file_dir = "static/prescription/"+data3['aadhar']+"/"
 
@@ -350,8 +350,8 @@ def uploadnewprescription(name, aadhar):
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
                         "url": row["url"],
-                        "_id" :row['_id'],
-                        'uploadedBydr':row['uploadedBydr']
+                        "_id": row['_id'],
+                        'uploadedBydr': row['uploadedBydr']
                     })
         data2 = patientmedicaldetail.find({"aadhar": aadhar})
         if data2 is not None:
@@ -361,8 +361,8 @@ def uploadnewprescription(name, aadhar):
                         "doctor": row['drname'],
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
-                        "_id" :row['_id'],
-                        'uploadedBydr':row['uploadedBydr']
+                        "_id": row['_id'],
+                        'uploadedBydr': row['uploadedBydr']
                     })
         contain = "Yes"
         if len(files) == 0:
@@ -849,7 +849,7 @@ def twoFacAuth(token):
                 return redirect(url_for('patientdashboard'))
             if contains=="Yes":
                 return render_template('patient/modal.html', aadhar=aadhar, hashpass=hashpass, email=email, econtact=econtact, name=data['name'], mobile=data['mobile'],token=token)
-    return render_template('patient/modal.html', aadhar=aadhar, name=data['name'], mobile=data['mobile'],token=token)
+    return render_template('patientLogin.html')
 
 
 
@@ -957,23 +957,25 @@ def prescriptionstatus():
 def patientoredermed():
     global regnum
     if "patient" in session:
+        data1 = patientdetail.find_one({"aadhar": session["patient"]})
+
         if request.method == "POST":
             file = request.files['file']
             multiselect = request.form.getlist('medicines')
-
             mediname=[]
             for row in multiselect:
                 medname, regnum = row.split('_')
                 mediname.append(medname)
+
             path = "static/pharmacyprescription/"
             parent = str(regnum)+str(random.randint(1, 9999999))
             final_path = os.path.join(path, parent)
-            if os.path.isdir(final_path)==False:
+            if os.path.isdir(final_path) == False:
                 os.mkdir(final_path)
 
             path = os.path.join(final_path, file.filename)
             file.save(path)
-            data1 = patientdetail.find_one({"aadhar":session["patient"]})
+
             now = datetime.now()  # current date and time
 
             year = now.strftime("%Y")
@@ -984,20 +986,27 @@ def patientoredermed():
             randomnum = str(random.randint(10000, 99999))
 
             orderedmedicinedetail.insert_one({"patientname": data1["name"], "uploadedby": "Self", "medicinename": mediname, "regnum": regnum, "patientaadhar": session["patient"], "url": path, "status": "Ordered", "todaydate": todaydate, "randomnum": randomnum})
-
             return redirect(url_for("patientdeliverytracking"))
+
+        address = data1["address"]
+        addresslist = address.split(" ")
+        city = addresslist[2]
+        clen = len(city)
+        city = city[0:clen-1]
+        print(city)
 
         data = medicinedetail.find()
         files = []
         if data is not None:
             for rec in data:
-                files.append({
-                    "Regnumber": rec["Regnumber"],
-                    "Medicinename": rec["Medicinename"],
-                    "Companyname": rec["Companyname"],
-                    "Expiry": rec["Expiry"],
-                    "Quantity": int(rec["Quantity"]),
-                })
+                if rec["City"] == city:
+                    files.append({
+                        "Regnumber": rec["Regnumber"],
+                        "Medicinename": rec["Medicinename"],
+                        "Companyname": rec["Companyname"],
+                        "Expiry": rec["Expiry"],
+                        "Quantity": int(rec["Quantity"]),
+                    })
 
         return render_template('patient/oredermed.html', files=files)
 
@@ -1521,10 +1530,14 @@ def uploadmedicine(regnumber):
         if request.method == 'POST':
             f = request.files['file']
             df = pd.read_csv(f)
+            data = medicinedetail.find({"Regnumber": session["pharmacy"]})
+            data1 = pharmacydetail.find({"Regnumber": session["pharmacy"]})
+            address = data1["address"]
+            citylist = address.split(" ")
             for ind in df.index:
                 medicinedetail.insert_one({"Regnumber": regnumber, "Medicinename": df["Medicine Name"][ind], "Companyname": df["Company Name"][ind],
-                                          "Expiry": df["Expiry Date"][ind], "Quantity": int(df["Quantity"][ind])})
-        data = medicinedetail.find({"Regnumber": session["pharmacy"]})
+                                          "Expiry": df["Expiry Date"][ind], "Quantity": int(df["Quantity"][ind]), "City": citylist[1]})
+
         files = []
         if data is not None:
             for rec in data:
@@ -1629,4 +1642,4 @@ def doctoremergencysignin(patientaadhar):
     return render_template("scanqr/doctorsignin.html", aadhar=patientaadhar)
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run()
