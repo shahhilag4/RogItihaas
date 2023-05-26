@@ -22,7 +22,9 @@ function generatePDF() {
     formData.append('pdfData', pdfData, 'onlinebill.pdf');
   
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/generate_pdf');
+    var invoice_no=document.getElementById('invoice_no').innerText;
+    var link = '/generate_pdf/' + invoice_no
+    xhr.open('POST',link);
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
         // PDF saved successfully

@@ -1444,8 +1444,9 @@ def onlineorderpatient(patientname, randomnum):
         if request.method == "POST":
             accept = request.form.get("accept")
             if accept == "accept":
+                exist = pharmacydetail.find_one({"licence": session["pharmacy"]})
                 orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname, 'randomnum': randomnum}, {"$set": {'status': "Accepted"}})
-                return render_template("pharmacy/onlinebill.html")
+                return render_template("pharmacy/onlinebill.html", name=exist['name'], address=exist['address'], mobile=exist['mobile'], email=exist['email'], gst=exist['gst'], randomnum=randomnum)
             else:
                 orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname, 'randomnum': randomnum}, {"$set": {'status': "Medicine Not Available"}})
             data = orderedmedicinedetail.find({"regnum": session["pharmacy"]})
@@ -1503,38 +1504,23 @@ def offlineBilling():
         return render_template("pharmacy/offlineBilling.html",name=exist['name'],address=exist['address'],mobile=exist['mobile'],email=exist['email'],gst=exist['gst'])
     return render_template('pharmacyLogin.html')
 
-@app.route('/generate_pdf', methods=['POST'])
-def generate_pdf():
+@app.route('/generate_pdf/<string:invoice_number>', methods=['POST'])
+def generate_pdf(invoice_number):
     pdf_data = request.get_data()
     directory = 'static/bills'
-    # directory = 'var/www/Rogitihaas/static/bills'
     os.makedirs(directory, exist_ok=True)
-    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-    file_name = f'bills_{timestamp}.pdf'
+    file_name = f'bills_{invoice_number}.pdf'
     file_path = os.path.join(directory, file_name)
     with open(file_path, 'wb') as file:
         file.write(pdf_data)
     return send_file(file_path, as_attachment=True)
 
-@app.route('/onlinebill', methods=['GET', 'POST'])
-def onlinebill():
-    if "pharmacy" in session:
-        exist = pharmacydetail.find_one({"licence": session["pharmacy"]})
-        return render_template("pharmacy/onlinebill.html", name=exist['name'], address=exist['address'], mobile=exist['mobile'], email=exist['email'], gst=exist['gst']) 
-    return render_template('pharmacyLogin.html')
-
-@app.route('/pharmacyviewprescription', methods=['GET', 'POST'])
-def pharmacyviewprescription():
-    if "pharmacy" in session:
-        return render_template("pharmacy/prescription_readonly.html")
-    return render_template('pharmacyLogin.html')
-
-@app.route('/pharmacyviewbill', methods=['GET', 'POST'])
-def pharmacyviewbill():
-    if "pharmacy" in session:
-        invoicenum = str(random.randint(10000, 99999))
-        return render_template("pharmacy/bill_readonly.html",invoicenum = invoicenum)
-    return render_template('pharmacyLogin.html')
+# @app.route('/onlinebill/<string:randomnum>', methods=['GET', 'POST'])
+# def onlinebill(randomnum):
+#     if "pharmacy" in session:
+#         exist = pharmacydetail.find_one({"licence": session["pharmacy"]})
+#         return render_template("pharmacy/onlinebill.html", name=exist['name'], address=exist['address'], mobile=exist['mobile'], email=exist['email'], gst=exist['gst'],invoice=randomnum) 
+#     return render_template('pharmacyLogin.html')
 
 @app.route('/uploadmedicine/<string:regnumber>', methods=['GET', 'POST'])
 def uploadmedicine(regnumber):
