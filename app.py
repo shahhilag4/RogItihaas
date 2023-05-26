@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from pymongo import MongoClient
 from datetime import datetime
 from bson.objectid import ObjectId
+from flask import jsonify
 from flask import send_file
 import bcrypt
 import os
@@ -849,7 +850,7 @@ def twoFacAuth(token):
                 return redirect(url_for('patientdashboard'))
             if contains=="Yes":
                 return render_template('patient/modal.html', aadhar=aadhar, hashpass=hashpass, email=email, econtact=econtact, name=data['name'], mobile=data['mobile'],token=token)
-    return render_template('patientLogin.html')
+    return render_template('patient/modal.html', aadhar=aadhar, name=data['name'], mobile=data['mobile'],token=token)
 
 
 
@@ -1363,8 +1364,16 @@ def medicines():
                     "Companyname": rec["Companyname"],
                     "Expiry": rec["Expiry"],
                     "Quantity": int(rec["Quantity"]),
+                    "_id": rec["_id"],
                    })
         return render_template("pharmacy/medicines.html", regnumber=session["pharmacy"], files=files)
+    return render_template('pharmacyLogin.html')
+
+@app.route('/delete_medicine/<string:id>', methods=['GET', 'POST'])
+def delete_medicine(id):
+    if "pharmacy" in session:
+        medicinedetail.delete_one({"_id":ObjectId(id)})
+        return redirect(request.referrer or url_for("medicines", _external=True))
     return render_template('pharmacyLogin.html')
 
 
@@ -1508,7 +1517,7 @@ def generate_pdf():
 def onlinebill():
     if "pharmacy" in session:
         exist = pharmacydetail.find_one({"licence": session["pharmacy"]})
-        return render_template("pharmacy/onlinebill.html", name=exist['name'], address=exist['address'], mobile=exist['mobile'], email=exist['email'], gst=exist['gst'], medicines=medicines) 
+        return render_template("pharmacy/onlinebill.html", name=exist['name'], address=exist['address'], mobile=exist['mobile'], email=exist['email'], gst=exist['gst']) 
     return render_template('pharmacyLogin.html')
 
 @app.route('/pharmacyviewprescription', methods=['GET', 'POST'])
