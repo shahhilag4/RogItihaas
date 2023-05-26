@@ -1529,13 +1529,19 @@ def uploadmedicine(regnumber):
     if "pharmacy" in session:
         if request.method == 'POST':
             f = request.files['file']
+            print(f, " file")
             df = pd.read_csv(f)
+            print("after df head")
             data = medicinedetail.find({"Regnumber": session["pharmacy"]})
-            data1 = pharmacydetail.find({"Regnumber": session["pharmacy"]})
+            data1 = pharmacydetail.find_one({"licence": session["pharmacy"]})
+            print(data1)
             address = data1["address"]
+            print(address)
             citylist = address.split(" ")
             for ind in df.index:
-                medicinedetail.insert_one({"Regnumber": regnumber, "Medicinename": df["Medicine Name"][ind], "Companyname": df["Company Name"][ind],
+                if medicinedetail.find_one({"Regnumber": regnumber, "Medicinename": df["Medicine Name"][ind], "Companyname": df["Company Name"][ind],
+                                          "Expiry": df["Expiry Date"][ind], "Quantity": int(df["Quantity"][ind]), "City": citylist[1]}) is None:
+                    medicinedetail.insert_one({"Regnumber": regnumber, "Medicinename": df["Medicine Name"][ind], "Companyname": df["Company Name"][ind],
                                           "Expiry": df["Expiry Date"][ind], "Quantity": int(df["Quantity"][ind]), "City": citylist[1]})
 
         files = []
@@ -1547,6 +1553,7 @@ def uploadmedicine(regnumber):
                     "Expiry": rec["Expiry"],
                     "Quantity": int(rec["Quantity"]),
                 })
+        print(files)
         return render_template("pharmacy/medicines.html", regnumber=session["pharmacy"], files=files)
     return render_template('pharmacyLogin.html')
 
