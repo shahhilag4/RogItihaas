@@ -1620,3 +1620,16 @@ def doctoremergencysignin(patientaadhar):
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
+
+
+                            s = "http://34.31.27.140//emergencydashboard/"+str(aadhar)
+                            #url = pyqrcode.create(s)
+                            #print(url)
+                            qr = qrcode.QRCode(version=1,box_size=10,border=5)
+                            qr.add_data(s)
+                            qr.make(fit=True)
+                            img = qr.make_image(fill='black', back_color='white')
+                            path = "/static/img/qrcode/"+aadhar+".png"
+                            img.save(path)
+                            #print(path)
+                            #url.png(path, scale=6)
