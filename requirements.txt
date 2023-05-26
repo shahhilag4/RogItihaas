@@ -3,7 +3,7 @@ blinker==1.4
 cffi==1.14.5
 click==8.1.*
 dnspython==2.1.0
-Flask==2.2.5
+Flask==1.1.2
 gunicorn==20.0.4
 itsdangerous==1.1.0
 Jinja2==2.11.3
@@ -14,7 +14,7 @@ python-dotenv==0.15.0
 python-http-client==3.3.2
 six==1.15.0
 starkbank-ecdsa==2.0.1
-Werkzeug==2.2.3
+Werkzeug==1.0.1
 pyqrcode==1.*
 pypng==0.0.*
 requests==2.30.*
