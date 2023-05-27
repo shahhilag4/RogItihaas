@@ -650,7 +650,7 @@ def prescriptiondecision():
     return render_template("login.html")
 
 
-@app.route("/prescription_repository")
+@app.route("/prescription_repository",methods=["GET","POST"])
 def prescription_repository():
     if "patient" in session:
         return render_template("patient/prescription_repository.html")
@@ -938,12 +938,6 @@ def patientviewprescription(id):
             return render_template("patient/prescription_readonly.html", name=data1['name'], drname=data1["drname"], address=drexist["address"], phone=drexist["mobile"], medications=data1['medications'], age=data1['age'], weight=data1['weight'], disease=data1['disease'], gender=data1['gender'], files=files, aadhar=data1['aadhar'])
     return render_template("patientLogin.html")
 
-@app.route("/patientviewbill", methods=["POST", "GET"])
-def patientviewbill():
-    if "patient" in session:
-        return render_template("patient/bill_readonly.html")
-    return render_template("patientLogin.html")
-
 @app.route("/patientrequestmed", methods=["POST", "GET"])
 def patientrequestmed():
     if "patient" in session:
@@ -1049,7 +1043,6 @@ def patientoredermed():
 def patientdeliverytracking():
     if "patient" in session:
         data = orderedmedicinedetail.find({"patientaadhar": session["patient"]})
-
         files = []
         for row in data:
             files.append({
@@ -1062,6 +1055,7 @@ def patientdeliverytracking():
                 "patientname": row["patientname"],
                 "todaydate": row["todaydate"],
                 "randomnum": row["randomnum"],
+                "_id": row["_id"],
             })
         return render_template("patient/deliverytrack.html", files=files)
     return render_template('patientLogin.html')
