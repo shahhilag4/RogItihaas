@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from pymongo import MongoClient
 from datetime import datetime
 from bson.objectid import ObjectId
+from flask import jsonify
+from flask import send_file
 import bcrypt
 import os
 import pyqrcode
@@ -29,6 +31,7 @@ dbPharmacy = cluster["Pharmacy"]
 pharmacydetail = dbPharmacy["PharmacySignUp"]
 medicinedetail = dbPharmacy["MedicineDetail"]
 orderedmedicinedetail = dbPharmacy["OrderedMedicine"]
+billdetail=dbPharmacy["Bill"]
 
 # Ending point for homepage
 @app.route("/")
@@ -109,8 +112,9 @@ def twoFacAuthDoc(token):
                     if mobile == mobile_num:
                         if exist is None:
                             doctordetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'councilnum' : councilnum,  'email': email, 'password': hashpass})
-                            s = "http://34.28.38.229/emergencydashboard"
+                            s = "http://34.31.27.140/emergencydashboard"
                             url = pyqrcode.create(s)
+                            # path = "/var/www/html/RogItihaas/static/img/qrcode/" + aadhar + ".png"
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
                         session['doctor'] = aadhar
@@ -273,7 +277,8 @@ def documentDelete(id):
             i = str(data3['url'])
             s = (i.split('/')[3]).split('.')[0]
             file_to_delete = s+".pdf"
-            report_file_dir = "static/prescription/"+data3['aadhar']+"/"
+            # report_file_dir = "/var/www/html/RogItihaas/static/prescription/"+data3['aadhar']+"/"
+            report_file_dir = "static/prescription/" + data3['aadhar'] + "/"
 
             file_path = os.path.join(report_file_dir, file_to_delete)
             
@@ -296,8 +301,8 @@ def patientdocumentDelete(id):
             i=str(data3['url'])
             s=(i.split('/')[3]).split('.')[0]
             file_to_delete = s+".pdf"
-            report_file_dir = "static/prescription/"+data3['aadhar']+"/"
-
+            # report_file_dir = "/var/www/html/RogItihaas/static/prescription/"+data3['aadhar']+"/"
+            report_file_dir = "static/prescription/" + data3['aadhar'] + "/"
             file_path = os.path.join(report_file_dir, file_to_delete)
             
             if os.path.exists(file_path):
@@ -313,6 +318,7 @@ def uploadnewprescription(name, aadhar):
         if request.method == "POST":
             file = request.files['file']
             path = "static/prescription/"
+            # path = "/var/www/html/RogItihaas/static/prescription/"
             parent = str(aadhar)
             final_path = os.path.join(path, parent)
             if os.path.isdir(final_path) == False:
@@ -684,6 +690,7 @@ def uploadreport(name, aadhar):
 
             docname = request.form["docname"]
             file = request.files['file']
+            # path = "/var/www/html/RogItihaas/static/reports/"
             path = "static/reports/"
             parent = str(aadhar)
 
@@ -700,7 +707,7 @@ def uploadreport(name, aadhar):
             todaydate = day + "/" + month + "/" + year
             newpath=""
             for i in path:
-                if i=="\\":
+                if i == "\\":
                     newpath = newpath + "/"
                 else:
                     newpath = newpath + i
@@ -745,8 +752,8 @@ def reportDelete(id):
         i=str(data['url'])
         s=(i.split('/')[3]).split('.')[0]
         file_to_delete = s+".pdf"
-        report_file_dir = "static/reports/"+data['aadhar']+"/"
-
+        # report_file_dir = "/var/www/html/RogItihaas/static/reports/"+data['aadhar']+"/"
+        report_file_dir = "static/reports/" + data['aadhar'] + "/"
         file_path = os.path.join(report_file_dir, file_to_delete)
         
         if os.path.exists(file_path):
@@ -835,17 +842,18 @@ def twoFacAuth(token):
                     if mobile == mobile_num:
                         if exist is None:
                             patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
-                            s = "http://34.28.38.229/emergencydashboard/"+str(aadhar)
+                            s = "http://34.31.27.140/emergencydashboard/"+str(aadhar)
                             url = pyqrcode.create(s)
+                            # path = "/var/www/html/RogItihaas/static/img/qrcode/"+aadhar+".png"
                             path = "static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
                         session['patient'] = aadhar
                         return redirect(url_for('patientdashboard'))
                     else:
                         message = "Incorrect Mobile No. Try again"
-                        return render_template('patient/modal.html', message=message, name=data['name'], mobile=mobile, aadhar=aadhar,token=token)
+                        return render_template('patient/modal.html', message=message, name=data['name'], mobile=mobile, aadhar=aadhar, token=token)
                 return redirect(url_for('patientdashboard'))
-            if contains=="Yes":
+            if contains == "Yes":
                 return render_template('patient/modal.html', aadhar=aadhar, hashpass=hashpass, email=email, econtact=econtact, name=data['name'], mobile=data['mobile'],token=token)
     return render_template('patient/modal.html', aadhar=aadhar, name=data['name'], mobile=data['mobile'],token=token)
 
@@ -885,8 +893,8 @@ def patientviewprescription(id):
     if "patient" in session:
         data1=patientmedicaldetail.find_one({'_id': ObjectId(id)})
         if data1 is not None:
-            drexist=doctordetail.find_one({'aadhar':data1['draadhar']})
-            files=[]
+            drexist = doctordetail.find_one({'aadhar': data1['draadhar']})
+            files = []
             medications = data1['medications']
             for medication in medications:
                 medicine = medication.get('medicine')
@@ -964,7 +972,7 @@ def patientoredermed():
             for row in multiselect:
                 medname, regnum = row.split('_')
                 mediname.append(medname)
-
+            # path = "/var/www/html/RogItihaas/static/pharmacyprescription/"
             path = "static/pharmacyprescription/"
             parent = str(regnum)+str(random.randint(1, 9999999))
             final_path = os.path.join(path, parent)
@@ -1130,6 +1138,7 @@ def aadharsettings():
                 patientdetail.update_one({'aadhar':session['patient']},{"$set":{'name': data['name'], 'aadhar': new_aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': exist['password']}})
 
                 file_to_delete = old_aadhar+".png"  # Replace with the filename you want to delete
+                # qr_code_dir = "/var/www/html/RogItihaas/static/img/qrcode/"
                 qr_code_dir = "static/img/qrcode/"
 
                 file_path = os.path.join(qr_code_dir, file_to_delete)
@@ -1137,15 +1146,16 @@ def aadharsettings():
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
-                s = "http://34.28.38.229/emergencydashboard"
+                s = "http://34.134.66.105/emergencydashboard"
                 url = pyqrcode.create(s)
-                path = "static/img/qrcode/"+new_aadhar+".png"
+                # path = "/var/www/html/RogItihaas/static/img/qrcode/"+new_aadhar+".png"
+                path = "static/img/qrcode/" + new_aadhar + ".png"
                 url.png(path, scale=6)
-                session['patient']=new_aadhar
+                session['patient'] = new_aadhar
                 message="Updation successfull"
                 return render_template("patient/settings.html",message=message, aadhar=new_aadhar)
             else:
-                message="Wrong Credentials! Please try again"
+                message = "Wrong Credentials! Please try again"
                 return render_template("patient/settings.html",message=message, aadhar=session['patient'])
         return render_template("patient/settings.html", aadhar=session['patient'])
     return render_template("patientLogin.html")
@@ -1158,7 +1168,7 @@ def patientsignin():
         userLogin = patientdetail.find_one({'aadhar': aadhar})
         if userLogin:
             if bcrypt.hashpw(request.form['patientpassword'].encode('utf-8'), userLogin['password']) == userLogin['password']:
-                token=generate_unique_token()
+                token = generate_unique_token()
                 session['patient'] = {
                     'aadhar': aadhar,
                     'var': 1
@@ -1174,7 +1184,6 @@ def patientsignin():
 def patientdocuments():
     if 'patient' in session:
         files = []
-
         data = patientmedicaldetail.find({"aadhar": session["patient"]})
         for row in data:
             files.append({
@@ -1219,7 +1228,6 @@ def patientdocuments():
 
             data = patientreportdetail.find({"aadhar": session["patient"]})
             for row in data:
-                name = row["name"]
                 files.append({
                     "name": "No Record Found",
                     "doctor": "No Record Found",
@@ -1361,8 +1369,16 @@ def medicines():
                     "Companyname": rec["Companyname"],
                     "Expiry": rec["Expiry"],
                     "Quantity": int(rec["Quantity"]),
+                    "_id": rec["_id"],
                    })
         return render_template("pharmacy/medicines.html", regnumber=session["pharmacy"], files=files)
+    return render_template('pharmacyLogin.html')
+
+@app.route('/delete_medicine/<string:id>', methods=['GET', 'POST'])
+def delete_medicine(id):
+    if "pharmacy" in session:
+        medicinedetail.delete_one({"_id":ObjectId(id)})
+        return redirect(request.referrer or url_for("medicines", _external=True))
     return render_template('pharmacyLogin.html')
 
 
@@ -1478,14 +1494,36 @@ def onlineorder():
 @app.route('/offlineBilling', methods=['GET', 'POST'])
 def offlineBilling():
     if "pharmacy" in session:
-        return render_template("pharmacy/offlineBilling.html")
+        exist = pharmacydetail.find_one({"licence": session["pharmacy"]})
+        return render_template("pharmacy/offlineBilling.html",name=exist['name'],address=exist['address'],mobile=exist['mobile'],email=exist['email'],gst=exist['gst'])
     return render_template('pharmacyLogin.html')
 
+@app.route('/generate_pdf', methods=['POST'])
+def generate_pdf():
+    # Get the PDF data from the request
+    pdf_data = request.get_data()
+    # Define the directory to save the PDF
+    # directory = '/var/www/html/RogItihaas/static/bills'
+    directory = 'static/bills'
+    # Create the directory if it doesn't exist
+    os.makedirs(directory, exist_ok=True)
+    # Generate a unique file name using the current timestamp
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    file_name = f'bills_{timestamp}.pdf'
+    # Define the file path to save the PDF
+    file_path = os.path.join(directory, file_name)
+
+    # Save the PDF to the specified file path
+    with open(file_path, 'wb') as file:
+        file.write(pdf_data)
+    # Return the saved PDF as a response
+    return send_file(file_path, as_attachment=True)
 
 @app.route('/onlinebill', methods=['GET', 'POST'])
 def onlinebill():
     if "pharmacy" in session:
-        return render_template("pharmacy/onlinebill.html")
+        exist = pharmacydetail.find_one({"licence": session["pharmacy"]})
+        return render_template("pharmacy/onlinebill.html", name=exist['name'], address=exist['address'], mobile=exist['mobile'], email=exist['email'], gst=exist['gst']) 
     return render_template('pharmacyLogin.html')
 
 @app.route('/pharmacyviewprescription', methods=['GET', 'POST'])
@@ -1506,13 +1544,19 @@ def uploadmedicine(regnumber):
     if "pharmacy" in session:
         if request.method == 'POST':
             f = request.files['file']
+            print(f, " file")
             df = pd.read_csv(f)
+            print("after df head")
             data = medicinedetail.find({"Regnumber": session["pharmacy"]})
-            data1 = pharmacydetail.find({"Regnumber": session["pharmacy"]})
+            data1 = pharmacydetail.find_one({"licence": session["pharmacy"]})
+            print(data1)
             address = data1["address"]
+            print(address)
             citylist = address.split(" ")
             for ind in df.index:
-                medicinedetail.insert_one({"Regnumber": regnumber, "Medicinename": df["Medicine Name"][ind], "Companyname": df["Company Name"][ind],
+                if medicinedetail.find_one({"Regnumber": regnumber, "Medicinename": df["Medicine Name"][ind], "Companyname": df["Company Name"][ind],
+                                          "Expiry": df["Expiry Date"][ind], "Quantity": int(df["Quantity"][ind]), "City": citylist[1]}) is None:
+                    medicinedetail.insert_one({"Regnumber": regnumber, "Medicinename": df["Medicine Name"][ind], "Companyname": df["Company Name"][ind],
                                           "Expiry": df["Expiry Date"][ind], "Quantity": int(df["Quantity"][ind]), "City": citylist[1]})
 
         files = []
@@ -1524,6 +1568,7 @@ def uploadmedicine(regnumber):
                     "Expiry": rec["Expiry"],
                     "Quantity": int(rec["Quantity"]),
                 })
+        print(files)
         return render_template("pharmacy/medicines.html", regnumber=session["pharmacy"], files=files)
     return render_template('pharmacyLogin.html')
 
@@ -1620,16 +1665,3 @@ def doctoremergencysignin(patientaadhar):
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
-
-
-                            s = "http://34.31.27.140//emergencydashboard/"+str(aadhar)
-                            #url = pyqrcode.create(s)
-                            #print(url)
-                            qr = qrcode.QRCode(version=1,box_size=10,border=5)
-                            qr.add_data(s)
-                            qr.make(fit=True)
-                            img = qr.make_image(fill='black', back_color='white')
-                            path = "/static/img/qrcode/"+aadhar+".png"
-                            img.save(path)
-                            #print(path)
-                            #url.png(path, scale=6)

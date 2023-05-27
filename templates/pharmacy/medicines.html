@@ -126,7 +126,7 @@
 								  <p>{{loop.index}}</p>
 								</td>
 								<td class="td-gap drname">
-								  <p>{{data.Medicinename}}</p>
+								  <p name="medicine">{{data.Medicinename}}</p>
 								</td>
 								<td class="td-gap">
 								  <p>{{data.Companyname}}</p>
@@ -141,7 +141,8 @@
 								  <button class="status success">Update</button>
 								</td>
 								<td class="td-gap">
-								  <button class="status danger">Delete</button>
+									<p>{{data.id}}</p>
+									<button class="status danger"><a href="/delete_medicine/{{data._id}}">Delete</a></button>
 								</td>
 							  </tr>
 							{% endfor %}
