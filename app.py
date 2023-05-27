@@ -112,8 +112,9 @@ def twoFacAuthDoc(token):
                     if mobile == mobile_num:
                         if exist is None:
                             doctordetail.insert_one({'name': data['name'], 'aadhar': data['aadhaar'], 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'councilnum' : councilnum,  'email': email, 'password': hashpass})
-                            s = "http://34.134.66.105/emergencydashboard"
+                            s = "http://34.31.27.140/emergencydashboard"
                             url = pyqrcode.create(s)
+                            # path = "/var/www/html/RogItihaas/static/img/qrcode/" + aadhar + ".png"
                             path = "static/img/qrcode/"+aadhar+".png"
                             # path = "var/www/Rogitihaas/static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
@@ -277,8 +278,9 @@ def documentDelete(id):
             i = str(data3['url'])
             s = (i.split('/')[3]).split('.')[0]
             file_to_delete = s+".pdf"
-            report_file_dir = "static/prescription/"+data3['aadhar']+"/"
-            # report_file_dir = "var/www/Rogitihaas/static/prescription/"+data3['aadhar']+"/"
+
+            # report_file_dir = "/var/www/html/RogItihaas/static/prescription/"+data3['aadhar']+"/"
+            report_file_dir = "static/prescription/" + data3['aadhar'] + "/"
 
             file_path = os.path.join(report_file_dir, file_to_delete)
             
@@ -301,8 +303,9 @@ def patientdocumentDelete(id):
             i=str(data3['url'])
             s=(i.split('/')[3]).split('.')[0]
             file_to_delete = s+".pdf"
-            report_file_dir = "static/prescription/"+data3['aadhar']+"/"
-            # report_file_dir = "var/www/Rogitihaas/static/prescription/"+data3['aadhar']+"/"
+
+            # report_file_dir = "/var/www/html/RogItihaas/static/prescription/"+data3['aadhar']+"/"
+            report_file_dir = "static/prescription/" + data3['aadhar'] + "/"
 
             file_path = os.path.join(report_file_dir, file_to_delete)
             
@@ -318,8 +321,10 @@ def uploadnewprescription(name, aadhar):
     if "doctor" in session:
         if request.method == "POST":
             file = request.files['file']
+
             path = "static/prescription/"
-            # path = "var/www/Rogitihaas/static/prescription/"
+            # path = "/var/www/html/RogItihaas/static/prescription/"
+
             parent = str(aadhar)
             final_path = os.path.join(path, parent)
             if os.path.isdir(final_path) == False:
@@ -691,6 +696,7 @@ def uploadreport(name, aadhar):
 
             docname = request.form["docname"]
             file = request.files['file']
+            # path = "/var/www/html/RogItihaas/static/reports/"
             path = "static/reports/"
             # path = "var/www/Rogitihaas/static/reports/"
             parent = str(aadhar)
@@ -708,7 +714,7 @@ def uploadreport(name, aadhar):
             todaydate = day + "/" + month + "/" + year
             newpath=""
             for i in path:
-                if i=="\\":
+                if i == "\\":
                     newpath = newpath + "/"
                 else:
                     newpath = newpath + i
@@ -753,8 +759,9 @@ def reportDelete(id):
         i=str(data['url'])
         s=(i.split('/')[3]).split('.')[0]
         file_to_delete = s+".pdf"
-        report_file_dir = "static/reports/"+data['aadhar']+"/"
-        # report_file_dir = "var/www/Rogitihaas/static/reports/"+data['aadhar']+"/"
+
+        # report_file_dir = "/var/www/html/RogItihaas/static/reports/"+data['aadhar']+"/"
+        report_file_dir = "static/reports/" + data['aadhar'] + "/"
 
         file_path = os.path.join(report_file_dir, file_to_delete)
         
@@ -844,8 +851,9 @@ def twoFacAuth(token):
                     if mobile == mobile_num:
                         if exist is None:
                             patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
-                            s = "http://34.134.66.105/emergencydashboard/"+str(aadhar)
+                            s = "http://34.31.27.140/emergencydashboard/"+str(aadhar)
                             url = pyqrcode.create(s)
+                            # path = "/var/www/html/RogItihaas/static/img/qrcode/"+aadhar+".png"
                             path = "static/img/qrcode/"+aadhar+".png"
                             # path = "var/www/Rogitihaas/static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
@@ -853,9 +861,9 @@ def twoFacAuth(token):
                         return redirect(url_for('patientdashboard'))
                     else:
                         message = "Incorrect Mobile No. Try again"
-                        return render_template('patient/modal.html', message=message, name=data['name'], mobile=mobile, aadhar=aadhar,token=token)
+                        return render_template('patient/modal.html', message=message, name=data['name'], mobile=mobile, aadhar=aadhar, token=token)
                 return redirect(url_for('patientdashboard'))
-            if contains=="Yes":
+            if contains == "Yes":
                 return render_template('patient/modal.html', aadhar=aadhar, hashpass=hashpass, email=email, econtact=econtact, name=data['name'], mobile=data['mobile'],token=token)
     return render_template('patient/modal.html', aadhar=aadhar, name=data['name'], mobile=data['mobile'],token=token)
 
@@ -895,8 +903,8 @@ def patientviewprescription(id):
     if "patient" in session:
         data1=patientmedicaldetail.find_one({'_id': ObjectId(id)})
         if data1 is not None:
-            drexist=doctordetail.find_one({'aadhar':data1['draadhar']})
-            files=[]
+            drexist = doctordetail.find_one({'aadhar': data1['draadhar']})
+            files = []
             medications = data1['medications']
             for medication in medications:
                 medicine = medication.get('medicine')
@@ -968,7 +976,7 @@ def patientoredermed():
             for row in multiselect:
                 medname, regnum = row.split('_')
                 mediname.append(medname)
-
+            # path = "/var/www/html/RogItihaas/static/pharmacyprescription/"
             path = "static/pharmacyprescription/"
             # path = "var/www/Rogitihaas/static/pharmacyprescription/"
             parent = str(regnum)+str(random.randint(1, 9999999))
@@ -1135,6 +1143,7 @@ def aadharsettings():
                 patientdetail.update_one({'aadhar':session['patient']},{"$set":{'name': data['name'], 'aadhar': new_aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': exist['password']}})
 
                 file_to_delete = old_aadhar+".png"  # Replace with the filename you want to delete
+                # qr_code_dir = "/var/www/html/RogItihaas/static/img/qrcode/"
                 qr_code_dir = "static/img/qrcode/"
                 # qr_code_dir = "var/www/Rogitihaas/static/img/qrcode/"
 
@@ -1145,14 +1154,16 @@ def aadharsettings():
 
                 s = "http://34.134.66.105/emergencydashboard"
                 url = pyqrcode.create(s)
-                path = "static/img/qrcode/"+new_aadhar+".png"
-                # path = "var/www/Rogitihaas/static/img/qrcode/"+new_aadhar+".png"
+
+                # path = "/var/www/html/RogItihaas/static/img/qrcode/"+new_aadhar+".png"
+                path = "static/img/qrcode/" + new_aadhar + ".png"
+
                 url.png(path, scale=6)
-                session['patient']=new_aadhar
+                session['patient'] = new_aadhar
                 message="Updation successfull"
                 return render_template("patient/settings.html",message=message, aadhar=new_aadhar)
             else:
-                message="Wrong Credentials! Please try again"
+                message = "Wrong Credentials! Please try again"
                 return render_template("patient/settings.html",message=message, aadhar=session['patient'])
         return render_template("patient/settings.html", aadhar=session['patient'])
     return render_template("patientLogin.html")
@@ -1165,7 +1176,7 @@ def patientsignin():
         userLogin = patientdetail.find_one({'aadhar': aadhar})
         if userLogin:
             if bcrypt.hashpw(request.form['patientpassword'].encode('utf-8'), userLogin['password']) == userLogin['password']:
-                token=generate_unique_token()
+                token = generate_unique_token()
                 session['patient'] = {
                     'aadhar': aadhar,
                     'var': 1
@@ -1181,7 +1192,6 @@ def patientsignin():
 def patientdocuments():
     if 'patient' in session:
         files = []
-
         data = patientmedicaldetail.find({"aadhar": session["patient"]})
         for row in data:
             files.append({
@@ -1226,7 +1236,6 @@ def patientdocuments():
 
             data = patientreportdetail.find({"aadhar": session["patient"]})
             for row in data:
-                name = row["name"]
                 files.append({
                     "name": "No Record Found",
                     "doctor": "No Record Found",
@@ -1501,6 +1510,9 @@ def offlineBilling():
 @app.route('/generate_pdf/<string:invoice_number>', methods=['POST'])
 def generate_pdf(invoice_number):
     pdf_data = request.get_data()
+
+    # directory = '/var/www/html/RogItihaas/static/bills'
+
     directory = 'static/bills'
     os.makedirs(directory, exist_ok=True)
     file_name = f'bills_{invoice_number}.pdf'
@@ -1509,12 +1521,6 @@ def generate_pdf(invoice_number):
         file.write(pdf_data)
     return send_file(file_path, as_attachment=True)
 
-# @app.route('/onlinebill/<string:randomnum>', methods=['GET', 'POST'])
-# def onlinebill(randomnum):
-#     if "pharmacy" in session:
-#         exist = pharmacydetail.find_one({"licence": session["pharmacy"]})
-#         return render_template("pharmacy/onlinebill.html", name=exist['name'], address=exist['address'], mobile=exist['mobile'], email=exist['email'], gst=exist['gst'],invoice=randomnum) 
-#     return render_template('pharmacyLogin.html')
 
 @app.route('/uploadmedicine/<string:regnumber>', methods=['GET', 'POST'])
 def uploadmedicine(regnumber):
@@ -1641,4 +1647,4 @@ def doctoremergencysignin(patientaadhar):
     return render_template("scanqr/doctorsignin.html", aadhar=patientaadhar)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5000, debug=True)
