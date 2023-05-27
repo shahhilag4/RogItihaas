@@ -1,11 +1,11 @@
-1. Patient1 (Shalini Sharma)-: Accident
+1. Patient1 (Shalini Sharma)-: Accident [Deplyed Link]
    678901234567
-   2
+   1
    4321098765
 
-   Patient2 (Pooja Mehta)-: Relative
+   Patient2 (Pooja Mehta)-: Relative 
    012345678901
-   2
+   1
    9456718688
 
    Infant(Rajesh Sharma)
@@ -13,14 +13,14 @@
    1
    9970529691
    
-2. Doctor - 
+2. Doctor - (Vikas Kumar)[Deployed Link]
    844263828487
-   2
+   1
    7654321098
 
 3. Pharmacy -
    PN8735
-   2
+   1
    7390897125
 
 4. Patient-Doctor -

@@ -133,30 +133,27 @@
 								</td>
 								<td class="td-gap">{{data.todaydate}}</td>
 								<td class="td-gap drname" class="drname">{{data.doctor}}</td>
-
-								{% if data.uploadedBydr == "Yes" %}
+								{% if contain == 'Yes' %}
 								<td class="td-gap">
 									{% if data.uploadedBydr == "No" %}
 									<a href="/patientviewprescription/{{data._id}}"><button class="status success">View</button></a>
 										
 									{% else %}
 										<button class="status success"
-											onclick="viewPDF('../../{{data.url}}')">View</button>
+										onclick="viewPDF('../../{{data.url}}')">View</button>
 									{% endif %}
 								</td>
 								<div id="pdf-modal" class="modal">
 									<div class="modal-content">
 										<span class="close" onclick="closePDF()">&times;</span>
-										<button id="downloadButton" onclick="downloadPDF('../../{{data.url}}')">Download PDF</button>
 										<canvas id="pdf-canvas"></canvas>
 									</div>
 								</div>
-								{% else %}
-									<td class="td-gap"><a href="/viewprescription/{{data._id}}"><button class="status success">View</button></td>
 								{% endif %}
-
-								<td class="td-gap"><button class="status danger"><a style="text-decoration: none; color: aliceblue;" href="/document-delete/{{data._id}}">Delete</a></button></td>
-
+								{% if contain == 'Yes' %}
+								<td class="td-gap"><button class="status danger"> <a href="/document-delete/{{data._id}}"> Delete</a></button></td>
+								{% endif %}
+								
 							</tr>
 							{% endfor %}
 						</tbody>
