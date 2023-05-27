@@ -5,12 +5,17 @@
 
    Patient2 (Pooja Mehta)-: Relative
    012345678901
-   1
+   2
    9456718688
 
+   Infant(Rajesh Sharma)
+   123456789012
+   1
+   9970529691
+   
 2. Doctor - 
    844263828487
-   1
+   2
    7654321098
 
 3. Pharmacy -

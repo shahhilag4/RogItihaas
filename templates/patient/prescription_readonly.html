@@ -1,4 +1,4 @@
-<!-- Patient Prescription -->
+<!-- Patient View Prescription -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -142,7 +142,8 @@
                                     <li><strong>Age:</strong>{{age}}</li>
                                     <li><strong>Gender:</strong>{{gender}}</li>
                                     <li><strong>Weight:</strong>{{weight}}kg</li>
-                                    <li id="disease-title"><strong>Disease:</strong><li id="disease">{{disease}}</li>
+                                    <li id="disease-title"><strong>Disease:</strong>
+                                    <li id="disease">{{disease}}</li>
                                 </ul>
 
                                 <h2>Medication Information</h2>
@@ -167,10 +168,11 @@
                                     </tr>
                                     {% endfor %}
                                 </table>
-                                
+
                                 <p><strong>Prescribed by:</strong> {{drname}}</p>
-                                <p id="date-style"><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span>
-                            </p>
+                                <p id="date-style"><strong>Date: </strong></p><span id="date" class="formInput"> March
+                                    9, 2023</span>
+                                </p>
                         </main>
                         <input type="submit" class="centering" value="Download" onclick="saveDivAsPdf()" />
                     </div>

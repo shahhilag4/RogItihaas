@@ -132,11 +132,12 @@
 								<td class="td-gap">{{data.todaydate}}</td>
 								<td class="td-gap">
 									{% if data.uploadedBydr == "No" %}
-									<a href="/drviewprescription/{{data._id}}"><button class="status success">View</button></a>
-										
+									<a href="/drviewprescription/{{data._id}}"><button
+											class="status success">View</button></a>
+
 									{% else %}
-										<button class="status success"
-											onclick="viewPDF('../../{{data.url}}.pdf')">View</button>
+									<button class="status success"
+										onclick="viewPDF('../../{{data.url}}.pdf')">View</button>
 									{% endif %}
 								</td>
 								<div id="pdf-modal" class="modal">
