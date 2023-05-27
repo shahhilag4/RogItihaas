@@ -403,6 +403,7 @@ def uploadnewprescription(name, aadhar):
                                drname=drexist["name"], contain=contain)
     return render_template("login.html")
 
+
 @app.route('/uploadpresciption/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
 def uploadpresciption(aadhar, drname):
     if 'doctor' in session:
@@ -897,7 +898,8 @@ def patientdashboard():
                 "todaydate": row['todaydate'],
                 "presname": row["presname"],
                 "draadhar": row["draadhar"],
-                "_id" :row['_id']
+                "_id" :row['_id'],
+                'aadhar' : row['aadhar']
             })
     
         contain = "True"
@@ -938,6 +940,73 @@ def patientviewprescription(id):
                 })
             return render_template("patient/prescription_readonly.html", name=data1['name'], drname=data1["drname"], address=drexist["address"], phone=drexist["mobile"], medications=data1['medications'], age=data1['age'], weight=data1['weight'], disease=data1['disease'], gender=data1['gender'], files=files, aadhar=data1['aadhar'])
     return render_template("patientLogin.html")
+
+@app.route("/uploadpatientprescription/<string:aadhar>/<string:name>", methods=["POST", "GET"])
+def uploadpatientprescription(aadhar,name):
+    if "patient" in session:
+        if request.method == "POST":
+            file = request.files['file']
+
+            path = "static/prescription/"
+            # path = "/var/www/html/RogItihaas/static/prescription/"
+
+            parent = str(aadhar)
+            final_path = os.path.join(path, parent)
+            if os.path.isdir(final_path) == False:
+                os.mkdir(final_path)
+
+            path = os.path.join(final_path, file.filename)
+            file.save(path)
+
+            now = datetime.now()  # current date and time
+
+            year = now.strftime("%Y")
+            month = now.strftime("%m")
+            day = now.strftime("%d")
+
+            todaydate = day + "/" + month + "/" + year
+            checkIfavailable=patientreportdetail.find_one({'name': name, "aadhar": aadhar, 'drname': "self uploaded",
+                 "todaydate": todaydate, "draadhar": "self uploaded", "presname": "Prescription", "url": path, 'uploadedBydr':"Yes"})
+            if checkIfavailable is None:
+                patientreportdetail.insert_one({'name': name, "aadhar": aadhar, 'drname': "self uploaded",
+                 "todaydate": todaydate, "draadhar": "self uploaded", "presname": "Prescription", "url": path, 'uploadedBydr':"Yes"})
+        files = []
+
+        data = patientreportdetail.find({"aadhar": aadhar})
+        if data is not None:
+            for row in data:
+                name: row["name"]
+                if row["presname"] == "Prescription":
+                    files.append({
+                        "name": row["name"],
+                        "doctor": row['drname'],
+                        "todaydate": row['todaydate'],
+                        "presname": row["presname"],
+                        "url": row["url"],
+                        "_id": row['_id'],
+                        'uploadedBydr': row['uploadedBydr']
+                    })
+        data2 = patientmedicaldetail.find({"aadhar": aadhar})
+        if data2 is not None:
+            for row in data2:
+                    files.append({
+                        "name": row["name"],
+                        "doctor": row['drname'],
+                        "todaydate": row['todaydate'],
+                        "presname": row["presname"],
+                        "_id": row['_id'],
+                        'uploadedBydr': row['uploadedBydr']
+                    })
+        contain = "Yes"
+        if len(files) == 0:
+            contain = "No"
+            files.append({
+                "todaydate": "No record found",
+            })
+        data = patientdetail.find_one({"aadhar": aadhar})
+        return render_template("patient/documents.html", files=files, aadhar=aadhar, contain=contain, name=name)
+    return render_template("patientLogin.html")
+
 
 @app.route("/patientrequestmed", methods=["POST", "GET"])
 def patientrequestmed():
@@ -1232,7 +1301,7 @@ def patientdocuments():
                 "aadhar": row["aadhar"],
                 "url": row["url"],
                 "_id": row['_id'],
-                 "uploadedBydr" : row['uploadedBydr']
+                "uploadedBydr" : row['uploadedBydr']
             })
 
         contain = "Yes"
@@ -1262,8 +1331,8 @@ def patientdocuments():
                     "url": "No Record Found",
                     "type": "None",  # Add a new key-value pair for no record found
                 })
-    
-        return render_template("patient/documents.html", files=files, contain=contain)
+        data = patientdetail.find_one({"aadhar": session["patient"]})
+        return render_template("patient/documents.html", files=files, contain=contain, aadhar=session['patient'], name=data['name'])
     return render_template("patientLogin.html")
 
 # @app.route('/patientuploadprescription/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
