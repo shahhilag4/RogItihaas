@@ -8,6 +8,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Fontawesome -->
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
+	<!-- pdf.js library -->
+	<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
 	<!-- Favicon -->
@@ -130,7 +132,14 @@
 									<td class="td-gap"> <button class="button-style" type="submit" name="accept" value="accept">Accept</button></td>
 									<td class="td-gap"><button class="button-style" type="submit" name="reject" value="reject">Reject</button></td>
 								</form>
-								<td class="td-gap"><a href="/pharmacyviewprescription"><button class="status success">View</button></td>
+									<td class="td-gap"><button class="status success" onclick="viewPDF('{{data.Url}}')">View</button></td>
+									<div id="pdf-modal" class="modal">
+										<div class="modal-content">
+											<span class="close" onclick="closePDF()">&times;</span>
+											<button id="downloadButton" onclick="downloadPDF('../../{{data.Url}}')">Download PDF</button>
+											<canvas id="pdf-canvas"></canvas>
+										</div>
+									</div>
 								{% endif %}
 							</tr>
 						</tbody>
@@ -142,6 +151,7 @@
 	</section>
 
 	<!-- JS files -->
+	<script src="../../static/js/reportdownload.js"></script>
 	<script src="../../static/js/click.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 </body>
