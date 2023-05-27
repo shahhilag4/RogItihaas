@@ -634,7 +634,7 @@ def prescriptiondecision():
     return render_template("login.html")
 
 
-@app.route("/prescription_repository")
+@app.route("/prescription_repository",methods=["GET","POST"])
 def prescription_repository():
     if "patient" in session:
         return render_template("patient/prescription_repository.html")
