@@ -15,13 +15,13 @@ function debounce(func, wait) {
   };
 }
 
-searchBox.addEventListener(
-  "keyup",
-  debounce(function (event) {
-    let searchText = event.target.value;
-    // filter search results here
-  }, 300)
-);
+// searchBox.addEventListener(
+//   "keyup",
+//   debounce(function (event) {
+//     let searchText = event.target.value;
+//     // filter search results here
+//   }, 300)
+// );
 
 options.forEach((option) => {
   option.addEventListener("click", function () {

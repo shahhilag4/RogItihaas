@@ -128,7 +128,7 @@
                                             class="formInput inputValue"></li>
                                     <li><strong>Age:</strong> <input type="number" name="age" value="33"
                                             class="formInput inputValue"></li>
-                                    <input id="count" name="count" value="1"/>
+                                    <input id="count" name="count" value="1" style="display: none;"/>
                                     <li><strong>Gender:</strong>
                                         <label>
                                             <input type="radio" name="gender" value="male" checked> Male
@@ -194,44 +194,38 @@
                                 
                                 <p><strong>Prescribed by:</strong>Dr.{{drname}}</p>
                                 <p><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span></p>
-                                <footer>
-                                    <h3>Instructions :</h3>
-                                    <textarea placeholder="Enter text here" class="txtarea" style="height:30px;" rows="3"
-                                    name="Text" id="text"></textarea>
-                                </footer>
-                                <input type="submit" name="submit" class="centering" value="Submit" />
                             </form>
-                            <button class="centering"  data-target="#myModal" onclick="showModal();event.preventDefault()">Order Medicine</button>
-                        </main>
+                                <input type="submit" name="submit" class="centering" value="Submit" onclick="showModal();event.preventDefault()" />
+                            </main>
+                        </div>
                     </div>
                 </div>
+            </main>
+        </section>
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h2 class="modal-title">Order Medicine Request</h2>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <h3 id="instruction-input">Would you like to order medicine on behalf of patient?</h3>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="submitForm();">Send Request</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="submitForm();">Close</button>
+                    </div>
+                    
+                </div>
             </div>
-        </main>
-    </section>
-    <!-- The Modal -->
-<div class="modal" id="myModal">
-	<div class="modal-dialog">
-	  <div class="modal-content">
-  
-		<!-- Modal Header -->
-		<div class="modal-header">
-		  <h2 class="modal-title">Order Medicine Request</h2>
-		</div>
-  
-		<!-- Modal body -->
-		<div class="modal-body">
-		  <h3 id="instruction-input">Would you like to order medicine on behalf of patient?</h3>
-		</div>
-  
-		<!-- Modal footer -->
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-success">Send Request</button>
-		  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeModal()">Close</button>
-		</div>
-  
-	  </div>
-	</div>
-  </div>
+        </div>
 
     <!-- JS files -->
     <script src="../../static/js/droredermed.js"></script>

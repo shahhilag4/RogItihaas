@@ -93,6 +93,9 @@
 			<div class="head-title">
 				<div class="left">
 					<h1>Settings</h1>
+					{% if message %}
+					{{message}}
+					{% endif %}
 				</div>
 			</div>
 			<form action="/pharmacysettings" method="POST">
