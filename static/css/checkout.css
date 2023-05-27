@@ -10,6 +10,7 @@ body {
 
 #container {
   width: 100%;
+  height: 101%;
   margin: 0 auto;
   background-color: white;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -202,6 +203,11 @@ textarea {
 
 input[type="file"] {
   display: none;
+}
+
+#disease-title,#disease,#date-style
+{
+  display:inline-block;
 }
 
 @media print {
