@@ -114,7 +114,7 @@
                         <header class="prescription_head">
                             <div class="prescription_block">
                                 <h1>Prescription</h1>
-                                <p>{{drname}}</p>
+                                <p>Dr.{{drname}}</p>
                                 <p>{{address}}</p>
                                 <p>Phone: {{phone}}</p>
                             </div>
@@ -171,8 +171,9 @@
                                         <td><input type="text" list="dr" name="medicine1"
                                                 placeholder="Enter Medicine" />
                                             <datalist id="dr">
-                                                <option value="Paracetamol">Paracetamol</option>
-                                                <option value="Citrazine">Citrazine</option>
+                                                {% for data in files %}
+                                                <option value="{{data.medicinename}}">{{data.medicinename}}</option>
+                                                {% endfor%}
                                             </datalist>
                                         </td>
                                         <td><input type="number" name="mg1" value="10" class="formInput inputValue"> mg
@@ -191,7 +192,7 @@
                                 <input type="button" value="Add Bottom" style="padding: 6px 10px;margin:0.5rem 0" onclick="addRow()">
                                 <input type="button" value="Delete Bottom" style="padding: 6px 10px;margin:0.5rem 0" onclick="deleteRow()">
                                 
-                                <p><strong>Prescribed by:</strong>{{drname}}</p>
+                                <p><strong>Prescribed by:</strong>Dr.{{drname}}</p>
                                 <p><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span></p>
                                 <footer>
                                     <h3>Instructions :</h3>

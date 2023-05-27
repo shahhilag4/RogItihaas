@@ -221,7 +221,23 @@ def viewprescription(id):
 def writeprescription(name, aadhar):
     if 'doctor' in session:
         exist = doctordetail.find_one({"aadhar": session["doctor"]})
-        return render_template("patient-doctor/prescription.html", name=name, drname=exist["name"], address=exist["address"], phone=exist["mobile"], aadhar=aadhar)
+        addr = exist["address"].split(",")
+        addl = addr[2]
+        addlen = len(addl)
+        city = addl[1:addlen]
+        medicines = medicinedetail.find()
+        files = []
+        for data in medicines:
+            add = data["City"]
+            addlenn = len(add)
+            medcity = add[0:addlenn-1]
+
+            if city == medcity:
+                files.append({
+                    "medicinename": data["Medicinename"],
+                })
+        print(len(files))
+        return render_template("patient-doctor/prescription.html", files=files, name=name, drname=exist["name"], address=exist["address"], phone=exist["mobile"], aadhar=aadhar)
     return render_template("login.html")
 
 @app.route("/documents/<string:name>/<string:aadhar>")
@@ -465,7 +481,7 @@ def uploadpresciption(aadhar, drname):
                         'uploadedBydr':row['uploadedBydr']
                     })
 
-            data2=doctordetail.find_one({'aadhar':session['doctor']})
+            data2 = doctordetail.find_one({'aadhar': session['doctor']})
             return render_template("patient-doctor/documents.html", files=files, aadhar=aadhar, name=data2["name"], drname=data2["name"],contain="Yes")
     return render_template("login.html")
 
@@ -712,7 +728,7 @@ def uploadreport(name, aadhar):
 
 
             todaydate = day + "/" + month + "/" + year
-            newpath=""
+            newpath = ""
             for i in path:
                 if i == "\\":
                     newpath = newpath + "/"
@@ -720,10 +736,9 @@ def uploadreport(name, aadhar):
                     newpath = newpath + i
             drexist = doctordetail.find_one({"aadhar": session["doctor"]})
             if patientreportdetail.find_one({'name': name, "aadhar": aadhar, 'drname': "Dr. "+drexist["name"],
-                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": docname, "url": newpath,'uploadedBydr':"Yes"}) is None:
-                patientreportdetail.insert_one(
-                {'name': name, "aadhar": aadhar, 'drname': "Dr. "+drexist["name"],
-                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": docname, "url": newpath,'uploadedBydr':"Yes"})
+                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": docname, "url": newpath, 'uploadedBydr': "Yes"}) is None:
+                patientreportdetail.insert_one({'name': name, "aadhar": aadhar, 'drname': "Dr. "+drexist["name"],
+                                                "todaydate": todaydate, "draadhar": session["doctor"], "presname": docname, "url": newpath, 'uploadedBydr':"Yes"})
         files = []
 
         data = patientreportdetail.find({"aadhar": aadhar})
@@ -1140,12 +1155,11 @@ def aadharsettings():
             prevExist = patientdetail.find_one({'aadhar':data['aadhaar']})
             if bcrypt.hashpw(password.encode('utf-8'), exist['password']) == exist['password'] and data is not None and prevExist is None:
 
-                patientdetail.update_one({'aadhar':session['patient']},{"$set":{'name': data['name'], 'aadhar': new_aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': exist['password']}})
+                patientdetail.update_one({'aadhar': session['patient']}, {"$set": {'name': data['name'], 'aadhar': new_aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': exist['password']}})
 
-                file_to_delete = old_aadhar+".png"  # Replace with the filename you want to delete
+                file_to_delete = old_aadhar+".png"
                 # qr_code_dir = "/var/www/html/RogItihaas/static/img/qrcode/"
                 qr_code_dir = "static/img/qrcode/"
-                # qr_code_dir = "var/www/Rogitihaas/static/img/qrcode/"
 
                 file_path = os.path.join(qr_code_dir, file_to_delete)
 
