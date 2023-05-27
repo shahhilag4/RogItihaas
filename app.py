@@ -359,10 +359,10 @@ def uploadnewprescription(name, aadhar):
 
             drexist = doctordetail.find_one({"aadhar": session["doctor"]})
             checkIfavailable=patientreportdetail.find_one({'name': name, "aadhar": aadhar, 'drname': "Dr. " + drexist["name"],
-                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": "Prescription", "url": path, 'uploadedBydr':"Yes"})
+                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": "Prescription", "url": path, 'uploadedBydr': "Yes"})
             if checkIfavailable is None:
                 patientreportdetail.insert_one({'name': name, "aadhar": aadhar, 'drname': "Dr. " + drexist["name"],
-                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": "Prescription", "url": path, 'uploadedBydr':"Yes"})
+                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": "Prescription", "url": path, 'uploadedBydr': "Yes"})
         files = []
 
         data = patientreportdetail.find({"aadhar": aadhar})
@@ -370,12 +370,18 @@ def uploadnewprescription(name, aadhar):
             for row in data:
                 name: row["name"]
                 if row["presname"] == "Prescription":
+                    newpath = ""
+                    for i in row["url"]:
+                        if i == "\\":
+                            newpath = newpath + "/"
+                        else:
+                            newpath = newpath + i
                     files.append({
                         "name": row["name"],
                         "doctor": row['drname'],
                         "todaydate": row['todaydate'],
                         "presname": row["presname"],
-                        "url": row["url"],
+                        "url": newpath,
                         "_id": row['_id'],
                         'uploadedBydr': row['uploadedBydr']
                     })
@@ -440,7 +446,7 @@ def uploadpresciption(aadhar, drname):
 
             prescription = {
                 'aadhar': aadhar,
-                'drname': drname,
+                'drname': "Dr. " +drname,
                 "draadhar": session["doctor"],
                 "todaydate": todaydate,
                 'name': name,
@@ -450,7 +456,7 @@ def uploadpresciption(aadhar, drname):
                 'disease': disease,
                 'medications': medications,
                 "presname": "Prescription",
-                "uploadedBydr":"No"
+                "uploadedBydr": "No"
             }
             if patientmedicaldetail.find_one(prescription) is None:
                 patientmedicaldetail.insert_one(prescription)
