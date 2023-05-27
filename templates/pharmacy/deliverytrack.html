@@ -10,6 +10,8 @@
 	<script src="https://kit.fontawesome.com/49dfc2b92c.js" crossorigin="anonymous"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" href="../../static/css/dashboard.css">
+	<!-- pdf.js library -->
+	<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/null/india-national-emblem.png">
 
@@ -129,7 +131,13 @@
 									<p>{{data.patientname}}</p>
 								</td>
 								<td class="td-gap"><a href="/pharmacyviewprescription"><button class="status success">View</button></td>
-								<td class="td-gap"><a href="/pharmacyviewbill"><button class="status success">View</button></td>
+								<td class="td-gap"><button class="status success" onclick="viewPDF('../../static/bills/bills_{{data.randomnum}}.pdf')">View</button></td>
+								<div id="pdf-modal" class="modal">
+									<div class="modal-content">
+										<span class="close" onclick="closePDF()">&times;</span>
+										<canvas id="pdf-canvas"></canvas>
+									</div>
+								</div>
 								<td class="td-gap">{{data.Status}}</td>
 								<td class="td-gap">{{data.todaydate}}</td>
 								<td class="td-gap">{{data.randomnum}}</td>
@@ -154,6 +162,7 @@
 	</section>
 
 	<!-- JS files -->
+	<script src="../../static/js/reportdownload.js"></script>
 	<script src="../../static/js/click.js"></script>
 	<script src="../../static/js/dashboard.js"></script>
 	<script src="../../static/js/updateState.js"></script>

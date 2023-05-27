@@ -116,6 +116,7 @@ def twoFacAuthDoc(token):
                             url = pyqrcode.create(s)
                             # path = "/var/www/html/RogItihaas/static/img/qrcode/" + aadhar + ".png"
                             path = "static/img/qrcode/"+aadhar+".png"
+                            # path = "var/www/Rogitihaas/static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
                         session['doctor'] = aadhar
                         return redirect(url_for('doctordashboard'))
@@ -277,6 +278,7 @@ def documentDelete(id):
             i = str(data3['url'])
             s = (i.split('/')[3]).split('.')[0]
             file_to_delete = s+".pdf"
+
             # report_file_dir = "/var/www/html/RogItihaas/static/prescription/"+data3['aadhar']+"/"
             report_file_dir = "static/prescription/" + data3['aadhar'] + "/"
 
@@ -301,8 +303,10 @@ def patientdocumentDelete(id):
             i=str(data3['url'])
             s=(i.split('/')[3]).split('.')[0]
             file_to_delete = s+".pdf"
+
             # report_file_dir = "/var/www/html/RogItihaas/static/prescription/"+data3['aadhar']+"/"
             report_file_dir = "static/prescription/" + data3['aadhar'] + "/"
+
             file_path = os.path.join(report_file_dir, file_to_delete)
             
             if os.path.exists(file_path):
@@ -317,8 +321,10 @@ def uploadnewprescription(name, aadhar):
     if "doctor" in session:
         if request.method == "POST":
             file = request.files['file']
+
             path = "static/prescription/"
             # path = "/var/www/html/RogItihaas/static/prescription/"
+
             parent = str(aadhar)
             final_path = os.path.join(path, parent)
             if os.path.isdir(final_path) == False:
@@ -692,6 +698,7 @@ def uploadreport(name, aadhar):
             file = request.files['file']
             # path = "/var/www/html/RogItihaas/static/reports/"
             path = "static/reports/"
+            # path = "var/www/Rogitihaas/static/reports/"
             parent = str(aadhar)
 
             final_path = os.path.join(path, parent)
@@ -752,8 +759,10 @@ def reportDelete(id):
         i=str(data['url'])
         s=(i.split('/')[3]).split('.')[0]
         file_to_delete = s+".pdf"
+
         # report_file_dir = "/var/www/html/RogItihaas/static/reports/"+data['aadhar']+"/"
         report_file_dir = "static/reports/" + data['aadhar'] + "/"
+
         file_path = os.path.join(report_file_dir, file_to_delete)
         
         if os.path.exists(file_path):
@@ -846,6 +855,7 @@ def twoFacAuth(token):
                             url = pyqrcode.create(s)
                             # path = "/var/www/html/RogItihaas/static/img/qrcode/"+aadhar+".png"
                             path = "static/img/qrcode/"+aadhar+".png"
+                            # path = "var/www/Rogitihaas/static/img/qrcode/"+aadhar+".png"
                             url.png(path, scale=6)
                         session['patient'] = aadhar
                         return redirect(url_for('patientdashboard'))
@@ -974,6 +984,7 @@ def patientoredermed():
                 mediname.append(medname)
             # path = "/var/www/html/RogItihaas/static/pharmacyprescription/"
             path = "static/pharmacyprescription/"
+            # path = "var/www/Rogitihaas/static/pharmacyprescription/"
             parent = str(regnum)+str(random.randint(1, 9999999))
             final_path = os.path.join(path, parent)
             if os.path.isdir(final_path) == False:
@@ -1140,6 +1151,7 @@ def aadharsettings():
                 file_to_delete = old_aadhar+".png"  # Replace with the filename you want to delete
                 # qr_code_dir = "/var/www/html/RogItihaas/static/img/qrcode/"
                 qr_code_dir = "static/img/qrcode/"
+                # qr_code_dir = "var/www/Rogitihaas/static/img/qrcode/"
 
                 file_path = os.path.join(qr_code_dir, file_to_delete)
 
@@ -1148,8 +1160,10 @@ def aadharsettings():
 
                 s = "http://34.134.66.105/emergencydashboard"
                 url = pyqrcode.create(s)
+
                 # path = "/var/www/html/RogItihaas/static/img/qrcode/"+new_aadhar+".png"
                 path = "static/img/qrcode/" + new_aadhar + ".png"
+
                 url.png(path, scale=6)
                 session['patient'] = new_aadhar
                 message="Updation successfull"
@@ -1439,8 +1453,9 @@ def onlineorderpatient(patientname, randomnum):
         if request.method == "POST":
             accept = request.form.get("accept")
             if accept == "accept":
+                exist = pharmacydetail.find_one({"licence": session["pharmacy"]})
                 orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname, 'randomnum': randomnum}, {"$set": {'status': "Accepted"}})
-                return render_template("pharmacy/onlinebill.html")
+                return render_template("pharmacy/onlinebill.html", name=exist['name'], address=exist['address'], mobile=exist['mobile'], email=exist['email'], gst=exist['gst'], randomnum=randomnum)
             else:
                 orderedmedicinedetail.update_one({'regnum': session['pharmacy'], 'patientname': patientname, 'randomnum': randomnum}, {"$set": {'status': "Medicine Not Available"}})
             data = orderedmedicinedetail.find({"regnum": session["pharmacy"]})
@@ -1498,46 +1513,20 @@ def offlineBilling():
         return render_template("pharmacy/offlineBilling.html",name=exist['name'],address=exist['address'],mobile=exist['mobile'],email=exist['email'],gst=exist['gst'])
     return render_template('pharmacyLogin.html')
 
-@app.route('/generate_pdf', methods=['POST'])
-def generate_pdf():
-    # Get the PDF data from the request
+@app.route('/generate_pdf/<string:invoice_number>', methods=['POST'])
+def generate_pdf(invoice_number):
     pdf_data = request.get_data()
-    # Define the directory to save the PDF
-    # directory = '/var/www/html/RogItihaas/static/bills'
-    directory = 'static/bills'
-    # Create the directory if it doesn't exist
-    os.makedirs(directory, exist_ok=True)
-    # Generate a unique file name using the current timestamp
-    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-    file_name = f'bills_{timestamp}.pdf'
-    # Define the file path to save the PDF
-    file_path = os.path.join(directory, file_name)
 
-    # Save the PDF to the specified file path
+    # directory = '/var/www/html/RogItihaas/static/bills'
+
+    directory = 'static/bills'
+    os.makedirs(directory, exist_ok=True)
+    file_name = f'bills_{invoice_number}.pdf'
+    file_path = os.path.join(directory, file_name)
     with open(file_path, 'wb') as file:
         file.write(pdf_data)
-    # Return the saved PDF as a response
     return send_file(file_path, as_attachment=True)
 
-@app.route('/onlinebill', methods=['GET', 'POST'])
-def onlinebill():
-    if "pharmacy" in session:
-        exist = pharmacydetail.find_one({"licence": session["pharmacy"]})
-        return render_template("pharmacy/onlinebill.html", name=exist['name'], address=exist['address'], mobile=exist['mobile'], email=exist['email'], gst=exist['gst']) 
-    return render_template('pharmacyLogin.html')
-
-@app.route('/pharmacyviewprescription', methods=['GET', 'POST'])
-def pharmacyviewprescription():
-    if "pharmacy" in session:
-        return render_template("pharmacy/prescription_readonly.html")
-    return render_template('pharmacyLogin.html')
-
-@app.route('/pharmacyviewbill', methods=['GET', 'POST'])
-def pharmacyviewbill():
-    if "pharmacy" in session:
-        invoicenum = str(random.randint(10000, 99999))
-        return render_template("pharmacy/bill_readonly.html",invoicenum = invoicenum)
-    return render_template('pharmacyLogin.html')
 
 @app.route('/uploadmedicine/<string:regnumber>', methods=['GET', 'POST'])
 def uploadmedicine(regnumber):
