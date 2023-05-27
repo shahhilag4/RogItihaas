@@ -1032,7 +1032,10 @@ def patientoredermed():
         files = []
         if data is not None:
             for rec in data:
-                if rec["City"] == city:
+                add = rec["City"]
+                addl = len(add)
+
+                if add[0:addl-1] == city:
                     files.append({
                         "Regnumber": rec["Regnumber"],
                         "Medicinename": rec["Medicinename"],
