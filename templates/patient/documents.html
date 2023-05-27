@@ -120,12 +120,15 @@
 					<div class="head">
 						<h3></h3>
 						<strong>Upload Manually</strong>
-						<input class="upload" type="file" accept="application/pdf"></input>
-						<input type="submit" class="upload-button" value="Upload">
-						<input id="docname" type="search" class="search-1" placeholder="Search by Document Name"
-							onkeyup="searchDoc()">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"
+						<form action="/uploadpatientprescription/{{aadhar}}/{{name}}" method="POST"
+							enctype="multipart/form-data">
+							<input class="upload" name="file" type="file" accept="application/pdf"></input>
+							<input type="submit" class="upload-button" value="Upload">
+							<input id="docname" type="search" class="search-1" placeholder="Search by Document Name"
+								onkeyup="searchDoc()">
+							<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"
 								style="margin: auto -1rem;" onclick="searchDoc()"></i></button>
+						</form>
 					</div>
 					<table>
 						<thead>
