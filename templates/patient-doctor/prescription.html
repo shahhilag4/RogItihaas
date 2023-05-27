@@ -195,7 +195,8 @@
                                 <p><strong>Prescribed by:</strong>Dr.{{drname}}</p>
                                 <p><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span></p>
                             </form>
-                                <input type="submit" name="submit" class="centering" value="Submit" onclick="showModal();event.preventDefault()" />
+                                <input type="submit" name="submit" class="centering" value="Submit" />
+                                <button class="centering"  data-target="#myModal" onclick="showModal();event.preventDefault()">Order Medicine</button>
                             </main>
                         </div>
                     </div>
@@ -219,8 +220,8 @@
                     
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" onclick="submitForm();">Send Request</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="submitForm();">Close</button>
+                        <button type="button" class="btn btn-success">Send Request</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeModal()">Close</button>
                     </div>
                     
                 </div>

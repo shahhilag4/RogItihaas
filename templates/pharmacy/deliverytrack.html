@@ -138,14 +138,15 @@
 											<canvas id="pdf-canvas"></canvas>
 										</div>
 									</div>
-								<td class="td-gap"><button class="status success" onclick="viewPDF('../../static/bills/bills_{{data.randomnum}}.pdf')">View</button></td>
-								<div id="pdf-modal" class="modal">
+								<td class="td-gap"><button class="status success" onclick="viewPDF1('../../static/bills/bills_{{data.randomnum}}.pdf')">View</button></td>
+								<div id="pdf-modal-1" class="modal">
 									<div class="modal-content">
-										<span class="close" onclick="closePDF()">&times;</span>
+										<span class="close" onclick="closePDF1()">&times;</span>
 										<button id="downloadButton" onclick="downloadPDF('../../static/bills/bills_{{data.randomnum}}.pdf')">Download PDF</button>
-										<canvas id="pdf-canvas"></canvas>
+										<canvas id="pdf-canvas-1"></canvas>
 									</div>
 								</div>
+								
 								<td class="td-gap">{{data.Status}}</td>
 								<td class="td-gap">{{data.todaydate}}</td>
 								<td class="td-gap">{{data.randomnum}}</td>
