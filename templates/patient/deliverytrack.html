@@ -144,8 +144,8 @@
 								<td class="td-gap">
 									<p class="drname">{{data.Uploadedby}}</p>
 								</td>
-								<td class="td-gap"><a href="/patientviewprescription/{{data._id}}"><button
-											class="status success">View</button></a></td>
+								<td class="td-gap"><button
+											class="status success" onclick="viewPDF('../../{{data.Url}}')">View</button></a></td>
 								<td class="td-gap"><button class="status success"
 										onclick="viewPDF('../../static/bills/bills_{{data.randomnum}}.pdf')">View</button>
 								</td>
