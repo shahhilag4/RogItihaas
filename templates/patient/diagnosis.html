@@ -124,12 +124,12 @@
 							<input id="myInput" type="text" class="search-bar" placeholder="Search Symptoms"
 								onkeyup="myFunction()">
 							<div id="options">
-							{% for data in files %}
+								{% for data in files %}
 								<label class="med">
 									<input type="checkbox" name="medicines" value="{{data.disease}}_{{data.draadhar}}">
 									{{ data.disease }}
 								</label>
-							{% endfor %}
+								{% endfor %}
 							</div>
 						</div>
 						<input type="submit" class="custom-btn" value="Submit" />

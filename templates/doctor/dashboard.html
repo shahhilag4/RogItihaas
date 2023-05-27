@@ -111,7 +111,8 @@
 						<h3>Recent Patients</h3>
 						<input type="search" class="search-1" id="myInput" onkeyup="myFunction()"
 							placeholder="Search Patient By Id">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;" onclick="myFunction()"></i></button>
+						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"
+								style="margin: auto -1rem;" onclick="myFunction()"></i></button>
 					</div>
 					<table>
 						<thead>
@@ -131,7 +132,8 @@
 								</td>
 								<td class="patientuid">{{data.aadhar}}</td>
 								<td><span class="status danger">Viral</span></td>
-								<td><a href="/drviewprescription"><button class="status success">View</button></a></td>
+								<td><a href="/drviewprescription/{{data._id}}"><button
+											class="status success">View</button></a></td>
 							</tr>
 							{% endfor %}
 

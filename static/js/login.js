@@ -18,8 +18,6 @@ const aadhaarInput = document.querySelector('input[name="patientaadhar1"]');
 const exampleDiv = document.getElementById('example');
 const aadhaarDialog = document.getElementById('alert-button');
 
-console.log(aadhaarDialog);
-
 function updatePlaceholder() {
   if (radioButtons[0].checked) {
     aadhaarInput.placeholder = "Aadhaar Card Number of Father + DOB";

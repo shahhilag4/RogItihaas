@@ -98,8 +98,10 @@
 				<div class="order">
 					<div class="head">
 						<h3></h3>
-						<input type="search" id="docname" class="search-1" placeholder="Search by Patient Name" onkeyup="searchDoc()">
-						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass" style="margin: auto -1rem;" onclick="searchDoc()"></i></button>
+						<input type="search" id="docname" class="search-1" placeholder="Search by Patient Name"
+							onkeyup="searchDoc()">
+						<button type="submit" class="search-btn-1"><i class="fa-solid fa-magnifying-glass"
+								style="margin: auto -1rem;" onclick="searchDoc()"></i></button>
 					</div>
 					<table>
 						<thead>
@@ -111,7 +113,7 @@
 							</tr>
 						</thead>
 						<tbody id="tableBody1">
-						{% for data in files %}
+							{% for data in files %}
 							<tr class="td-gap">
 								{% if contain=='Yes' %}
 								<td class="td-gap">
@@ -122,13 +124,14 @@
 									<p>{{data.name}}</p>
 								</td>
 								{% if contain=='Yes' %}
-								<td class="td-gap"><a href="/consent1/{{data.draadhar}}/{{data.econtact}}"><button class="status success">View</button></a></td>
+								<td class="td-gap"><a href="/consent1/{{data.draadhar}}/{{data.econtact}}"><button
+											class="status success">View</button></a></td>
 								{% endif %}
 								<td class="td-gap">
 									<p>{{data.status}}</p>
 								</td>
 							</tr>
-						{% endfor %}
+							{% endfor %}
 						</tbody>
 					</table>
 				</div>

@@ -127,7 +127,7 @@
 					<table>
 						<thead>
 							<tr>
-							<th class="th-gap">S.No</th>
+								<th class="th-gap">S.No</th>
 								<th class="th-gap">Ordered By</th>
 								<th class="th-gap">Prescription</th>
 								<th class="th-gap">Bill</th>
@@ -146,13 +146,15 @@
 								</td>
 								<td class="td-gap"><a href="/patientviewprescription/{{data._id}}"><button
 											class="status success">View</button></a></td>
-											<td class="td-gap"><button class="status success" onclick="viewPDF('../../static/bills/bills_{{data.randomnum}}.pdf')">View</button></td>
-											<div id="pdf-modal" class="modal">
-												<div class="modal-content">
-													<span class="close" onclick="closePDF()">&times;</span>
-													<canvas id="pdf-canvas"></canvas>
-												</div>
-											</div>
+								<td class="td-gap"><button class="status success"
+										onclick="viewPDF('../../static/bills/bills_{{data.randomnum}}.pdf')">View</button>
+								</td>
+								<div id="pdf-modal" class="modal">
+									<div class="modal-content">
+										<span class="close" onclick="closePDF()">&times;</span>
+										<canvas id="pdf-canvas"></canvas>
+									</div>
+								</div>
 								<td class="td-gap">
 									<p>{{data.Status}}</p>
 								</td>

@@ -123,7 +123,7 @@
                                     <li><strong>Age:</strong>{{age}}</li>
                                     <li><strong>Gender:</strong>{{gender}}</li>
                                     <li><strong>Weight:</strong>{{weight}}kg</li>
-                                    <li><strong>Disease:</strong><li>{{disease}}</li>
+                                    <li id="disease-title"><strong>Disease:</strong><li id="disease">{{disease}}</li>
                                 </ul>
 
                                 <h2>Medication Information</h2>
@@ -150,13 +150,9 @@
                                 </table>
                                 
                                 <p><strong>Prescribed by:</strong> {{drname}}</p>
-                                <p><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span>
+                                <p id="date-style"><strong>Date: </strong></p><span id="date" class="formInput"> March 9, 2023</span>
                             </p>
                         </main>
-                        <footer>
-                            <h3>Instructions :</h3>
-                           {{instructions}}
-                        </footer>
                         <input type="submit" class="centering" value="Download" onclick="saveDivAsPdf()" />
                     </div>
                 </div>
