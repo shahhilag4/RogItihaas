@@ -133,6 +133,7 @@
 								</td>
 								<td class="td-gap">{{data.todaydate}}</td>
 								<td class="td-gap drname" class="drname">{{data.doctor}}</td>
+
 								{% if data.uploadedBydr == "Yes" %}
 								<td class="td-gap">
 									{% if data.uploadedBydr == "No" %}
@@ -153,6 +154,7 @@
 								{% else %}
 									<td class="td-gap"><a href="/viewprescription/{{data._id}}"><button class="status success">View</button></td>
 								{% endif %}
+
 								<td class="td-gap"><button class="status danger"><a style="text-decoration: none; color: aliceblue;" href="/document-delete/{{data._id}}">Delete</a></button></td>
 
 							</tr>
