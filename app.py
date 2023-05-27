@@ -357,13 +357,18 @@ def uploadnewprescription(name, aadhar):
             day = now.strftime("%d")
 
             todaydate = day + "/" + month + "/" + year
-
+            newpath = ""
+            for i in path:
+                if i == "\\":
+                    newpath = newpath + "/"
+                else:
+                    newpath = newpath + i
             drexist = doctordetail.find_one({"aadhar": session["doctor"]})
             checkIfavailable=patientreportdetail.find_one({'name': name, "aadhar": aadhar, 'drname': "Dr. " + drexist["name"],
-                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": "Prescription", "url": path, 'uploadedBydr': "Yes"})
+                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": "Prescription", "url": newpath, 'uploadedBydr':"Yes"})
             if checkIfavailable is None:
                 patientreportdetail.insert_one({'name': name, "aadhar": aadhar, 'drname': "Dr. " + drexist["name"],
-                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": "Prescription", "url": path, 'uploadedBydr': "Yes"})
+                 "todaydate": todaydate, "draadhar": session["doctor"], "presname": "Prescription", "url": newpath, 'uploadedBydr':"Yes"})
         files = []
 
         data = patientreportdetail.find({"aadhar": aadhar})
@@ -971,11 +976,17 @@ def uploadpatientprescription(aadhar,name):
             day = now.strftime("%d")
 
             todaydate = day + "/" + month + "/" + year
+            newpath = ""
+            for i in path:
+                if i == "\\":
+                    newpath = newpath + "/"
+                else:
+                    newpath = newpath + i
             checkIfavailable=patientreportdetail.find_one({'name': name, "aadhar": aadhar, 'drname': "self uploaded",
-                 "todaydate": todaydate, "draadhar": "self uploaded", "presname": "Prescription", "url": path, 'uploadedBydr':"Yes"})
+                 "todaydate": todaydate, "draadhar": "self uploaded", "presname": "Prescription", "url": newpath, 'uploadedBydr':"Yes"})
             if checkIfavailable is None:
                 patientreportdetail.insert_one({'name': name, "aadhar": aadhar, 'drname': "self uploaded",
-                 "todaydate": todaydate, "draadhar": "self uploaded", "presname": "Prescription", "url": path, 'uploadedBydr':"Yes"})
+                 "todaydate": todaydate, "draadhar": "self uploaded", "presname": "Prescription", "url": newpath, 'uploadedBydr':"Yes"})
         files = []
 
         data = patientreportdetail.find({"aadhar": aadhar})
@@ -1343,58 +1354,6 @@ def patientdocuments():
         data = patientdetail.find_one({"aadhar": session["patient"]})
         return render_template("patient/documents.html", files=files, contain=contain, aadhar=session['patient'], name=data['name'])
     return render_template("patientLogin.html")
-
-# @app.route('/patientuploadprescription/<string:aadhar>/<string:drname>',  methods=['POST', 'GET'])
-# def patientuploadpresciption(aadhar, drname):
-#     if 'patient' in session:
-#         if request.method == 'POST':
-#             data = patientreportdetail.find({"aadhar": session["patient"]})
-#             for row in data:
-#                 prescription = {
-#                 "name": row["name"],
-#                     "doctor": row['drname'],
-#                     "todaydate": row['todaydate'],
-#                     "presname": row["presname"],
-#                     "draadhar": row["draadhar"],
-#                     "aadhar": row["aadhar"],
-#                     "url": row["url"],
-#                     "_id": row['_id'],
-#                     "uploadedBydr" : row['uploadedBydr']
-#                 }
-#             if patientmedicaldetail.find_one(prescription) is None:
-#                 patientmedicaldetail.insert_one(prescription)
-            
-
-#             files = []
-
-#             data = patientmedicaldetail.find({"aadhar": aadhar})
-#             for row in data:
-#                 files.append({
-#                     "name": row["name"],
-#                     "doctor": row['drname'],
-#                     "todaydate": row['todaydate'],
-#                     "presname": row["presname"],
-#                     "_id" :row['_id'],
-#                     'uploadedBydr':row['uploadedBydr']
-#                 })
-#             data2 = patientreportdetail.find({"aadhar": aadhar})
-#             for row in data:
-#                 if row["presname"] == "Prescription":
-#                     files.append({
-#                         "name": row["name"],
-#                         "doctor": row['drname'],
-#                         "todaydate": row['todaydate'],
-#                         "presname": row["presname"],
-#                         "url": row["url"],
-#                         "_id" :row['_id'],
-#                         'uploadedBydr':row['uploadedBydr']
-#                     })
-
-#             data2 = doctordetail.find_one({'aadhar': session['doctor']})
-#             return render_template("patient/documents.html", files=files, aadhar=aadhar, name=data2["name"], drname=data2["name"],contain="Yes")
-#     return render_template("patientLogin.html")
-
-
 
 @app.route("/patienthealthcard")
 def patienthealthcard():
