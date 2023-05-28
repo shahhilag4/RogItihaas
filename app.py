@@ -879,7 +879,9 @@ def twoFacAuth(token):
                     if mobile == mobile_num:
                         if exist is None:
                             patientdetail.insert_one({'name': data['name'], 'aadhar': aadhar, 'gender': data['gender'], 'DOB': data['dob'], 'age': data['age'],'address': data['address'], 'mobile': data['mobile'], 'econtact' : econtact,  'email': email, 'password': hashpass})
-                            s = "http://34.31.27.140/emergencydashboard/"+str(aadhar)
+                            fi=patientdetail.find_one({'aadhar':aadhar})
+                            
+                            s = "http://34.31.27.140/emergencydashboard/"+str(fi['_id'])
                             url = pyqrcode.create(s)
                             # path = "/var/www/html/RogItihaas/static/img/qrcode/"+aadhar+".png"
                             path = "static/img/qrcode/"+aadhar+".png"
@@ -1659,16 +1661,16 @@ def uploadmedicine(regnumber):
     return render_template('pharmacyLogin.html')
 
 # Scan QR Section
-@app.route('/emergencydashboard/<string:aadhar>', methods=['GET', 'POST'])
-def emergencydashboard(aadhar):
+@app.route('/emergencydashboard/<string:id>', methods=['GET', 'POST'])
+def emergencydashboard(id):
     if "doctor" in session:
-        exist = patientdetail.find_one({'aadhar': aadhar})
+        exist = patientdetail.find_one({'_id': ObjectId(id)})
         drexist = doctordetail.find_one({"aadhar": session['doctor']})
         if exist:
-            return render_template("patient-doctor/dashboard.html", aadhar=aadhar, name=exist['name'],
+            return render_template("patient-doctor/dashboard.html", aadhar=exist['aadhar'], name=exist['name'],
                                    drname=drexist["name"], draadhar=session["doctor"], gender=exist['gender'],
                                    age=exist['age'], address=exist['address'], mobile=exist['mobile'])
-    data = patientdetail.find_one({"aadhar": aadhar})
+    data = patientdetail.find_one({'_id': ObjectId(id)})
     return render_template("scanqr/dashboard.html", name=data["name"], address=data["address"], mobile=data["econtact"], aadhar=data["aadhar"])
 
 
