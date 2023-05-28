@@ -929,7 +929,7 @@ def patientdashboard():
 
 @app.route("/patientviewprescription/<string:id>", methods=["POST", "GET"])
 def patientviewprescription(id):
-    if "doctor" in session:
+    if "patient" in session:
         data1=patientmedicaldetail.find_one({'_id': ObjectId(id)})
         if data1 is not None:
             drexist = doctordetail.find_one({'aadhar': data1['draadhar']})
@@ -1162,6 +1162,7 @@ def patientconsent():
             files.append({
                 "name": row["name"],
                 "econtact": row["econtact"],
+                "date": row["date"],
                 "status": row["status"],
                 "draadhar": row["draadhar"],
             })

@@ -106,6 +106,7 @@
 						<thead>
 							<tr>
 								<th class="th-gap">S.No</th>
+								<th class="th-gap">Date</th>
 								<th class="th-gap">Doctor Name</th>
 								<th class="th-gap">Consent</th>
 								<th class="th-gap">Status</th>
@@ -117,6 +118,11 @@
 								{% if contain=='Yes' %}
 								<td class="td-gap">
 									<p>{{loop.index}}</p>
+								</td>
+								{% endif %}
+								{% if contain=='Yes' %}
+								<td class="td-gap">
+									<p>{{data.date}}</p>
 								</td>
 								{% endif %}
 								<td class="td-gap drname">

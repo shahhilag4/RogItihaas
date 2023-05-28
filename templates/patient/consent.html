@@ -126,6 +126,7 @@
 						<thead>
 							<tr>
 								<th class="th-gap">S.No</th>
+								<th class="th-gap">Date</th>
 								<th class="th-gap">Patient Name</th>
 								<th class="th-gap">Consent</th>
 								<th class="th-gap">Status</th>
@@ -136,6 +137,9 @@
 							<tr>
 								<td class="td-gap">
 									<p>{{loop.index}}</p>
+								</td>
+								<td class="td-gap">
+									<p>{{data.date}}</p>
 								</td>
 								<td class="td-gap drname">
 									<p>{{data.name}}</p>
